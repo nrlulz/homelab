@@ -4,7 +4,7 @@ metadata:
   name: hello-world
 data:
   index.html: |
-    <h1>Hello World!</h1>
+    <h1>Hmmmm!</h1>
 
 ---
 apiVersion: networking.k8s.io/v1
