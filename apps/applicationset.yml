@@ -1,0 +1,69 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps
+spec:
+  generators:
+    - list:
+        elements:
+          - name: hello-world
+            namespace: hello-world
+            branch: master
+          - name: sealed-secrets
+            namespace: kube-system
+            branch: master
+  template:
+    metadata:
+      name: "{{name}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/nrlulz/homelab.git
+        targetRevision: "{{branch}}"
+        path: apps/{{name}}
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{namespace}}"
+      syncPolicy:
+        automated:
+          prune: true
+        syncOptions:
+          - CreateNamespace=true
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: helm-apps
+spec:
+  generators:
+    - list:
+        elements:
+          - namespace: kube-system
+            helmRepo: https://bitnami-labs.github.io/sealed-secrets
+            name: sealed-secrets
+            helmTargetRev: 2.15.1
+            valueBranch: master
+  template:
+    metadata:
+      name: "{{name}}"
+    spec:
+      project: default
+      sources:
+        - repoURL: https://github.com/nrlulz/homelab.git
+          targetRevision: "{{valueBranch}}"
+          ref: values
+        - repoURL: "{{helmRepo}}"
+          chart: "{{name}}"
+          targetRevision: "{{helmTargetRev}}"
+          helm:
+            valueFiles:
+              - "apps/{{name}}/values.yaml"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{namespace}}"
+      syncPolicy:
+        automated:
+          prune: true
+        syncOptions:
+          - CreateNamespace=true
