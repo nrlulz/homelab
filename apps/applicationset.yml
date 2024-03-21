@@ -9,9 +9,6 @@ spec:
           - name: hello-world
             namespace: hello-world
             branch: master
-          - name: sealed-secrets
-            namespace: kube-system
-            branch: master
   template:
     metadata:
       name: "{{name}}"
