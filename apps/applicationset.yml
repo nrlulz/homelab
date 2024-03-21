@@ -42,7 +42,7 @@ spec:
           - namespace: kube-system
             helmRepo: https://bitnami-labs.github.io/sealed-secrets
             name: sealed-secrets
-            helmTargetRev: 2.15.1
+            helmTargetRev: 2.15.0
             valueBranch: master
   template:
     metadata:
