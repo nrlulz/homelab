@@ -5,7 +5,12 @@
   ],
   "argocd": {
     "fileMatch": [
-      "apps/.*\\.ya?ml"
+      "apps/.*\\.ya?ml$"
+    ]
+  },
+  "kubernetes": {
+    "fileMatch": [
+      "\\.ya?ml$"
     ]
   }
 }
