@@ -1,0 +1,19 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: large-request-body
+spec:
+  buffering:
+    maxRequestBodyBytes: 10737418240
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  namespace: default
+  name: internal-network-only
+spec:
+  ipWhiteList:
+    sourceRange:
+      - 127.0.0.1/32
+      - 192.168.1.0/24

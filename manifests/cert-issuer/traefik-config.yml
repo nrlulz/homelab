@@ -22,6 +22,9 @@ metadata:
   namespace: kube-system
 spec:
   valuesContent: |-
+    service:
+      spec:
+        externalTrafficPolicy: Local
     additionalArguments:
       - '--providers.file.filename=/config/traefik-config.yaml'
     volumes:
