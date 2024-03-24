@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: potato
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: potato
+subsets:
+  - addresses:
+      - ip: 10.0.0.10
+    ports:
+      - port: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: potato
+spec:
+  rules:
+    - host: potato.neils.house
+      http:
+        paths:
+          - backend:
+              service:
+                name: potato
+                port:
+                  number: 80
+            path: /
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - potato.neils.house
