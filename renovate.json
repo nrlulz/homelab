@@ -5,7 +5,7 @@
   ],
   "argocd": {
     "fileMatch": [
-      "apps/*/app\\.yml"
+      "apps/.*\\.ya?ml"
     ]
   }
 }
