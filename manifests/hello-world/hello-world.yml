@@ -12,10 +12,10 @@ kind: Ingress
 metadata:
   name: hello-world
   annotations:
-    kubernetes.io/ingress.class: "traefik"
+    traefik.ingress.kubernetes.io/router.middlewares: default-internal-network-only@kubernetescrd
 spec:
   rules:
-    - host: hello.local
+    - host: hello.internal.neils.house
       http:
         paths:
           - path: /
