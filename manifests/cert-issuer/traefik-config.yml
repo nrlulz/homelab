@@ -25,6 +25,9 @@ spec:
     logs:
       access:
         enabled: true
+    ports:
+      web:
+        redirectTo: websecure
     service:
       spec:
         externalTrafficPolicy: Local
