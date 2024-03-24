@@ -23,7 +23,7 @@ metadata:
 spec:
   valuesContent: |-
     additionalArguments:
-      - '--providers.file.filename=/config/traefik-config.yaml
+      - '--providers.file.filename=/config/traefik-config.yaml'
     volumes:
       - name: wildcard-tls
         mountPath: '/certs'
