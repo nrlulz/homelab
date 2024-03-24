@@ -7,7 +7,6 @@ metadata:
   namespace: kube-system
 data:
   traefik-config.yaml: |
-    accessLog: {}
     tls:
       stores:
         default:
@@ -23,6 +22,9 @@ metadata:
   namespace: kube-system
 spec:
   valuesContent: |-
+    logs:
+      access:
+        enabled: true
     service:
       spec:
         externalTrafficPolicy: Local
