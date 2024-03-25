@@ -26,7 +26,7 @@ metadata:
   name: grafana
 spec:
   rules:
-    - host: grafana.neils.house
+    - host: oldgrafana.neils.house
       http:
         paths:
           - backend:
@@ -38,4 +38,4 @@ spec:
             pathType: ImplementationSpecific
   tls:
     - hosts:
-        - grafana.neils.house
+        - oldgrafana.neils.house

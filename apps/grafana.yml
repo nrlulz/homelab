@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: grafana
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 7.3.7
+    helm:
+      valuesObject:
+        ingress:
+          enabled: true
+          hosts:
+            - grafana.neils.house
+          tls:
+            - hosts:
+                - grafana.neils.house
+        persistence:
+          enabled: true
+          size: 512Mi
+          storageClassName: longhorn
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
