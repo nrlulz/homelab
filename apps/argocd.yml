@@ -19,7 +19,7 @@ spec:
           domain: argocd.internal.neils.house
         configs:
           params:
-            insecure: true
+            server.insecure: true
         server:
           ingress:
             enabled: true
