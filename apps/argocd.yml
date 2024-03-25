@@ -20,13 +20,14 @@ spec:
         configs:
           params:
             insecure: true
-        ingress:
-          enabled: true
-          annotations:
-            traefik.ingress.kubernetes.io/router.middlewares: default-internal-network-only@kubernetescrd
-          extraTls:
-            - hosts:
-                - argocd.internal.neils.house
+        server:
+          ingress:
+            enabled: true
+            annotations:
+              traefik.ingress.kubernetes.io/router.middlewares: default-internal-network-only@kubernetescrd
+            extraTls:
+              - hosts:
+                  - argocd.internal.neils.house
   syncPolicy:
     automated:
       prune: false
