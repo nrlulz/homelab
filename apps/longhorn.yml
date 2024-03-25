@@ -5,25 +5,31 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  sources:
-    - chart: longhorn
-      repoURL: https://charts.longhorn.io/
-      targetRevision: v1.6.0
-      helm:
-        valuesObject:
-          ingress:
-            enabled: true
-            annotations:
-              traefik.ingress.kubernetes.io/router.middlewares: default-internal-network-only@kubernetescrd
-            host: longhorn.internal.neils.house
-            tls: true
-            tlsSecret: ""
-          longhornUI:
-            replicas: 1
-          defaultSettings:
-            defaultReplicaCount: 1
-          preUpgradeChecker:
-            jobEnabled: false
+  source:
+    chart: longhorn
+    repoURL: https://charts.longhorn.io/
+    targetRevision: v1.6.0
+    helm:
+      valuesObject:
+        ingress:
+          enabled: true
+          annotations:
+            traefik.ingress.kubernetes.io/router.middlewares: default-internal-network-only@kubernetescrd
+          host: longhorn.internal.neils.house
+          tls: true
+          tlsSecret: ""
+        longhornUI:
+          replicas: 1
+        defaultSettings:
+          defaultReplicaCount: 1
+        preUpgradeChecker:
+          jobEnabled: false
   destination:
     server: https://kubernetes.default.svc
     namespace: longhorn-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
