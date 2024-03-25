@@ -14,6 +14,19 @@ spec:
     targetRevision: 6.7.2
     helm:
       releaseName: argocd
+      valuesObject:
+        global:
+          domain: argocd.internal.neils.house
+        configs:
+          params:
+            insecure: true
+        ingress:
+          enabled: true
+          annotations:
+            traefik.ingress.kubernetes.io/router.middlewares: default-internal-network-only@kubernetescrd
+          extraTls:
+            - hosts:
+                - argocd.internal.neils.house
   syncPolicy:
     automated:
       prune: false
