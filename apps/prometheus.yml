@@ -21,8 +21,6 @@ spec:
             tls:
               - hosts:
                   - prometheus.internal.neils.house
-          global:
-            scrape_interval: 10s
           persistentVolume:
             size: 16Gi
             storageClassName: longhorn
