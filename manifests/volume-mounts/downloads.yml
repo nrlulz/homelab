@@ -31,3 +31,17 @@ spec:
     nodeStageSecretRef:
       name: cifs-credentials-media
       namespace: media
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: downloads-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  volumeName: downloads
+  storageClassName: smb
