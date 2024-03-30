@@ -22,7 +22,7 @@ spec:
               - hosts:
                   - prometheus.internal.neils.house
           persistentVolume:
-            size: 16Gi
+            size: 32Gi
             storageClassName: longhorn
           priorityClassName: system-cluster-critical
         alertmanager:
