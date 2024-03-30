@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: volume-mounts
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/nrlulz/homelab.git
+    path: manifests/volume-mounts
+    targetRevision: master
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
