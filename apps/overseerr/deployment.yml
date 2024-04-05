@@ -17,6 +17,10 @@ spec:
           image: lscr.io/linuxserver/overseerr:1.33.1
           ports:
             - containerPort: 5055
+          env:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Etc/UTC
           volumeMounts:
             - name: data
               mountPath: /config
