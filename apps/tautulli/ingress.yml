@@ -1,25 +1,3 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: tautulli
-spec:
-  ports:
-    - protocol: TCP
-      port: 8181
-      targetPort: 8181
-
----
-apiVersion: v1
-kind: Endpoints
-metadata:
-  name: tautulli
-subsets:
-  - addresses:
-      - ip: 192.168.1.30
-    ports:
-      - port: 8181
-
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -35,7 +13,7 @@ spec:
                 port:
                   number: 8181
             path: /
-            pathType: ImplementationSpecific
+            pathType: Prefix
   tls:
     - hosts:
         - tautulli.neils.house
