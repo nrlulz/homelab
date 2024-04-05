@@ -8,4 +8,4 @@ spec:
       port: 5055
       targetPort: 5055
   selector:
-    app: hello-world
+    app: overseerr
