@@ -1,17 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager
+  name: cert-manager-app
   namespace: argocd
 spec:
   project: default
   source:
-    chart: cert-manager
-    repoURL: https://charts.jetstack.io
-    targetRevision: v1.14.4
-    helm:
-      valuesObject:
-        installCRDs: true
+    repoURL: https://github.com/nrlulz/homelab.git
+    path: apps/cert-manager
+    targetRevision: master
   destination:
     server: https://kubernetes.default.svc
     namespace: cert-manager
