@@ -29,6 +29,7 @@ spec:
             snapshotterReplicaCount: 1
           persistence:
             defaultClassReplicaCount: 1
+            reclaimPolicy: Retain
           preUpgradeChecker:
             jobEnabled: false
     - repoURL: https://github.com/nrlulz/homelab.git
