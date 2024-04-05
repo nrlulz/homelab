@@ -67,6 +67,8 @@ spec:
           livenessProbe:
             exec:
               command:
+                - /bin/sh
+                - -c
                 - curl --fail --proxy http://localhost:8118 https://jsonip.com || exit 1
             initialDelaySeconds: 30
             periodSeconds: 10
