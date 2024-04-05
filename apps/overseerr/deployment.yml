@@ -18,9 +18,12 @@ spec:
           ports:
             - containerPort: 5055
           env:
-            - PUID=1000
-            - PGID=1000
-            - TZ=Etc/UTC
+            - name: PUID
+              value: 1000
+            - name: PGID
+              value: 1000
+            - name: TZ
+              value: Etc/UTC
           volumeMounts:
             - name: data
               mountPath: /config
