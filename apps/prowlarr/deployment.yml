@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prowlarr
+spec:
+  selector:
+    matchLabels:
+      app: prowlarr
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: prowlarr
+    spec:
+      containers:
+        - name: prowlarr
+          image: lscr.io/linuxserver/prowlarr:1.15.0
+          ports:
+            - containerPort: 9696
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "America/Los_Angeles"
+          volumeMounts:
+            - name: prowlarr-data
+              mountPath: /config
+        - name: privoxy
+          image: binhex/arch-privoxyvpn:3.0.34-2-05
+          ports:
+            - containerPort: 8118
+          envFrom:
+            - secretRef:
+                name: pia-credentials
+          env:
+            - name: DEBUG
+              value: "false"
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: UMASK
+              value: "000"
+            - name: ENABLE_PRIVOXY
+              value: "yes"
+            - name: VPN_ENABLED
+              value: "yes"
+            - name: VPN_PROV
+              value: "pia"
+            - name: VPN_CLIENT
+              value: "wireguard"
+            - name: LAN_NETWORK
+              value: "192.168.1.0/24"
+            - name: NAME_SERVERS
+              value: "1.1.1.1,1.0.0.1"
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+                - SYS_MODULE
+            privileged: true # required for wireguard
+          volumeMounts:
+            - name: privoxy-data
+              mountPath: /config
+          livenessProbe:
+            exec:
+              command:
+                - curl --fail --proxy http://localhost:8118 https://jsonip.com || exit 1
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 10
+      volumes:
+        - name: prowlarr-data
+          persistentVolumeClaim:
+            claimName: prowlarr-data
+        - name: privoxy-data
+          persistentVolumeClaim:
+            claimName: privoxy-data
