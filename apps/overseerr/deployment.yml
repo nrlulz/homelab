@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: overseerr
-          image: lscr.io/linuxserver/overseerr:23.12.23
+          image: lscr.io/linuxserver/overseerr:1.33.1
           ports:
             - containerPort: 5055
           volumeMounts:
