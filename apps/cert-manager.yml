@@ -10,7 +10,7 @@ spec:
       repoURL: https://charts.jetstack.io
       targetRevision: v1.14.4
       helm:
-        valuesObject:
+        values: |
           installCRDs: true
     - repoURL: https://github.com/nrlulz/homelab.git
       path: apps/cert-manager

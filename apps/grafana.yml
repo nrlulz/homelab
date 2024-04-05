@@ -10,7 +10,7 @@ spec:
     repoURL: https://grafana.github.io/helm-charts
     targetRevision: 7.3.7
     helm:
-      valuesObject:
+      values: |
         ingress:
           enabled: true
           hosts:

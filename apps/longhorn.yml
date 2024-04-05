@@ -10,7 +10,7 @@ spec:
       repoURL: https://charts.longhorn.io/
       targetRevision: 1.6.1
       helm:
-        valuesObject:
+        values: |
           ingress:
             enabled: true
             annotations:
