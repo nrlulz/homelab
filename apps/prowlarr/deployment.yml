@@ -73,6 +73,7 @@ spec:
             initialDelaySeconds: 30
             periodSeconds: 10
             timeoutSeconds: 10
+            failureThreshold: 20
       volumes:
         - name: prowlarr-data
           persistentVolumeClaim:
