@@ -1,0 +1,57 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: db-credentials
+  namespace: paperless-ngx
+spec:
+  encryptedData:
+    POSTGRES_PASSWORD: "AgCEU2wa2vN5rSQ/RB89Lp+9+FBnne+Z8X6YLrfnTdD++KfLMA7D1zGHUp8QGxjlVdFZha072CQhfJ+HwTDy/btQGNmWCh+UJH6JV3WpLmnR4bLnTpp6N9WrAk7HgVrczm372PyEiu/K3EneX6ywlIKJLrh/NdKsjuBT1S6nqGwlxPUjdoLl4Y9+QAbvzSTtakDF87LOJDh2aSg8+jW8XIkmHsdUR9J36k/yPImQEOiO+fzdDKxfvGAJ++UvwnTPHTi7Lhj2q5MVDIytUxjAT2jlHgZGvMYhj7E9DZioYgVMhgbzlAlsTZIdTyMFxfsY6xNH0zs8QwgJNEKvsHcaB+i01V8cYLpsiiUuuR9MRPy8uTaPI18bE9W4Yj2EoJkhUleOdvyg8a4/IpnG7NiaAyhMPFCxjUxIeHsjrpmIzSFu5yxMaVRpezKDml/pincS2ea6mKIhVTrmYGz52rB9jl4H9krKHqyip/7aJRLckY38Qx4otQlf8BkrjyrEkHIRNVYp9ppp0XZL95Mxo05Wg3mBm47z/PIfh034XLnLkRItnGl1x7NaZTDWa8U3mxTfnONqpAo/z4L7YOEKMwWuO92q125iQLxBAUlmg5V2OjQXCd0kUjIddtohmE1nPZN24gDvXoK9Qmj5UyB21aRY7n2X+iN2zLW9xbBWrGPCyM2eynTv6ZTqg/FQeoPaWFE5H/yU/hIkp/8zmmQ="
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  selector:
+    matchLabels:
+      app: db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: db
+          image: docker.io/library/postgres:15.6
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: paperless
+            - name: POSTGRES_USER
+              value: paperless
+          envFrom:
+            - secretRef:
+                name: db-credentials
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: paperless-pgdata
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+spec:
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+  selector:
+    app: db

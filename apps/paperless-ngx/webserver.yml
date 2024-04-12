@@ -1,0 +1,157 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: paperless
+  namespace: paperless-ngx
+spec:
+  encryptedData:
+    # Adjust this key if you plan to make paperless available publicly. It should
+    # be a very long sequence of random characters. You don't need to remember it.
+    PAPERLESS_SECRET_KEY: "AgC0bxBVMqz8hzMnDd4FCi03q1DUbkYRoGhnikqQ23I8IfHne/o3wkz0l29Zsf2BksL1/p2draQ+CRMrhK0oPUZCNRLNut9KOy6qqaceh3crk6AM7Dn9kw/v025yz5XpBK0R42totjjxkEn3IaLaSDHH1KapPHfwpXXg/UM+Zcsimw/RQE+Mz7lOeFtjgL8PP8b8Nn0jTXxarcBbExdGdthkH6zB/si7MhDAHCNvt3xmrpDYDqRlm/iTp7E66OgRAQZnX+O3ef1nHmrxQy2Se+ri3VGr2fUUzhXlOoQF/FkaoH6TUFYZGgMmvGqBSFXYxiFuhKlslk1B6IwvIQyz4t3qw2Ax3hEHEm5lIkmFaAD0dpzjYeuogkQ/GhYFFffxlqsdgnRuwre0Zo8fK5vtO1nGcKGG6MnlHgHtCNEn18PX5Rw4csyyI/4a7jSNVR1nEy/IU60iUOsSPE/pqEfhbAYGAB0edstbu7lou235IRg5iSIfL0Yb1JNd4dhHyuM992InMCgSADxXnbC0zLK2xonI/yBRc0so7GfVEN+deudRdSj4XGb51z4NZqp+d7w//w/OserFwi4O0ml2fccXO3ZIsc2fBnyAUg8QpozwpXCBevVot6eusGhopn/O623UV9miCHr8jkW8YRPu8Y69f4dno0BTObHY8ZnjnbGL7aYenzwxWGSB0BGSPbJ+D/pl/lOEMh2O5yrXIv66FqEm3rEuu6UNDLZ8GJXAvswzb/rv03F1s6AOZxIfhe3BZlbZPQhtTw=="
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: paperless
+data:
+  # The UID and GID of the user used to run paperless in the container. Set this
+  # to your UID and GID on the host so that you have write access to the
+  # consumption directory.
+  USERMAP_UID: "1000"
+  USERMAP_GID: "1000"
+
+  ###############################################################################
+  # Paperless-specific settings                                                 #
+  ###############################################################################
+
+  PAPERLESS_REDIS: "redis://redis:6379"
+  PAPERLESS_DBHOST: "db"
+
+  # Paperless can make use of Tika and Gotenberg for parsing and converting "Office"
+  # documents (such as ".doc", ".xlsx" and ".odt"). Tika and Gotenberg are also needed
+  # to allow parsing of E-Mails (.eml).
+  PAPERLESS_TIKA_ENABLED: "1"
+  PAPERLESS_TIKA_GOTENBERG_ENDPOINT: "http://gotenberg:3000"
+  PAPERLESS_TIKA_ENDPOINT: "http://tika:9998"
+
+  # All settings defined in the paperless.conf.example can be used here. The
+  # Docker setup does not use the configuration file.
+  # A few commonly adjusted settings are provided below.
+
+  # This is required if you will be exposing Paperless-ngx on a public domain
+  # (if doing so please consider security measures such as reverse proxy)
+  PAPERLESS_URL: "https://docs.neils.house"
+
+  # Use this variable to set a timezone for the Paperless Docker containers. If not
+  # specified, defaults to UTC.
+  PAPERLESS_TIME_ZONE: "America/Los_Angeles"
+
+  # The default language to use for OCR. Set this to the language most of your
+  # documents are written in.
+  PAPERLESS_OCR_LANGUAGE: "eng"
+
+  # If paperless won't find documents added to your consume folder, it might not be able
+  # to automatically detect filesystem changes. In that case, specify a polling interval
+  # in seconds here, which will then cause paperless to periodically check your
+  # consumption directory for changes
+  PAPERLESS_CONSUMER_POLLING: "60"
+  PAPERLESS_CONSUMER_POLLING_RETRY_COUNT: "10"
+  PAPERLESS_CONSUMER_POLLING_DELAY: "30"
+
+  # Paperless will try to determine the document creation date from its contents.
+  # Specify the date format Paperless should expect to see within your documents.
+  PAPERLESS_DATE_ORDER: "MDY"
+
+  # Enables the scanning and page separation based on detected barcodes. This allows for
+  # scanning and adding multiple documents per uploaded file, which are separated by one
+  # or multiple barcode pages.
+  PAPERLESS_CONSUMER_ENABLE_BARCODES: "true"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver
+spec:
+  selector:
+    matchLabels:
+      app: webserver
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: webserver
+    spec:
+      containers:
+        - name: webserver
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.6.2
+          ports:
+            - containerPort: 8000
+          env:
+            - name: PAPERLESS_DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: POSTGRES_PASSWORD
+          envFrom:
+            - configMapRef:
+                name: paperless
+            - secretRef:
+                name: paperless
+          volumeMounts:
+            - name: data
+              mountPath: /usr/src/paperless/data
+            - name: media
+              mountPath: /usr/src/paperless/media
+            - name: inbox
+              mountPath: /usr/src/paperless/consume
+            - name: exports
+              mountPath: /usr/src/paperless/export
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: paperless-data
+        - name: media
+          persistentVolumeClaim:
+            claimName: paperless-media
+        - name: inbox
+          persistentVolumeClaim:
+            claimName: paperless-inbox-pvc
+        - name: exports
+          persistentVolumeClaim:
+            claimName: paperless-exports-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webserver
+spec:
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+  selector:
+    app: webserver
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: paperless
+spec:
+  rules:
+    - host: docs.neils.house
+      http:
+        paths:
+          - backend:
+              service:
+                name: webserver
+                port:
+                  number: 8000
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - docs.neils.house

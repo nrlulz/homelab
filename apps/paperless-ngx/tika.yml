@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tika
+spec:
+  selector:
+    matchLabels:
+      app: tika
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tika
+    spec:
+      containers:
+        - name: tika
+          image: ghcr.io/paperless-ngx/tika:2.9.1-full
+          ports:
+            - containerPort: 9998
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tika
+spec:
+  ports:
+    - protocol: TCP
+      port: 9998
+      targetPort: 9998
+  selector:
+    app: tika
