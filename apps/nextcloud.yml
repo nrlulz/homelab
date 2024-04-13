@@ -35,7 +35,7 @@ spec:
           externalDatabase:
             enabled: true
             type: postgresql
-            host: "db:5432"
+            host: db
             existingSecret:
               enabled: true
               secretName: db-credentials
