@@ -39,6 +39,7 @@ spec:
             existingSecret:
               enabled: true
               secretName: db-credentials
+              usernameKey: username
               passwordKey: password
 
           persistence:
