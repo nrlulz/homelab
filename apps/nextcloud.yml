@@ -24,7 +24,7 @@ spec:
                   - cloud.neils.house
 
           redis:
-            enabled: true
+            enabled: false
 
           cronjob:
             enabled: true
