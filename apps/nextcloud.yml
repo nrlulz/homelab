@@ -5,62 +5,10 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  sources:
-    - chart: nextcloud
-      repoURL: https://nextcloud.github.io/helm/
-      targetRevision: 4.6.6
-      helm:
-        values: |
-          nextcloud:
-            host: cloud.neils.house
-            datadir: /mnt/nextcloud
-            configs:
-              logging.config.php: |-
-                <?php
-                $CONFIG = array(
-                  'log_type' => 'file',
-                  'logfile' => 'nextcloud.log',
-                  'loglevel' => 0,
-                  'logdateformat' => 'F d, Y H:i:s'
-                );
-
-          ingress:
-            enabled: true
-            className: traefik
-            host: cloud.neils.house
-            tls:
-              - hosts:
-                  - cloud.neils.house
-
-          redis:
-            enabled: false
-
-          cronjob:
-            enabled: true
-
-          internalDatabase:
-            enabled: false
-
-          externalDatabase:
-            enabled: true
-            type: postgresql
-            host: db
-            existingSecret:
-              enabled: true
-              secretName: db-credentials
-              usernameKey: username
-              passwordKey: password
-
-          persistence:
-            enabled: true
-            existingClaim: nextcloud-html
-            nextcloudData:
-              enabled: true
-              existingClaim: nextcloud-data-pvc
-
-    - repoURL: https://github.com/nrlulz/homelab.git
-      path: apps/nextcloud
-      targetRevision: master
+  source:
+    repoURL: https://github.com/nrlulz/homelab.git
+    path: apps/nextcloud
+    targetRevision: master
   destination:
     server: https://kubernetes.default.svc
     namespace: nextcloud
