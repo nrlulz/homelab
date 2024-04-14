@@ -13,14 +13,15 @@ spec:
   storageClassName: smb
   mountOptions:
     - iocharset=utf8
-    - dir_mode=0777
-    - file_mode=0777
-    - uid=1000
-    - gid=1000
+    - dir_mode=0770
+    - file_mode=0770
+    - uid=82
+    - gid=82
     - mfsymlinks
     - cache=strict
     - noserverino
     - forceuid
+    - vers=3.0
   csi:
     driver: smb.csi.k8s.io
     # volumeHandle format: {smb-server-address}#{sub-dir-name}#{share-name}
