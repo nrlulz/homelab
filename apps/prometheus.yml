@@ -24,7 +24,7 @@ spec:
           global:
             scrape_interval: 10s
           persistentVolume:
-            size: 8Gi
+            size: 12Gi
             storageClassName: longhorn
           priorityClassName: system-cluster-critical
         alertmanager:
