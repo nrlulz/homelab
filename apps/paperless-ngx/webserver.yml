@@ -106,8 +106,6 @@ spec:
               mountPath: /usr/src/paperless/media
             - name: inbox
               mountPath: /usr/src/paperless/consume
-            - name: exports
-              mountPath: /usr/src/paperless/export
       volumes:
         - name: data
           persistentVolumeClaim:
@@ -118,9 +116,6 @@ spec:
         - name: inbox
           persistentVolumeClaim:
             claimName: paperless-inbox-pvc
-        - name: exports
-          persistentVolumeClaim:
-            claimName: paperless-exports-pvc
 
 ---
 apiVersion: v1
