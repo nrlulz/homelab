@@ -27,7 +27,7 @@ spec:
             size: 13Gi
             storageClassName: longhorn
           priorityClassName: system-cluster-critical
-          retentionSize: 12Gi
+          retentionSize: 12GB
         alertmanager:
           enabled: false
         prometheus-pushgateway:
