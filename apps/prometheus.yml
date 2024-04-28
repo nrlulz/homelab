@@ -24,7 +24,7 @@ spec:
           global:
             scrape_interval: 15s
           persistentVolume:
-            size: 8.5Gi
+            size: 9Gi
             storageClassName: longhorn
           priorityClassName: system-cluster-critical
           retentionSize: 8GB
