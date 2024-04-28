@@ -22,12 +22,12 @@ spec:
               - hosts:
                   - prometheus.internal.neils.house
           global:
-            scrape_interval: 10s
+            scrape_interval: 15s
           persistentVolume:
             size: 13Gi
             storageClassName: longhorn
           priorityClassName: system-cluster-critical
-          retentionSize: 12GB
+          retentionSize: 8GB
         alertmanager:
           enabled: false
         prometheus-pushgateway:
