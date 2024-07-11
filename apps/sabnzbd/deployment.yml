@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: sabnzbd
-          image: binhex/arch-sabnzbdvpn:4.2.3-1-06
+          image: binhex/arch-sabnzbdvpn:4.3.2-1-06
           ports:
             - containerPort: 8080
           envFrom:
