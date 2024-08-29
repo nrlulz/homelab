@@ -1,0 +1,42 @@
+argo-cd:
+  global:
+    domain: argocd.internal.neils.house
+  dex:
+    enabled: false
+argocd-apps:
+  applicationsets:
+    root:
+      namespace: argocd
+      generators:
+        - git:
+            repoURL: &repoURL https://github.com/nrlulz/homelab
+            revision: &revision v2
+            directories:
+              - path: system/*
+              - path: apps/*
+      template:
+        metadata:
+          name: "{{path.basename}}"
+        spec:
+          destination:
+            name: in-cluster
+            namespace: "{{path.basename}}"
+          project: default
+          source:
+            repoURL: *repoURL
+            path: "{{path}}"
+            targetRevision: *revision
+          syncPolicy:
+            automated:
+              prune: true
+              selfHeal: true
+            retry:
+              limit: 10
+              backoff:
+                duration: 1m
+                factor: 2
+                maxDuration: 16m
+            syncOptions:
+              - CreateNamespace=true
+              - ApplyOutOfSyncOnly=true
+              - ServerSideApply=true
