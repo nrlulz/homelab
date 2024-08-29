@@ -1,0 +1,47 @@
+---
+clusterName: lab
+# renovate: depName=ghcr.io/siderolabs/installer datasource=docker
+talosVersion: v1.7.6
+# renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
+kubernetesVersion: v1.30.4
+endpoint: https://192.168.1.30:6443
+allowSchedulingOnControlPlanes: true
+nodes:
+  - hostname: controller
+    ignoreHostname: true
+    controlPlane: true
+    ipAddress: 192.168.1.31, 192.168.1.32, 192.168.1.33
+    installDisk: /dev/nvme0n1
+controlPlane:
+  schematic:
+    customization:
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/i915-ucode
+          - siderolabs/intel-ucode
+          - siderolabs/iscsi-tools
+          - siderolabs/util-linux-tools
+  patches:
+    # Extra mount for Longhorn
+    - |
+      machine:
+        kubelet:
+          extraMounts:
+          - destination: /var/lib/longhorn
+            type: bind
+            source: /var/lib/longhorn
+            options:
+            - bind
+            - rshared
+            - rw
+
+    # Network config
+    - |
+      machine:
+        network:
+          interfaces:
+            - deviceSelector:
+                busPath: "0*"
+              dhcp: true
+              vip:
+                ip: 192.168.1.30
