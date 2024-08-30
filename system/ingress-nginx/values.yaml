@@ -5,3 +5,5 @@ ingress-nginx:
     type: LoadBalancer
     annotations:
       metallb.universe.tf/loadBalancerIPs: 192.168.1.29
+    labels:
+      foo: bar
