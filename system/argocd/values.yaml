@@ -27,9 +27,6 @@ argocd-apps:
             path: "{{path}}"
             targetRevision: *revision
           syncPolicy:
-            automated:
-              prune: true
-              selfHeal: true
             retry:
               limit: 10
               backoff:
