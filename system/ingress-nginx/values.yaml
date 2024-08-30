@@ -1,6 +1,7 @@
 ingress-nginx:
   controller:
     kind: DaemonSet
+    watchIngressWithoutClass: true
     service:
       type: LoadBalancer
       annotations:
