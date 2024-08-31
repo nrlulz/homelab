@@ -45,3 +45,10 @@ controlPlane:
               dhcp: true
               vip:
                 ip: 192.168.1.30
+
+    # Turn off PCIe Active State Power Management (NVMe SSD errors)
+    - |
+      machine:
+        install:
+          extraKernelArgs:
+            - pcie_aspm=off
