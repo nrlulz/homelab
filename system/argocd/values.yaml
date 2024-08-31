@@ -1,6 +1,14 @@
 argo-cd:
   global:
     domain: argocd.internal.neils.house
+  configs:
+    params:
+      server.insecure: true
+  server:
+    ingress:
+      enabled: true
+      annotations:
+        nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
   dex:
     enabled: false
 argocd-apps:
