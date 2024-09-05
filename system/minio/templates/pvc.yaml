@@ -8,6 +8,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
   nfs:
     path: /mnt/test/minio
     server: 192.168.1.56
@@ -22,4 +23,5 @@ spec:
   resources:
     requests:
       storage: 1Gi
+  storageClassName: nfs
   volumeName: minio-pv
