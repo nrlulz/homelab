@@ -1,7 +1,7 @@
 minio:
   mode: standalone
   persistence:
-    existingClaim: minio-pvc
+    existingClaim: minio
   ingress:
     enabled: true
     annotations:
