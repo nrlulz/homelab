@@ -1,5 +1,13 @@
 minio:
   mode: standalone
+  environment:
+    MINIO_STORAGE_CLASS_RRS: EC:0
+    MINIO_STORAGE_CLASS_STANDARD: EC:0
+    MINIO_UPDATE: "off"
+  securityContext:
+    runAsUser: 473
+    runAsGroup: 473
+    fsGroup: 473
   persistence:
     existingClaim: minio
   ingress:
