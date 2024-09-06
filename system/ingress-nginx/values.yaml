@@ -11,3 +11,4 @@ ingress-nginx:
       default-ssl-certificate: ingress-nginx/wildcard-tls
     config:
       force-ssl-redirect: true
+      proxy-body-size: 0
