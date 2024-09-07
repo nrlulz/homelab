@@ -11,3 +11,15 @@ argo-cd:
         nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
   dex:
     enabled: false
+argocd-apps:
+  applications:
+    cluster:
+      namespace: argocd
+      project: default
+      source:
+        repoURL: https://github.com/nrlulz/homelab
+        targetRevision: v2
+        path: cluster
+      destination:
+        name: in-cluster
+        namespace: argocd
