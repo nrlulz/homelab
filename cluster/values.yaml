@@ -1,0 +1,49 @@
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/nrlulz/homelab
+    targetRevision: v2
+
+apps:
+  apps:
+    - name: hello-world
+
+  system:
+    - name: argocd
+
+    - name: cert-manager
+
+    - name: ingress-nginx
+
+    - name: intel-operator
+
+    - name: longhorn
+
+    - name: metallb
+      ignoreDifferences:
+        - kind: CustomResourceDefinition
+          group: apiextensions.k8s.io
+          name: bgppeers.metallb.io
+          jsonPointers:
+            - /spec/conversion/webhook/clientConfig/caBundle
+
+    - name: minio
+
+    - name: sealed-secrets
+      namespace: kube-system
+
+    - name: snapshot-controller
+      ignoreDifferences:
+        - kind: Secret
+          name: snapshot-validation-webhook-tls
+          jsonPointers:
+            - /data/ca.crt
+            - /data/tls.crt
+            - /data/tls.key
+        - kind: ValidatingWebhookConfiguration
+          group: admissionregistration.k8s.io
+          name: snapshot-validation-webhook
+          jsonPointers:
+            - /webhooks/0/clientConfig/caBundle
+            - /webhooks/1/clientConfig/caBundle

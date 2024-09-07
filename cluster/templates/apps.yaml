@@ -1,0 +1,26 @@
+{{- range $group, $apps := .Values.apps}}
+{{- range $app := $apps }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ required "name is required" $app.name }}
+  namespace: argocd
+spec:
+  destination:
+    namespace: {{ $app.namespace | default $app.name }}
+    server: {{ $.Values.spec.destination.server }}
+  project: default
+  source:
+    chart: {{ $group }}/{{ $app.name }}
+    targetRevision: {{ $.Values.spec.source.targetRevision }}
+    repoURL: {{ $.Values.spec.source.repoURL }}
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    - RespectIgnoreDifferences=true
+{{- if $app.ignoreDifferences }}
+  ignoreDifferences: {{ $app.ignoreDifferences | toYaml | nindent 4 }}
+{{- end }}
+{{- end }}
+{{- end }}
