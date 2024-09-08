@@ -20,6 +20,8 @@ apps:
       ignoreDifferences:
         - kind: GpuDevicePlugin
           group: deviceplugin.intel.com
+          jsonPointers:
+            - /spec/resourceManager
 
     - name: longhorn
 
