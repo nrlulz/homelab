@@ -4,7 +4,6 @@ argo-cd:
   configs:
     params:
       server.insecure: true
-      controller.diff.server.side: true
   server:
     ingress:
       enabled: true
