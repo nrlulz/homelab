@@ -24,3 +24,7 @@ argocd-apps:
       destination:
         name: in-cluster
         namespace: argocd
+      ignoreDifferences:
+        - kind: Application
+          jsonPointers:
+            - /status/reconciledAt
