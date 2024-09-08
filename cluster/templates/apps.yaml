@@ -32,7 +32,7 @@ spec:
     - kind: Application
       group: argoproj.io
       jsonPointers:
-        - /status/reconciledAt
+        - /status
 {{- if $app.ignoreDifferences }}
     {{- $app.ignoreDifferences | toYaml | nindent 4 }}
 {{- end }}
