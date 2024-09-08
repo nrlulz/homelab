@@ -30,8 +30,12 @@ spec:
       - RespectIgnoreDifferences=true
       - ApplyOutOfSyncOnly=true
       - ServerSideApply=true
+  ignoreDifferences:
+    - kind: Application
+      jsonPointers:
+        - /status/reconciledAt
 {{- if $app.ignoreDifferences }}
-  ignoreDifferences: {{ $app.ignoreDifferences | toYaml | nindent 4 }}
+    {{- $app.ignoreDifferences | toYaml | nindent 4 }}
 {{- end }}
 {{- end }}
 {{- end }}
