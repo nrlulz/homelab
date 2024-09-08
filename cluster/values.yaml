@@ -17,6 +17,9 @@ apps:
     - name: ingress-nginx
 
     - name: intel-operator
+      ignoreDifferences:
+        - kind: GpuDevicePlugin
+          group: deviceplugin.intel.com
 
     - name: longhorn
 
