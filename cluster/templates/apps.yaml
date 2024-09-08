@@ -32,6 +32,7 @@ spec:
       - ServerSideApply=true
   ignoreDifferences:
     - kind: Application
+      group: argoproj.io
       jsonPointers:
         - /status/reconciledAt
 {{- if $app.ignoreDifferences }}
