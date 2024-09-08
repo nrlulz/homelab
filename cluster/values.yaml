@@ -29,6 +29,16 @@ apps:
             - /spec/conversion/webhook/clientConfig/caBundle
 
     - name: minio
+      ignoreDifferences:
+        - kind: Secret
+          name: minio
+          jsonPointers:
+            - /data/rootUser
+            - /data/rootPassword
+        - kind: Deployment
+          name: minio
+          jsonPointers:
+            - /spec/template/metadata/annotations/checksum~1secrets
 
     - name: sealed-secrets
       namespace: kube-system

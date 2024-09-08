@@ -16,9 +16,20 @@ spec:
     targetRevision: {{ $.Values.spec.source.targetRevision }}
     repoURL: {{ $.Values.spec.source.repoURL }}
   syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      limit: 10
+      backoff:
+        duration: 1m
+        factor: 2
+        maxDuration: 16m
     syncOptions:
-    - CreateNamespace=true
-    - RespectIgnoreDifferences=true
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+      - ApplyOutOfSyncOnly=true
+      - ServerSideApply=true
 {{- if $app.ignoreDifferences }}
   ignoreDifferences: {{ $app.ignoreDifferences | toYaml | nindent 4 }}
 {{- end }}
