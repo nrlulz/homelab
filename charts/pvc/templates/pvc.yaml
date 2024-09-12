@@ -5,10 +5,12 @@ metadata:
   name: {{ .Values.pvcName }}
 spec:
   accessModes: {{ .Values.accessModes }}
+  {{- if not .Values.initial }}
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
     name: "{{ .Values.pvcName }}-dest"
+  {{- end }}
   resources:
     requests:
       storage: {{ .Values.storageRequest }}

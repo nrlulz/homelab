@@ -1,6 +1,9 @@
 # this should be unique across all PVCs in the cluster
 pvcName: name
 
+# set to true when creating a new PVC
+initial: false
+
 accessModes:
   - ReadWriteOnce
 
