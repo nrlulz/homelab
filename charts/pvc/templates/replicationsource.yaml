@@ -1,0 +1,18 @@
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: {{ .Values.pvcName }}
+spec:
+  sourcePVC: {{ .Values.pvcName }}
+  trigger:
+    # every hour on the hour
+    schedule: "0 * * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: "{{ .Values.pvcName }}-repository"
+    volumeSnapshotClassName: {{ .Values.volumeSnapshotClassName }}
+    storageClassName: {{ .Values.storageClassName }}
+    accessModes: {{ .Values.accessModes }}
+    moverSecurityContext: {{ .Values.moverSecurityContext | toYaml | nindent 6 }}
+    retain: {{ .Values.snapshotRetention | toYaml | nindent 6 }}

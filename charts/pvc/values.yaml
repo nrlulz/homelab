@@ -1,0 +1,23 @@
+# this should be unique across all PVCs in the cluster
+pvcName: name
+
+accessModes:
+  - ReadWriteOnce
+
+storageRequest: 1Gi
+
+storageClassName: longhorn
+
+volumeSnapshotClassName: longhorn
+
+resticBucket: s3:http://minio.minio.svc.cluster.local:9000/volsync
+
+moverSecurityContext: {}
+  # runAsUser: 568
+  # runAsGroup: 568
+  # fsGroup: 568
+
+snapshotRetention:
+  hourly: 24
+  daily: 7
+  weekly: 5
