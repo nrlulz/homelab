@@ -27,7 +27,7 @@ minio:
       existingSecret: minio-admin-password
       existingSecretKey: password
       policy: consoleAdmin
-    - accessKey: restic
-      existingSecret: minio-restic-password
+    - accessKey: volsync
+      existingSecret: minio-volsync-password
       existingSecretKey: password
-      policy: restic-rw
+      policy: volsync-rw
