@@ -16,20 +16,20 @@ spec:
     targetRevision: {{ $.Values.spec.source.targetRevision }}
     repoURL: {{ $.Values.spec.source.repoURL }}
   syncPolicy:
+    {{- if $.Values.spec.automatedSync }}
     automated:
       prune: true
       selfHeal: true
+    {{- end }}
     retry:
       limit: 10
       backoff:
         duration: 1m
         factor: 2
         maxDuration: 16m
-    {{- if $.Values.spec.automatedSync }}
     syncOptions:
       - CreateNamespace=true
       - RespectIgnoreDifferences=true
-    {{- end }}
   ignoreDifferences:
     - kind: Application
       group: argoproj.io
