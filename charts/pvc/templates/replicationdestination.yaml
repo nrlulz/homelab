@@ -1,17 +1,17 @@
-{{- if not .Values.initial }}
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationDestination
-metadata:
-  name: "{{ .Values.pvcName }}-dest"
-spec:
-  trigger:
-    manual: restore-once
-  restic:
-    repository: "{{ .Values.pvcName }}-repository"
-    copyMethod: Snapshot # must be Snapshot
-    volumeSnapshotClassName: {{ .Values.volumeSnapshotClassName }}
-    storageClassName: {{ .Values.storageClassName }}
-    accessModes: {{ .Values.accessModes }}
-    capacity: {{ .Values.storageRequest }}
-    moverSecurityContext: {{ .Values.moverSecurityContext | toYaml | nindent 6 }}
-{{- end }}
+# {{- if not .Values.initial }}
+# apiVersion: volsync.backube/v1alpha1
+# kind: ReplicationDestination
+# metadata:
+#   name: "{{ .Values.pvcName }}-dest"
+# spec:
+#   trigger:
+#     manual: restore-once
+#   restic:
+#     repository: "{{ .Values.pvcName }}-repository"
+#     copyMethod: Snapshot # must be Snapshot
+#     volumeSnapshotClassName: {{ .Values.volumeSnapshotClassName }}
+#     storageClassName: {{ .Values.storageClassName }}
+#     accessModes: {{ .Values.accessModes }}
+#     capacity: {{ .Values.storageRequest }}
+#     moverSecurityContext: {{ .Values.moverSecurityContext | toYaml | nindent 6 }}
+# {{- end }}
