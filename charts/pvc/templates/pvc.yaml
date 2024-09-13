@@ -9,7 +9,7 @@ spec:
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: "{{ .Values.pvcName }}-dest"
+    name: "{{ .Values.pvcName }}"
   {{- end }}
   resources:
     requests:

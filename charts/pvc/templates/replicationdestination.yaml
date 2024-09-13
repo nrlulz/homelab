@@ -2,7 +2,7 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: "{{ .Values.pvcName }}-dest"
+  name: {{ .Values.pvcName }}
 spec:
   trigger:
     manual: restore-once
