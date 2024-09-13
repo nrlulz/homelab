@@ -7,13 +7,21 @@ initial: false
 accessModes:
   - ReadWriteOnce
 
+# the actual PVC
 storageRequest: 1Gi
 storageClassName: longhorn
 
+# the storageclass to use for the src/dest replicated volumes
+replicationStorageClassName: longhorn-ephemeral
+
+# the volumesnapshotclass to use for creating snapshots of the PVC
 volumeSnapshotClassName: longhorn
 
-cacheCapacity: 1Gi
+# the storageclass to use for restic cache volumes
 cacheStorageClassName: longhorn-ephemeral
+
+# restic cache volume size
+cacheCapacity: 1Gi
 cacheAccessModes:
   - ReadWriteOnce
 

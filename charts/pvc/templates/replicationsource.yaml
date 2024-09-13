@@ -15,7 +15,7 @@ spec:
     cacheCapacity: {{ .Values.cacheCapacity }}
     cacheStorageClassName: {{ .Values.cacheStorageClassName }}
     cacheAccessModes: {{ .Values.cacheAccessModes }}
-    storageClassName: {{ .Values.storageClassName }}
+    storageClassName: {{ .Values.replicationStorageClassName }}
     accessModes: {{ .Values.accessModes }}
     moverSecurityContext: {{ .Values.moverSecurityContext | toYaml | nindent 6 }}
     retain: {{ .Values.snapshotRetention | toYaml | nindent 6 }}
