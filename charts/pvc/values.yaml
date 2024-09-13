@@ -8,10 +8,14 @@ accessModes:
   - ReadWriteOnce
 
 storageRequest: 1Gi
-
 storageClassName: longhorn
 
 volumeSnapshotClassName: longhorn
+
+cacheCapacity: 1Gi
+cacheStorageClassName: longhorn-ephemeral
+cacheAccessModes:
+  - ReadWriteOnce
 
 resticBucket: s3:http://minio.minio.svc.cluster.local:9000/volsync
 
