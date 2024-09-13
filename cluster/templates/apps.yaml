@@ -25,9 +25,11 @@ spec:
         duration: 1m
         factor: 2
         maxDuration: 16m
+    {{- if $.Values.spec.automatedSync }}
     syncOptions:
       - CreateNamespace=true
       - RespectIgnoreDifferences=true
+    {{- end }}
   ignoreDifferences:
     - kind: Application
       group: argoproj.io

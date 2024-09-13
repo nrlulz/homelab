@@ -4,6 +4,7 @@ spec:
   source:
     repoURL: https://github.com/nrlulz/homelab
     targetRevision: v2
+  automatedSync: false
 
 apps:
   apps:
