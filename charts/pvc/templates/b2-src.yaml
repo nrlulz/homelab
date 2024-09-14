@@ -21,7 +21,7 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: {{ .Values.pvcName }}
+  name: {{ .Values.pvcName }}-b2
 spec:
   sourcePVC: {{ .Values.pvcName }}
   trigger:
