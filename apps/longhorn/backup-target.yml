@@ -2,7 +2,7 @@ apiVersion: longhorn.io/v1beta2
 kind: Setting
 metadata:
   name: backup-target
-value: cifs://c-smb.local/longhorn_backups
+value: cifs://c-smb.internal/longhorn_backups
 
 ---
 apiVersion: longhorn.io/v1beta2

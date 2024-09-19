@@ -25,9 +25,9 @@ spec:
     driver: smb.csi.k8s.io
     # volumeHandle format: {smb-server-address}#{sub-dir-name}#{share-name}
     # make sure this value is unique for every share in the cluster
-    volumeHandle: c-smb.local/paperless_exports##
+    volumeHandle: c-smb.internal/paperless_exports##
     volumeAttributes:
-      source: //c-smb.local/paperless_exports
+      source: //c-smb.internal/paperless_exports
     nodeStageSecretRef:
       name: cifs-credentials-paperless-ngx
       namespace: paperless-ngx

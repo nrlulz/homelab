@@ -26,9 +26,9 @@ spec:
     driver: smb.csi.k8s.io
     # volumeHandle format: {smb-server-address}#{sub-dir-name}#{share-name}
     # make sure this value is unique for every share in the cluster
-    volumeHandle: c-smb.local/nextcloud_data##
+    volumeHandle: c-smb.internal/nextcloud_data##
     volumeAttributes:
-      source: //c-smb.local/nextcloud_data
+      source: //c-smb.internal/nextcloud_data
     nodeStageSecretRef:
       name: cifs-credentials-nextcloud
       namespace: nextcloud

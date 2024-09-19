@@ -25,9 +25,9 @@ spec:
     driver: smb.csi.k8s.io
     # volumeHandle format: {smb-server-address}#{sub-dir-name}#{share-name}
     # make sure this value is unique for every share in the cluster
-    volumeHandle: c-smb.local/media/Downloads##
+    volumeHandle: c-smb.internal/media/Downloads##
     volumeAttributes:
-      source: //c-smb.local/media/Downloads
+      source: //c-smb.internal/media/Downloads
     nodeStageSecretRef:
       name: cifs-credentials-media
       namespace: media
