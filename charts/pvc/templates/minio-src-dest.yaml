@@ -20,7 +20,7 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: {{ .Values.pvcName }}
+  name: {{ .Values.pvcName }}-volsync-minio-src
 spec:
   sourcePVC: {{ .Values.pvcName }}
   trigger:
@@ -43,7 +43,7 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: {{ .Values.pvcName }}
+  name: {{ .Values.pvcName }}-volsync-minio-dest
 spec:
   trigger:
     manual: restore-once
