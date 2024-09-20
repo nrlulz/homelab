@@ -10,8 +10,9 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   nfs:
-    path: /mnt/test/minio
-    server: 192.168.1.59
+    path: /mnt/data/minio
+    server: nas.internal
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
