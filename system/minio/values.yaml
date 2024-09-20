@@ -22,6 +22,18 @@ minio:
       nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
     hosts:
       - minio.internal.neils.house
+  buckets:
+    - name: volsync
+      policy: none
+  policies:
+    - name: volsync-rw
+      statements:
+        - effect: Allow
+          resources:
+            - "arn:aws:s3:::volsync"
+            - "arn:aws:s3:::volsync/*"
+          actions:
+            - "s3:*"
   users:
     - accessKey: admin
       existingSecret: minio-admin-password
