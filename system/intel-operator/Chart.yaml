@@ -2,9 +2,6 @@ apiVersion: v2
 name: intel-operator
 version: 0.0.0
 dependencies:
-  - name: node-feature-discovery
-    version: 0.16.4
-    repository: https://kubernetes-sigs.github.io/node-feature-discovery/charts
   - name: intel-device-plugins-operator
     version: 0.30.0
     repository: https://intel.github.io/helm-charts

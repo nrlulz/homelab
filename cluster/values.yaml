@@ -47,6 +47,8 @@ apps:
           jsonPointers:
             - /spec/template/metadata/annotations/checksum~1secrets
 
+    - name: node-feature-discovery
+
     - name: sealed-secrets
       namespace: kube-system
 
