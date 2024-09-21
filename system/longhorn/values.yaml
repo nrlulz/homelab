@@ -7,9 +7,7 @@ longhorn:
   defaultSettings:
     defaultReplicaCount: 2
   persistence:
-    defaultClassReplicaCount: 2
-    defaultDataLocality: "best-effort"
-    reclaimPolicy: Retain
+    defaultClass: false
   preUpgradeChecker:
     # Setting that allows Longhorn to perform pre-upgrade checks. Disable this setting
     # when installing Longhorn using Argo CD or other GitOps solutions.
