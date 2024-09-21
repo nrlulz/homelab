@@ -23,6 +23,9 @@ apps:
           group: deviceplugin.intel.com
           jsonPointers:
             - /spec/resourceManager
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
 
     - name: longhorn
 
@@ -48,6 +51,9 @@ apps:
             - /spec/template/metadata/annotations/checksum~1secrets
 
     - name: node-feature-discovery
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
 
     - name: sealed-secrets
       namespace: kube-system
