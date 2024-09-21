@@ -8,7 +8,7 @@ spec:
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: "{{ .Values.pvcName }}"
+    name: "{{ .Values.pvcName }}-volsync-minio-dest"
   resources:
     requests:
       storage: {{ .Values.storageRequest }}
