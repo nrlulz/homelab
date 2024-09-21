@@ -6,7 +6,7 @@ accessModes:
 
 # the actual PVC
 storageRequest: 1Gi
-storageClassName: longhorn
+storageClassName: longhorn-standard
 
 # the storageclass to use for the src/dest replicated volumes
 replicationStorageClassName: longhorn-ephemeral
