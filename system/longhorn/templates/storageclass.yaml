@@ -11,7 +11,6 @@ volumeBindingMode: Immediate
 parameters:
   dataLocality: best-effort
   disableRevisionCounter: "true"
-  fromBackup: ""
   fsType: ext4
   numberOfReplicas: "2"
   staleReplicaTimeout: "30"
