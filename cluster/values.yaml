@@ -28,6 +28,9 @@ apps:
           pod-security.kubernetes.io/enforce: privileged
 
     - name: longhorn
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
 
     - name: metallb
       ignoreDifferences:
@@ -36,6 +39,9 @@ apps:
           name: bgppeers.metallb.io
           jsonPointers:
             - /spec/conversion/webhook/clientConfig/caBundle
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
 
     - name: minio
       ignoreDifferences:
