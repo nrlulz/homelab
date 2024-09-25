@@ -14,6 +14,9 @@ apps:
     - name: kubernetes-event-exporter
 
     - name: prometheus
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
 
   system:
     - name: argocd
