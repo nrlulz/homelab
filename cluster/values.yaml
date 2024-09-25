@@ -13,8 +13,6 @@ apps:
   monitoring:
     - name: kubernetes-event-exporter
 
-    - name: metrics-server
-
     - name: prometheus
 
   system:
