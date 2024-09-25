@@ -1,3 +1,2 @@
 pvc:
   pvcName: hello-world
-  initial: false
