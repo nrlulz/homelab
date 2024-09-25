@@ -1,0 +1,27 @@
+prometheus:
+  server:
+    ingress:
+      enabled: true
+      annotations:
+        nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
+      hosts:
+        - prometheus.internal.neils.house
+    global:
+      scrape_interval: 10s
+    persistentVolume:
+      size: 32Gi
+      storageClassName: longhorn-ephemeral
+    priorityClassName: system-cluster-critical
+    resources:
+      limits:
+        cpu: 800m
+        memory: 4Gi
+      requests:
+        cpu: 800m
+        memory: 4Gi
+  alertmanager:
+    enabled: false
+  prometheus-pushgateway:
+    enabled: false
+  prometheus-node-exporter:
+    priorityClassName: system-node-critical

@@ -1,0 +1,25 @@
+kubernetes-event-exporter:
+  priorityClassName: system-node-critical
+  config:
+    logLevel: info
+    logFormat: json
+    kubeQPS: 60
+    kubeBurst: 60
+    maxEventAgeSeconds: 10
+    receivers:
+      - name: "dump"
+        file:
+          path: "/dev/stdout"
+          layout:
+            message: "{{ .Message }}"
+            reason: "{{ .Reason }}"
+            type: "{{ .Type }}"
+            count: "{{ .Count }}"
+            kind: "{{ .InvolvedObject.Kind }}"
+            name: "{{ .InvolvedObject.Name }}"
+            namespace: "{{ .Namespace }}"
+            component: "{{ .Source.Component }}"
+    route:
+      routes:
+        - match:
+            - receiver: "dump"

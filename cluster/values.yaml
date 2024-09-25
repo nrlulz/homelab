@@ -10,6 +10,13 @@ apps:
   apps:
     - name: hello-world
 
+  monitoring:
+    - name: kubernetes-event-exporter
+
+    - name: metrics-server
+
+    - name: prometheus
+
   system:
     - name: argocd
 
