@@ -48,7 +48,7 @@ Do the upgrade just once for the cluster
         talosctl reset --graceful=false --nodes 192.168.1.31
 
 1.  Boot machines from ISO
-1.  Apply machine config using `-- insecure` (see above)
+1.  Apply machine config using `--insecure` (see above)
 1.  Bootstrap Kubernetes (do only once on one node):
 
         talosctl bootstrap --nodes 192.168.1.31 --endpoints 192.168.1.31
@@ -57,7 +57,15 @@ Do the upgrade just once for the cluster
 
         cd system/argocd
         kubectl create ns argocd
-        helm upgrade --install --namespace argocd argocd .
+        helm dependency update
+
+    First, install ArgoCD without the apps, so that CRDs get installed:
+
+        helm upgrade --install --namespace argocd --set argocd-apps.enabled=false argocd .
+
+    Then install the apps too:
+
+        helm upgrade --install --namespace argocd --set argocd-apps.enabled=true argocd .
 
 1.  Log in
 
