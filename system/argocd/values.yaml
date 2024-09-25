@@ -12,6 +12,7 @@ argo-cd:
   dex:
     enabled: false
 argocd-apps:
+  enabled: true
   applications:
     cluster:
       namespace: argocd
