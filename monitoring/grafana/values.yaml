@@ -1,0 +1,3 @@
+pvc:
+  pvcName: grafana-data
+  storageRequest: 512Mi

@@ -11,6 +11,8 @@ apps:
     - name: hello-world
 
   monitoring:
+    - name: grafana
+
     - name: kubernetes-event-exporter
 
     - name: prometheus
