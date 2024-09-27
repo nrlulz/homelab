@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: deluge
+  annotations:
+    nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
+spec:
+  rules:
+    - host: deluge.internal.neils.house
+      http:
+        paths:
+          - backend:
+              service:
+                name: deluge
+                port:
+                  number: 8112
+            path: /
+            pathType: Prefix
