@@ -8,6 +8,8 @@ spec:
 
 apps:
   apps:
+    - name: deluge
+
     - name: hello-world
 
   monitoring:
