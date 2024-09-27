@@ -8,12 +8,18 @@ spec:
 
 apps:
   apps:
+    - name: hello-world
+
+  media:
     - name: deluge
       managedNamespaceMetadata:
         labels:
           pod-security.kubernetes.io/enforce: privileged
 
-    - name: hello-world
+    - name: sabnzbd
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
 
   monitoring:
     - name: grafana
