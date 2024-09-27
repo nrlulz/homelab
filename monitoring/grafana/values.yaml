@@ -1,6 +1,9 @@
 pvc:
   pvcName: grafana-data
   storageRequest: 512Mi
+  moverSecurityContext:
+    runAsUser: 472
+    runAsGroup: 472
 grafana:
   ingress:
     enabled: true
