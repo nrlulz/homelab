@@ -32,7 +32,7 @@ spec:
             - name: data
               mountPath: /config
             - name: downloads
-              mountPath: /mnt/tank/Downloads
+              mountPath: /downloads
       volumes:
         - name: data
           persistentVolumeClaim:
