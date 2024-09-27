@@ -9,6 +9,9 @@ spec:
 apps:
   apps:
     - name: deluge
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
 
     - name: hello-world
 
