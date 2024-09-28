@@ -1,0 +1,6 @@
+pvc:
+  pvcName: sonarr-data
+  storageRequest: 2Gi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000

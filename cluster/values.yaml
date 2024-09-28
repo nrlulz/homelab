@@ -13,15 +13,30 @@ apps:
     - name: shims
 
   media:
+    - name: bazarr
+
     - name: deluge
       managedNamespaceMetadata:
         labels:
           pod-security.kubernetes.io/enforce: privileged
 
+    - name: overseerr
+
+    - name: prowlarr
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+
+    - name: radarr
+
     - name: sabnzbd
       managedNamespaceMetadata:
         labels:
           pod-security.kubernetes.io/enforce: privileged
+
+    - name: sonarr
+
+    - name: tautulli
 
   monitoring:
     - name: grafana

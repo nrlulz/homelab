@@ -1,0 +1,13 @@
+pvc-prowlarr:
+  pvcName: prowlarr-data
+  storageRequest: 128Mi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+
+pvc-privoxy:
+  pvcName: prowlarr-data
+  storageRequest: 128Mi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
