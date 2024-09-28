@@ -1,12 +1,16 @@
 apiVersion: v2
-name: prowlarr
+name: nextcloud
 version: 0.0.0
 dependencies:
-  - alias: pvc-prowlarr
+  - alias: pvc-html
     name: pvc
     version: 0.0.0
     repository: file://../../charts/pvc
-  - alias: pvc-privoxy
+  - alias: pvc-pgdata
+    name: pvc
+    version: 0.0.0
+    repository: file://../../charts/pvc
+  - alias: pvc-redisdata
     name: pvc
     version: 0.0.0
     repository: file://../../charts/pvc

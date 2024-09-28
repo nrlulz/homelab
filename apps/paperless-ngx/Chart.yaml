@@ -1,0 +1,20 @@
+apiVersion: v2
+name: paperless-ngx
+version: 0.0.0
+dependencies:
+  - alias: pvc-data
+    name: pvc
+    version: 0.0.0
+    repository: file://../../charts/pvc
+  - alias: pvc-media
+    name: pvc
+    version: 0.0.0
+    repository: file://../../charts/pvc
+  - alias: pvc-pgdata
+    name: pvc
+    version: 0.0.0
+    repository: file://../../charts/pvc
+  - alias: pvc-redisdata
+    name: pvc
+    version: 0.0.0
+    repository: file://../../charts/pvc

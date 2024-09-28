@@ -1,0 +1,20 @@
+pvc-html:
+  pvcName: nextcloud-html
+  storageRequest: 2Gi
+  moverSecurityContext:
+    runAsUser: 82
+    runAsGroup: 82
+
+pvc-pgdata:
+  pvcName: nextcloud-pgdata
+  storageRequest: 2Gi
+  moverSecurityContext:
+    runAsUser: 82
+    runAsGroup: 82
+
+pvc-redisdata:
+  pvcName: nextcloud-redisdata
+  storageRequest: 128Mi
+  moverSecurityContext:
+    runAsUser: 82
+    runAsGroup: 82

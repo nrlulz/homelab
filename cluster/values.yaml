@@ -10,6 +10,10 @@ apps:
   apps:
     - name: hello-world
 
+    - name: nextcloud
+
+    - name: paperless-ngx
+
     - name: shims
 
   media:
