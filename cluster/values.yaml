@@ -10,6 +10,8 @@ apps:
   apps:
     - name: hello-world
 
+    - name: shims
+
   media:
     - name: deluge
       managedNamespaceMetadata:
