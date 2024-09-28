@@ -1,17 +1,22 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: bazarr
 spec:
+  serviceName: bazarr
   selector:
     matchLabels:
       app: bazarr
-  replicas: 1
+  replicas: 0
   template:
     metadata:
       labels:
         app: bazarr
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
       containers:
         - name: bazarr
           image: lscr.io/linuxserver/bazarr:1.4.3
