@@ -10,7 +10,7 @@ prometheus:
       scrape_interval: 10s
     persistentVolume:
       size: 32Gi
-      storageClassName: longhorn-ephemeral
+      storageClass: longhorn-ephemeral
     priorityClassName: system-cluster-critical
     resources:
       limits:
