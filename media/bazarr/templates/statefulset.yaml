@@ -7,16 +7,12 @@ spec:
   selector:
     matchLabels:
       app: bazarr
-  replicas: 0
+  replicas: 1
   template:
     metadata:
       labels:
         app: bazarr
     spec:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
       containers:
         - name: bazarr
           image: lscr.io/linuxserver/bazarr:1.4.3
