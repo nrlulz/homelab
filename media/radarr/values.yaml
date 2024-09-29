@@ -1,6 +1,3 @@
 pvc:
   pvcName: radarr-data
   storageRequest: 4Gi
-  moverSecurityContext:
-    runAsUser: 1000
-    runAsGroup: 1000

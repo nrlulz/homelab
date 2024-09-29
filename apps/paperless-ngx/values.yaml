@@ -1,27 +1,15 @@
 pvc-data:
   pvcName: paperless-data
   storageRequest: 1Gi
-  moverSecurityContext:
-    runAsUser: 1001
-    runAsGroup: 1001
 
 pvc-media:
   pvcName: paperless-media
   storageRequest: 4Gi
-  moverSecurityContext:
-    runAsUser: 1001
-    runAsGroup: 1001
 
 pvc-pgdata:
   pvcName: paperless-pgdata
   storageRequest: 512Mi
-  moverSecurityContext:
-    runAsUser: 1001
-    runAsGroup: 1001
 
 pvc-redisdata:
   pvcName: paperless-redisdata
   storageRequest: 128Mi
-  moverSecurityContext:
-    runAsUser: 1001
-    runAsGroup: 1001
