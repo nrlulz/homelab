@@ -1,0 +1,64 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: nextcloud-db-credentials
+  namespace: nextcloud
+spec:
+  encryptedData:
+    POSTGRES_PASSWORD: AgCt7FZhlP+aNz2ykZ7a/Vvl1r/fTQB1Rhrl1KWmsW3UVEg0VojM7oJ+otX1O2at8MTaHlydJ3wOcDR6EP5VkkVZzLQ78kUbWARhDeUlVHQzibbPzwzvisXZcPkBR4LUoE74dILoM7vm9kiUMupQFCU0sMrDgZ+M4KgWcccjSw8dco7EBEyxNq95ClwsltOU0LmW7VudmMeQZ9ga2Ny2H9EhNnjC2iqCOkqYe0SLwK3+Ouk6uykaSbgbcbyZT4fdOki79GEATnVeWEcXkH8AqCEo+zUwW+AY2jKpG0tCb2K8Vwf8RQX2yvEcq0pQgVdFB1Dc9zhDV4z2ruGtVGBJ0e6Fp3CPg+wtrP8l+RSZa7XY68k//KQDTnIReQM3JSeIvhaAYCAd4uHgRy0f4tHJzEW+c9KQGIOzsWDvTY38qo7+6lDmEqf4oRQEsIgNgSXXhMBMPGEmJPJUD5yt9uZIW/kB2cGX5ojOhphUyP7L8QXcLy6Gp0UWKwtqzetnR1+6uhNG5TivzTpspZNOId4uaNjT/98Xo8JMaE/FHsKlN6LC2zdwAMCkRmOwl6t9zHs0MURwwJnP3StWfxkR3dThtdXAxEMKByvV6U9SSqD8TDBVMiBdaEioYQrQcvMSNvWvueWFeX+tXykL64gbcQPGaZ6DzomyRQwJkPdpIe4jo6xrr9lyhmYaadVW7bIYhKoTrWtfvtUpow1xN7TN1uHFI2PCq45f3w==
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+spec:
+  serviceName: db
+  selector:
+    matchLabels:
+      app: db
+  replicas: 0
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: db
+          image: docker.io/library/postgres:15.7
+          args:
+            - -c
+            - work_mem=2GB
+            - -c
+            - temp_file_limit=2GB
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: nextcloud
+            - name: POSTGRES_USER
+              value: nextcloud
+            - name: POSTGRES_PASSWORD
+          envFrom:
+            - secretRef:
+                name: nextcloud-db-credentials
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: nextcloud-pgdata
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+spec:
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+  selector:
+    app: db
