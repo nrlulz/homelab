@@ -1,6 +1,3 @@
 pvc:
   pvcName: deluge-data
   storageRequest: 128Mi
-  moverSecurityContext:
-    runAsUser: 1000
-    runAsGroup: 1000
