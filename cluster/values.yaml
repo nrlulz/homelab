@@ -6,6 +6,11 @@ spec:
     targetRevision: v2
   automatedSync: false
 
+allApps:
+  managedNamespaceMetadata:
+    annotations:
+      volsync.backube/privileged-movers: "true"
+
 apps:
   apps:
     - name: hello-world

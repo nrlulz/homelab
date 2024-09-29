@@ -1,5 +1,6 @@
 {{- range $group, $apps := .Values.apps}}
 {{- range $app := $apps }}
+{{ $app = merge $app $.Values.allApps }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -30,9 +31,7 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - RespectIgnoreDifferences=true
-    {{- if $app.managedNamespaceMetadata }}
     managedNamespaceMetadata: {{- $app.managedNamespaceMetadata | toYaml | nindent 6 }}
-    {{- end }}
   ignoreDifferences:
     - kind: Application
       group: argoproj.io
