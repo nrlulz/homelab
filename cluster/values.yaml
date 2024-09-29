@@ -31,10 +31,12 @@ apps:
 
     - name: overseerr
 
-    - name: prowlarr
+    - name: privoxy
       managedNamespaceMetadata:
         labels:
           pod-security.kubernetes.io/enforce: privileged
+
+    - name: prowlarr
 
     - name: radarr
 

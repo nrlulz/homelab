@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: privoxy
+spec:
+  serviceName: privoxy
+  selector:
+    matchLabels:
+      app: privoxy
+  replicas: 0
+  template:
+    metadata:
+      labels:
+        app: privoxy
+    spec:
+      containers:
+        - name: privoxy
+          image: binhex/arch-privoxyvpn:3.0.34-2-05
+          ports:
+            - containerPort: 8118
+          envFrom:
+            - secretRef:
+                name: privoxy-vpn-credentials
+            - configMapRef:
+                name: privoxy-config
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+                - SYS_MODULE
+            privileged: true # required for wireguard
+          volumeMounts:
+            - name: data
+              mountPath: /config
+          livenessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - curl --fail --proxy http://localhost:8118 https://jsonip.com || exit 1
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 10
+            failureThreshold: 20
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: privoxy-data
