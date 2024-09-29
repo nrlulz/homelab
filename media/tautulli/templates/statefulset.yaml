@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: tautulli
+spec:
+  serviceName: tautulli
+  selector:
+    matchLabels:
+      app: tautulli
+  replicas: 0
+  template:
+    metadata:
+      labels:
+        app: tautulli
+    spec:
+      containers:
+        - name: tautulli
+          image: lscr.io/linuxserver/tautulli:2.14.3
+          ports:
+            - containerPort: 8181
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Etc/UTC"
+          volumeMounts:
+            - name: data
+              mountPath: /config
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: tautulli-data
