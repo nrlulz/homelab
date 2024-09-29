@@ -5,6 +5,7 @@ pvc:
     runAsUser: 472
     runAsGroup: 472
 grafana:
+  useStatefulSet: true
   ingress:
     enabled: true
     hosts:
