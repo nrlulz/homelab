@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       app: sonarr
-  replicas: 0
+  replicas: 1
   template:
     metadata:
       labels:
