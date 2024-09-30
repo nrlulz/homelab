@@ -230,7 +230,7 @@ spec:
             - configMapRef:
                 name: nextcloud
             - secretRef:
-                name: db-credentials
+                name: nextcloud-db-credentials
           image: nextcloud:29.0.3-fpm-alpine
           imagePullPolicy: IfNotPresent
           volumeMounts:
