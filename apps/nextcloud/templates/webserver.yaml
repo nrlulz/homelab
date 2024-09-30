@@ -170,7 +170,7 @@ metadata:
   namespace: nextcloud
 spec:
   serviceName: nextcloud
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/component: app
