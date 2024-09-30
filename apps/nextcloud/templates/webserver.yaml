@@ -246,7 +246,7 @@ spec:
             claimName: nextcloud-html
         - name: nextcloud-data
           persistentVolumeClaim:
-            claimName: nextcloud-data-pvc
+            claimName: nextcloud-data
         - name: nextcloud-nginx-conf
           configMap:
             name: nextcloud-nginx-conf
