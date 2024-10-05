@@ -21,6 +21,9 @@ apps:
 
     - name: shims
 
+  ha:
+    - name: emqx
+
   media:
     - name: bazarr
 
@@ -76,7 +79,7 @@ apps:
 
     - name: ingress-nginx
 
-    - name: intel-operator
+    - name: intel-gpu-device-plugin
       ignoreDifferences:
         - kind: GpuDevicePlugin
           group: deviceplugin.intel.com

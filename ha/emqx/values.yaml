@@ -1,0 +1,15 @@
+pvc:
+  pvcName: emqx-data
+  storageRequest: 1Gi
+emqx:
+  replicaCount: 1
+  ingress:
+    dashboard:
+      enabled: true
+      hosts:
+        - emqx.internal.neils.house
+      annotations:
+        nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
+  persistence:
+    enabled: true
+    existingClaim: emqx-data
