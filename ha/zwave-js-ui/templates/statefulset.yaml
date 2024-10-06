@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zwave-js-ui
+spec:
+  serviceName: zwave-js-ui
+  selector:
+    matchLabels:
+      app: zwave-js-ui
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: zwave-js-ui
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: "{{ .Values.nodeSelectorKey }}"
+                    operator: "Exists"
+      containers:
+        - name: zwave-js-ui
+          image: zwavejs/zwave-js-ui:9.21.1
+          livenessProbe:
+            failureThreshold: 10
+            httpGet:
+              httpHeaders:
+                - name: Accept
+                  value: text/plain
+              path: /health
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          ports:
+            - name: web-ui
+              containerPort: 8091
+              protocol: TCP
+            - name: websocket
+              containerPort: 3000
+              protocol: TCP
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: data
+              mountPath: /usr/src/app/store
+            - name: controller
+              mountPath: "{{ .Values.controllerPath }}"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: zwave-js-ui-data
+        - name: controller
+          hostPath:
+            path: "{{ .Values.controllerPath }}"
+            type: CharDevice

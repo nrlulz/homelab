@@ -29,6 +29,11 @@ apps:
         labels:
           pod-security.kubernetes.io/enforce: privileged
 
+    - name: zwave-js-ui
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+
   media:
     - name: bazarr
 
