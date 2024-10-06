@@ -24,6 +24,11 @@ apps:
   ha:
     - name: emqx
 
+    - name: zigbee2mqtt
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+
   media:
     - name: bazarr
 
