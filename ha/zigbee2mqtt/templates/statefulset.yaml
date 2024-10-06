@@ -44,3 +44,4 @@ spec:
         - name: coordinator
           hostPath:
             path: "{{ .Values.coordinatorPath }}"
+            type: CharDevice

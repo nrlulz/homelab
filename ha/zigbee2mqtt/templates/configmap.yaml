@@ -45,7 +45,7 @@ data:
   # It's important to disable permit_join after you've peered your devices.
   # This keeps the Zigbee network safe and prevents accidental joining of other Zigbee devices.
   # When a device joins, the coordinator exposes the network key.
-  ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: "true"
+  ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: "false"
   # Optional: adapter type, specify if you are experiencing startup problems (default: null, options: zstack, deconz, ember, zigate)
   ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: ember
   # Required: location of the adapter (e.g. CC2531).
