@@ -10,6 +10,12 @@ emqx:
         - emqx.internal.neils.house
       annotations:
         nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
+    ws:
+      enabled: true
+      hosts:
+        - mqtt.internal.neils.house
+      annotations:
+        nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
   persistence:
     enabled: true
     existingClaim: emqx-data
