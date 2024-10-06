@@ -1,0 +1,11 @@
+node-feature-discovery:
+  worker:
+    config:
+      sources:
+        usb:
+          deviceClassWhitelist:
+            - "02"
+            - "0e"
+            - "ef"
+            - "fe"
+            - "ff"
