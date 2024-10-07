@@ -25,6 +25,9 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
             capabilities: { drop: ["ALL"] }
+          env:
+            - name: TZ
+              value: America/Los_Angeles
           ports:
             - containerPort: 1880
               protocol: TCP
