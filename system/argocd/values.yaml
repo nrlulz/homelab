@@ -19,7 +19,7 @@ argocd-apps:
       project: default
       source:
         repoURL: https://github.com/nrlulz/homelab
-        targetRevision: v2
+        targetRevision: master
         path: cluster
       destination:
         name: in-cluster

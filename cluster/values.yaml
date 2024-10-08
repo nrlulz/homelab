@@ -3,7 +3,7 @@ spec:
     server: https://kubernetes.default.svc
   source:
     repoURL: https://github.com/nrlulz/homelab
-    targetRevision: v2
+    targetRevision: master
   automatedSync: false
 
 allApps:
