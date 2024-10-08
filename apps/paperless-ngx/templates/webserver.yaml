@@ -86,7 +86,7 @@ spec:
     spec:
       containers:
         - name: webserver
-          image: ghcr.io/paperless-ngx/paperless-ngx:2.10.2
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.12.1
           ports:
             - containerPort: 8000
           env:
