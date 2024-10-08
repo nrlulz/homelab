@@ -6,6 +6,7 @@ metadata:
     metallb.universe.tf/loadBalancerIPs: 192.168.1.28
 spec:
   type: LoadBalancer
+  externalTrafficPolicy: Local
   ports:
     - protocol: TCP
       port: 32400
