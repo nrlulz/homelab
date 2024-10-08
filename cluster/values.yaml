@@ -19,8 +19,6 @@ apps:
 
     - name: paperless-ngx
 
-    - name: shims
-
   ha:
     - name: emqx
 
