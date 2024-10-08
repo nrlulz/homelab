@@ -24,6 +24,8 @@ apps:
   ha:
     - name: emqx
 
+    - name: home-assistant
+
     - name: node-red
 
     - name: zigbee2mqtt
