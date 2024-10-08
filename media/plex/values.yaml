@@ -1,0 +1,7 @@
+pvc:
+  pvcName: plex-data
+  storageRequest: 64Gi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000

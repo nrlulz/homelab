@@ -48,6 +48,8 @@ apps:
 
     - name: overseerr
 
+    - name: plex
+
     - name: privoxy
       managedNamespaceMetadata:
         labels:
