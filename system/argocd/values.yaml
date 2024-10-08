@@ -1,0 +1,35 @@
+argo-cd:
+  global:
+    domain: argocd.internal.neils.house
+  configs:
+    params:
+      server.insecure: true
+  server:
+    ingress:
+      enabled: true
+      annotations:
+        nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
+  dex:
+    enabled: false
+argocd-apps:
+  enabled: true
+  applications:
+    cluster:
+      namespace: argocd
+      project: default
+      source:
+        repoURL: https://github.com/nrlulz/homelab
+        targetRevision: master
+        path: cluster
+      destination:
+        name: in-cluster
+        namespace: argocd
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+      ignoreDifferences:
+        - kind: Application
+          group: argoproj.io
+          jsonPointers:
+            - /status

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: node-red
+spec:
+  serviceName: node-red
+  selector:
+    matchLabels:
+      app: node-red
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: node-red
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: node-red
+          image: nodered/node-red:4.0.3
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: { drop: ["ALL"] }
+          env:
+            - name: TZ
+              value: America/Los_Angeles
+          ports:
+            - containerPort: 1880
+              protocol: TCP
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: node-red-data

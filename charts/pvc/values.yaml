@@ -1,0 +1,35 @@
+# this should be unique across all PVCs in the cluster
+pvcName: name
+
+accessModes:
+  - ReadWriteOnce
+
+# the actual PVC
+storageRequest: 1Gi
+storageClassName: longhorn-standard
+
+# the storageclass to use for the src/dest replicated volumes
+replicationStorageClassName: longhorn-ephemeral
+
+# the volumesnapshotclass to use for creating snapshots of the PVC
+volumeSnapshotClassName: longhorn
+
+# the storageclass to use for restic cache volumes
+cacheStorageClassName: longhorn-ephemeral
+
+# restic cache volume size
+cacheCapacity: 1Gi
+cacheAccessModes:
+  - ReadWriteOnce
+
+resticBucket: s3:http://minio.minio.svc.cluster.local:9000/volsync
+
+moverSecurityContext: {}
+  # runAsUser: 472
+  # runAsGroup: 472
+  # fsGroup: 472
+
+snapshotRetention:
+  hourly: 24
+  daily: 7
+  weekly: 5

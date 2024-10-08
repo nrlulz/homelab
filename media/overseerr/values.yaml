@@ -1,0 +1,3 @@
+pvc:
+  pvcName: overseerr-data
+  storageRequest: 128Mi

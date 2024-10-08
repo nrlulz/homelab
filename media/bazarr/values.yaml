@@ -1,0 +1,3 @@
+pvc:
+  pvcName: bazarr-data
+  storageRequest: 128Mi

@@ -1,0 +1,6 @@
+pvc:
+  pvcName: node-red-data
+  storageRequest: 1Gi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000

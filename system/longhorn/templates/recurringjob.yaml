@@ -1,0 +1,26 @@
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: hourly-snapshot
+spec:
+  concurrency: 1
+  cron: 30 * * * *
+  groups:
+  - hourly-snapshot
+  name: hourly-snapshot
+  retain: 3
+  task: snapshot
+
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: hourly-snapshot-cleanup
+spec:
+  concurrency: 1
+  cron: 45 * * * *
+  groups:
+  - hourly-snapshot
+  name: hourly-snapshot-cleanup
+  retain: 0
+  task: snapshot-cleanup

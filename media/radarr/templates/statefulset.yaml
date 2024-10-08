@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: radarr
+spec:
+  serviceName: radarr
+  selector:
+    matchLabels:
+      app: radarr
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: radarr
+    spec:
+      containers:
+        - name: radarr
+          image: lscr.io/linuxserver/radarr:5.7.0
+          ports:
+            - containerPort: 7878
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Etc/UTC"
+          volumeMounts:
+            - name: data
+              mountPath: /config
+            - name: downloads
+              mountPath: /downloads
+            - name: movies
+              mountPath: /mnt/tank/Movies
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: radarr-data
+        - name: downloads
+          persistentVolumeClaim:
+            claimName: radarr-downloads
+        - name: movies
+          persistentVolumeClaim:
+            claimName: radarr-movies

@@ -1,0 +1,158 @@
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/nrlulz/homelab
+    targetRevision: master
+  automatedSync: false
+
+allApps:
+  managedNamespaceMetadata:
+    annotations:
+      volsync.backube/privileged-movers: "true"
+
+apps:
+  apps:
+    - name: hello-world
+
+    - name: nextcloud
+
+    - name: paperless-ngx
+
+    - name: shims
+
+  ha:
+    - name: emqx
+
+    - name: home-assistant
+
+    - name: node-red
+
+    - name: zigbee2mqtt
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+
+    - name: zwave-js-ui
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+
+  media:
+    - name: bazarr
+
+    - name: deluge
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+
+    - name: overseerr
+
+    - name: privoxy
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+
+    - name: prowlarr
+
+    - name: radarr
+
+    - name: sabnzbd
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+
+    - name: sonarr
+
+    - name: tautulli
+
+  monitoring:
+    - name: grafana
+      ignoreDifferences:
+        - kind: Secret
+          name: grafana
+          jsonPointers:
+            - /data/admin-password
+        - kind: Deployment
+          group: apps
+          name: grafana
+          jsonPointers:
+            - /spec/template/metadata/annotations/checksum~1secret
+
+    - name: kubernetes-event-exporter
+
+    - name: prometheus
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+
+  system:
+    - name: argocd
+
+    - name: cert-manager
+
+    - name: ingress-nginx
+
+    - name: intel-gpu-device-plugin
+      ignoreDifferences:
+        - kind: GpuDevicePlugin
+          group: deviceplugin.intel.com
+          jsonPointers:
+            - /spec/resourceManager
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+
+    - name: longhorn
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+
+    - name: metallb
+      ignoreDifferences:
+        - kind: CustomResourceDefinition
+          group: apiextensions.k8s.io
+          name: bgppeers.metallb.io
+          jsonPointers:
+            - /spec/conversion/webhook/clientConfig/caBundle
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+
+    - name: minio
+      ignoreDifferences:
+        - kind: Secret
+          name: minio
+          jsonPointers:
+            - /data/rootUser
+            - /data/rootPassword
+        - kind: Deployment
+          group: apps
+          name: minio
+          jsonPointers:
+            - /spec/template/metadata/annotations/checksum~1secrets
+
+    - name: node-feature-discovery
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+
+    - name: sealed-secrets
+      namespace: kube-system
+
+    - name: snapshot-controller
+      ignoreDifferences:
+        - kind: Secret
+          name: snapshot-validation-webhook-tls
+          jsonPointers:
+            - /data/ca.crt
+            - /data/tls.crt
+            - /data/tls.key
+        - kind: ValidatingWebhookConfiguration
+          group: admissionregistration.k8s.io
+          name: snapshot-validation-webhook
+          jsonPointers:
+            - /webhooks/0/clientConfig/caBundle
+            - /webhooks/1/clientConfig/caBundle
+
+    - name: volsync

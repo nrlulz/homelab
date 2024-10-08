@@ -1,0 +1,15 @@
+pvc-data:
+  pvcName: paperless-data
+  storageRequest: 1Gi
+
+pvc-media:
+  pvcName: paperless-media
+  storageRequest: 4Gi
+
+pvc-pgdata:
+  pvcName: paperless-pgdata
+  storageRequest: 512Mi
+
+pvc-redisdata:
+  pvcName: paperless-redisdata
+  storageRequest: 128Mi

@@ -1,0 +1,11 @@
+pvc-html:
+  pvcName: nextcloud-html
+  storageRequest: 2Gi
+
+pvc-pgdata:
+  pvcName: nextcloud-pgdata
+  storageRequest: 2Gi
+
+pvc-redisdata:
+  pvcName: nextcloud-redisdata
+  storageRequest: 128Mi

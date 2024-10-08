@@ -1,0 +1,3 @@
+pvc:
+  pvcName: privoxy-data
+  storageRequest: 128Mi

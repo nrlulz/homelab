@@ -1,0 +1,60 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: {{ .Values.pvcName }}-volsync-minio
+  annotations:
+    sealedsecrets.bitnami.com/cluster-wide: "true"
+spec:
+  template:
+    # be careful mixing helm and sealedsecrets templates here
+    # to escape the double curlies, use {{ "{{" }} and {{ "}}" }}
+    # https://github.com/helm/helm/issues/2798#issuecomment-326454957
+    data:
+      RESTIC_REPOSITORY: s3:http://minio.minio.svc.cluster.local:9000/volsync/{{ .Values.pvcName }}
+      AWS_ACCESS_KEY_ID: volsync
+  encryptedData:
+    RESTIC_PASSWORD: AgCSLZFOxVa4obmxH6zRcwu5fESnx6jTaim+lZUZQcfN1L5qUhy4iEDU5upeZHx9NExPnmHk+dB0eNKR0kunm4jIZqF9rA1zCyBHcoX8Ih7BBQaZkbwk8hhnFdVsdXqIHo/U66v746+DbW2Sv+OgDM3wh1BrTHMO5EsTJNGffT/mBVF1eRoDbrzzeyqLGxj5yNqIZAiZ7+wPR30KXHw/cXXfGJpN+keIFQ+z+YI0/AprFdpRF/XN+g8X22mLAceHiQBITg8BgOYmU6PUFcltKtPqa037bS7cl7cB5oANCX2t9Q+LyivyTw2rnYyTifd6y79dLA0h1BNwZs1nGXaBzVvECgELV/hBatPxomNljeBwWQmOLqvfG9dypYNJlOAX0VhkmdfhsSiP1mG6DSG9Z1WREqUae9DI9Sbo2FDTHZjpDHCxhi+XMo/TvQeEzNuoaEF+vksVp4TCfqEcZ+GtG8seoqj++Vavoqt7Ud3wBGtkyF7+BLoRwikqF+TUEaIWjJatu4uknjkqYY4d/fLC9Q+mEXvtlKvKb7mF7XW+tW2hlvtq+Z/TfJJJElux94QRM3syGE4JsxGzinCY9NnfquBki3std4DX9aeIx9yLxmUxB8frbranOhIms8OyBYKz7SpP+ibn0lDUf2uGVqIe5ZGfsXWCSQmqN1QuTbtGbVYZODa+pLMxYz4st5Pb7b5sA4Il+W8wTX5rgzkQPh+7Zcn38woy4g==
+    AWS_SECRET_ACCESS_KEY: AgBx8AXriuDz7dcZ60i7rPQz5Z/rnaMr0dQLAAIUKd/YW7ZyIo2MQmNPbOpAkbSh2PKCOHqta4C6R8MWw1xnciMedeZ6YwiLudW0v4AmUN4NddwhQFnkssvbsjD/fmaYJMDO/lwsvTNnejrwBrWtvnrDVWx7TfZWpviL/fl8KZmcyoSgdokHMvt2GjBvZZK4Qxz+zVx1KsflPq1UAf3luVs+IY0e7H+pfgdr7KUMywfuk1BSUo0fBzy4FHSiXnwjjjrBF4K7Fz0btnUj51Kx+RgSnJsiWdqRnkq4w3HJX33cHeywq+zL5WS9tp5LQQ3sPphxw5KmfEiF/rHoAEfXnOmUNggQWMdiQOikUI5rAWENyXdNK5xrmpT+dpQSxesN9Wq5S6ppaQgg1Q4jqQHNPHzGQpGMggRnUHKjdf5pPAG0xWH7k3GvyKRde+/lqthCEMQyjzKtbw0iMfyqkIDdTcKSQLih3pn34kQ/lUyuSmCgkbEMhvYPVqpbh2y0nQDfpLeeseKzZ6eL8QMR9AtjQkJwVUCBpgmJcgu4peGHBBONtoWjEaRu6FMgrUGXv7tj2O9iS9s3yEACdvCXixRbFjNTsMBoDEWcqcMsFq37P9KQZU6h94J5rqZJtU0+EMHmXp2c1QMdhlQT3vJnDwammhHdFGS7zDov8+fp2iQCjS1BvceW2+cazQisSjn4dTY453o2JvkHQ6P59R8kqjvUuhIUO9J8cg==
+
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: {{ .Values.pvcName }}-volsync-minio-src
+spec:
+  sourcePVC: {{ .Values.pvcName }}
+  trigger:
+    # every hour on the hour
+    schedule: "0 * * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: "{{ .Values.pvcName }}-volsync-minio"
+    volumeSnapshotClassName: {{ .Values.volumeSnapshotClassName }}
+    cacheCapacity: {{ .Values.cacheCapacity }}
+    cacheStorageClassName: {{ .Values.cacheStorageClassName }}
+    cacheAccessModes: {{ .Values.cacheAccessModes }}
+    storageClassName: {{ .Values.replicationStorageClassName }}
+    accessModes: {{ .Values.accessModes }}
+    moverSecurityContext: {{ .Values.moverSecurityContext | toYaml | nindent 6 }}
+    retain: {{ .Values.snapshotRetention | toYaml | nindent 6 }}
+
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: {{ .Values.pvcName }}-volsync-minio-dest
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: "{{ .Values.pvcName }}-volsync-minio"
+    copyMethod: Snapshot # must be Snapshot
+    volumeSnapshotClassName: {{ .Values.volumeSnapshotClassName }}
+    cacheCapacity: {{ .Values.cacheCapacity }}
+    cacheStorageClassName: {{ .Values.cacheStorageClassName }}
+    cacheAccessModes: {{ .Values.cacheAccessModes }}
+    storageClassName: {{ .Values.replicationStorageClassName }}
+    accessModes: {{ .Values.accessModes }}
+    capacity: {{ .Values.storageRequest }}
+    moverSecurityContext: {{ .Values.moverSecurityContext | toYaml | nindent 6 }}

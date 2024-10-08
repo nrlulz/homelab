@@ -1,0 +1,14 @@
+ingress-nginx:
+  controller:
+    kind: DaemonSet
+    watchIngressWithoutClass: true
+    service:
+      type: LoadBalancer
+      externalTrafficPolicy: Local
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: 192.168.1.29
+    extraArgs:
+      default-ssl-certificate: ingress-nginx/wildcard-tls
+    config:
+      force-ssl-redirect: true
+      proxy-body-size: 0

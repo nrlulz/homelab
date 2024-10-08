@@ -1,0 +1,7 @@
+apiVersion: v2
+name: sabnzbd
+version: 0.0.0
+dependencies:
+  - name: pvc
+    version: 0.0.0
+    repository: file://../../charts/pvc

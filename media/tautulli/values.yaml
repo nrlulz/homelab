@@ -1,0 +1,3 @@
+pvc:
+  pvcName: tautulli-data
+  storageRequest: 4Gi

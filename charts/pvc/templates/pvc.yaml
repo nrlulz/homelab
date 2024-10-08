@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.pvcName }}
+spec:
+  accessModes: {{ .Values.accessModes }}
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: "{{ .Values.pvcName }}-volsync-minio-dest"
+  resources:
+    requests:
+      storage: {{ .Values.storageRequest }}
+  storageClassName: {{ .Values.storageClassName }}

@@ -1,0 +1,41 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: {{ .Values.pvcName }}-volsync-b2
+  annotations:
+    sealedsecrets.bitnami.com/cluster-wide: "true"
+spec:
+  template:
+    # be careful mixing helm and sealedsecrets templates here
+    # to escape the double curlies, use {{ "{{" }} and {{ "}}" }}
+    # https://github.com/helm/helm/issues/2798#issuecomment-326454957
+    data:
+      RESTIC_REPOSITORY: s3:{{ "{{" }} .bucket {{ "}}" }}/{{ .Values.pvcName }}
+  encryptedData:
+    bucket: AgCX3+VKV5Yviv+t8Alwmyk2KoBuJyxt/R5iCXV/aKQ84CCoTXA5dKhhU3CQopJK2d4wOtS5gcWsukeYDCUxFtS17RM/XW1L0VLvmVMbCZQ3y8QIomTHi1znFrF+j9zSnGAyFGnzzm0wWNIBkfdylK+yzrEO6qeMPcaUhvp+PXOAKaCK1aX1PvKRc4HKqvKDVf9rSGVbVKK7Sg7QFJegDZ5uoD2mE+C4Wzv5kTj9vhFv636ktZ2OvyWcSTbfGkFelvRJbc9EXjm7NDKAt2aWQXATHDno3mEEOKTJ6ktI2RGGX4N4MaXdpbFLhK057txcyyzQL/n2gdcwSexRsZwGrX306IbZxDxN7jRJqZYmFJb3BBTgtw+oUjjpFoZqXJb1ePAUDtDNFVc1Y+B0DDin9enOmIWbMCz7UZfstMYGzps3VtNEMouZOgzfPReys+svsWDsJp6qBigtR+bx3fj3Lc4d/2wmf1ekv1aKHKdoO5eZ6If1UB6DGje3pCoWaGwr4IdwD/bJXs1MxwyrP1tyT4Uiv6JDDlGUyulNoA6HWcCv8uFBP6DtxqAMhjMpbRWFjpvs0OYiQfXU2nJrc5f/lEIJQhZPQoWCRASlrmf5ojdU8C3Wz7lfXmHCN1Kll0QiMQ8r5SZkMkEXSm93PlIjFBI7UqV2eVgLNGr8KT51zkUnEK/H/IgYiDqrdp1NkOO6+LxBXvqsHKgK/0vaQA31DBe37XdoENpoVhq+I+/q4hqAN6ytXvhWTq7QDZb8dtoxaBK98jufX6PDbRaQFj0=
+    RESTIC_PASSWORD: AgCr7U35cRaP6Xypj/UbA63+PwkCIAGpOsBYIEuTkd/Tvqk24+7Lwq6j/pvRvejctzmuo30ZIt6m2+g9Jbkmd6j8GS4WF/5AJ68s28DCFequzlfFDiEvayk3tF1rP9FkxSVOoEyuMhpiv3o/n0UayTcvuelFlhXRFS/HvIrqaurGY7fBmrEIof3tDpLkin6xieDRCUH93gm71TscSNR30OFyE2L/YjWAv9AEt5cPpm2NWiiXHrcn67fN87oUrefdK+rGuNUpx0vaIBwFR21C5B5IsuYvo+KwuvJjgUPTSdJiOvnaodrh6HnLs+BowIevEKGVvXmq4romLZIH6TU5z12QuQED8f96al4/blS3G789BbUeFtCJ5t0c2ZldRbuqlQUbCFPjRl6fBy3b9RtX0L3VIgXxtiBi0SDSAtLHKR1OgOqK7434PwJoligTozBaPoT0QtZUa+bqzgSlVJztyNJQgrrne0bam+Vo8108NOM7IZ6MzAWY2YeVd2iWbzh1y4rI1Hh5PfJ9LdO+wjpmG7aKOwlrwxle9rg1DlfUgA3bmZ3qA/QvUfplG8rgFMoHNRcSFDgZYMkUThDO+elbm/U2ClPvyMCjeBAw1OCShRujFEoJ2nyEkAIu7NDlSIBKZgCly1N974BK6SEpiWoRrP+Eg8yHVgW9CqCsAsYnCt73Q4B4Gw87j22CmVZum1rGEcz60FXkx0gcLhI8OVF953C2Lax2qA==
+    AWS_ACCESS_KEY_ID: AgAMSU8XOhuW1FbCdfKzYyBWcKqu7MXs6XtIJyIVdcAAhL8sHRt4noFZP2M2NLlhXxjpHtjXgIjEbJhvNsfMm9vt6yZDBO43w2j9fi/OuD8ZbtZJVCvBJu7NXvFn9/zs2cCxsfN1RhjqRRzgvpTH9QCkoG6HTKJMqRSZkgLAlUDpcH18vOqwCBYVL5zImI9RXzbpCJEDYp74yi+oZr4U7nJuc2/R5YfH3zvzPVLY+6Y0G+Mle7BxPuedj4jyaa5XmcPUNkyNQgTeGTaR3Yj02T59CKHxYzVMj7Q8XMhPrc9ozluO1SkBkp3Rjb6hp3QJZzcvBzlnogrtO516SUswhakKo5QxzkoL94iAtl6viSXSKx6rSEFAEIJh1X6CH8NOgu1cAvLVIhfx2k/p6ro/KPGhX5wmtk5713nys7UFEohfld0gnW5ay8TM/Bv4EjGU29tKWE5GyfzDzKP772m6wGNJ1MoiPHTECbO3HXAWHvgpcFh5aykk7nNTQShahluxSex4F3JizAHKQkzBpP93p2+y9oP7TNIwFOB+inv11jX8TuzxGPF2V/UzaHr2XmzwQHsFHue+K4nza+v9VFFCLpWojWHa+qxaK7yDuIKaBp1jDpAQEaVIfr54qr+UvVkmUd6p8Bj0rDYfuSoUGCMUJwDTJEl8ixyGfs5nadv0/CQA5B/kU5bMOdggYfDfqdulvbYIjE3sgOOSxicHsYSzVQpCjsFbNo9HMBP7
+    AWS_SECRET_ACCESS_KEY: AgBF9j5NaJKrdWzBmyK+SMl+K50yvPFbQJVzhOSTw5z+Rbaro6yEWN51suq781ZhJ22WALDO0AostDGH5pqKfzWVKMlJ1vz4fsCweO5Ti1m2auJsRd9T+UoJPtwP9WgIM25PrTQ8aoIjhAHJiLavPcV29L1MHB2S74N7jW/LqdyzgokpgcBpSyfRGtc8Pqd+y19P58UxuqGAn/pH7VDNrEpsAfZjroIrh0TvGG/jataYe1pge0lGqb7oa9z0mvzRkuJE2oYGKVuJC8gkL36S+rRvx6XlvswLTpIFLjHJytJll/uSnxxN0jJ8vbkRVOYaxeQ4NGXMQScGjzNvuRCcxwUUNHIkkEq7Q5IsPeqe1Wjta79YBqJjmKlB/EBidiQs9po869ndIJYOpvX//LLIH5+D+zOyGttPW09sqaRI4HLyLb+rUPyB1DSM7YXg6Aq8SLQWjhPlHV4MvxEDuF0TSJ0mm1y4DXNJu5yl6gjW1ftfYc4ckai/iP7zLsGDEvi7tfAZoCk9YIfQEhj6RcIlB5Rv0TyHhCfCzUNfHC+vfuAE4J/oa5Tr5TvuKyWi7tP+O0PmEYPB+xuoHyqfwJiUPkj5aIgMVCYlOeVpUl8pudQZGdOwn69+gc6Xr5Ol3G3xYjVNBViBlYU4Cb6HSAlLhcBludCt/b5q2yxsFXxV1eLPjRKpRfT/1eR66761WJrGiErI8UfEfZSOF2+9c9p9pj2hEFAOLr7xpuWxR0EjrN/i
+
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: {{ .Values.pvcName }}-volsync-b2-src
+spec:
+  sourcePVC: {{ .Values.pvcName }}
+  trigger:
+    # daily at 12:00 utc
+    schedule: "0 12 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: "{{ .Values.pvcName }}-volsync-b2"
+    volumeSnapshotClassName: {{ .Values.volumeSnapshotClassName }}
+    cacheCapacity: {{ .Values.cacheCapacity }}
+    cacheStorageClassName: {{ .Values.cacheStorageClassName }}
+    cacheAccessModes: {{ .Values.cacheAccessModes }}
+    storageClassName: {{ .Values.replicationStorageClassName }}
+    accessModes: {{ .Values.accessModes }}
+    moverSecurityContext: {{ .Values.moverSecurityContext | toYaml | nindent 6 }}
+    retain: {{ .Values.snapshotRetention | toYaml | nindent 6 }}
