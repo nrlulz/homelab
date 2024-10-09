@@ -24,8 +24,8 @@ metadata:
 spec:
   sourcePVC: {{ .Values.pvcName }}
   trigger:
-    # every hour on the hour
-    schedule: "0 * * * *"
+    # daily at 11:00 utc
+    schedule: "0 11 * * *"
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 7
