@@ -4,7 +4,7 @@ spec:
   source:
     repoURL: https://github.com/nrlulz/homelab
     targetRevision: master
-  automatedSync: false
+  automatedSync: true
 
 allApps:
   managedNamespaceMetadata:
