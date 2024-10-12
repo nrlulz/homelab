@@ -22,7 +22,7 @@ spec:
                     operator: "Exists"
       containers:
         - name: zwave-js-ui
-          image: zwavejs/zwave-js-ui:9.21.1
+          image: zwavejs/zwave-js-ui:9.22.0
           livenessProbe:
             failureThreshold: 10
             httpGet:
