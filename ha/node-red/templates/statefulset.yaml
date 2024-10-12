@@ -21,7 +21,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: node-red
-          image: nodered/node-red:4.0.3
+          image: nodered/node-red:4.0.5
           securityContext:
             allowPrivilegeEscalation: false
             capabilities: { drop: ["ALL"] }
