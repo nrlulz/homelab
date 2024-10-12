@@ -12,3 +12,9 @@ ingress-nginx:
     config:
       force-ssl-redirect: true
       proxy-body-size: 0
+      worker-shutdown-timeout: 60s
+    metrics:
+      enabled: true
+    podAnnotations:
+      prometheus.io/port: "10254"
+      prometheus.io/scrape: "true"
