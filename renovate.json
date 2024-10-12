@@ -13,6 +13,7 @@
       "\\.ya?ml$"
     ]
   },
+  "ignoreTests": true,
   "packageRules": [
     {
       "matchUpdateTypes": [
