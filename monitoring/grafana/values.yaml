@@ -12,3 +12,5 @@ grafana:
   persistence:
     enabled: true
     existingClaim: grafana-data
+  deploymentStrategy:
+    type: Recreate
