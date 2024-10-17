@@ -28,17 +28,13 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /config
-            - name: downloads
-              mountPath: /downloads
-            - name: series
-              mountPath: /mnt/tank/Series
+            - name: media
+              mountPath: /mnt/media
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: sonarr-data
-        - name: downloads
-          persistentVolumeClaim:
-            claimName: sonarr-downloads
-        - name: series
-          persistentVolumeClaim:
-            claimName: sonarr-series
+        - name: media
+          nfs:
+            path: /mnt/media
+            server: nas.internal

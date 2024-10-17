@@ -33,11 +33,12 @@ spec:
             - name: data
               mountPath: /config
             - name: downloads
-              mountPath: /downloads
+              mountPath: /mnt/media/downloads
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: sabnzbd-data
         - name: downloads
-          persistentVolumeClaim:
-            claimName: sabnzbd-downloads
+          nfs:
+            path: /mnt/media/downloads
+            server: nas.internal

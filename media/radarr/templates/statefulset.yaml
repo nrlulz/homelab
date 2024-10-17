@@ -28,17 +28,13 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /config
-            - name: downloads
-              mountPath: /downloads
-            - name: movies
-              mountPath: /mnt/tank/Movies
+            - name: media
+              mountPath: /mnt/media
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: radarr-data
-        - name: downloads
-          persistentVolumeClaim:
-            claimName: radarr-downloads
-        - name: movies
-          persistentVolumeClaim:
-            claimName: radarr-movies
+        - name: media
+          nfs:
+            path: /mnt/media
+            server: nas.internal
