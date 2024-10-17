@@ -39,11 +39,9 @@ spec:
             - name: transcode
               mountPath: /transcode
             - name: music
-              mountPath: /mnt/tank/Music
-            - name: movies
-              mountPath: /mnt/tank/Movies
-            - name: series
-              mountPath: /mnt/tank/Series
+              mountPath: /mnt/data/music
+            - name: media
+              mountPath: /mnt/media
           resources:
             requests:
               gpu.intel.com/i915: 1
@@ -61,11 +59,10 @@ spec:
         - name: transcode
           emptyDir: {}
         - name: music
-          persistentVolumeClaim:
-            claimName: plex-music
-        - name: movies
-          persistentVolumeClaim:
-            claimName: plex-movies
-        - name: series
-          persistentVolumeClaim:
-            claimName: plex-series
+          nfs:
+            path: /mnt/data/music
+            server: nas.internal
+        - name: media
+          nfs:
+            path: /mnt/media
+            server: nas.internal
