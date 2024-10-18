@@ -245,8 +245,9 @@ spec:
           persistentVolumeClaim:
             claimName: nextcloud-html
         - name: nextcloud-data
-          persistentVolumeClaim:
-            claimName: nextcloud-data
+          nfs:
+            path: /mnt/data/nextcloud
+            server: nas.internal
         - name: nextcloud-nginx-conf
           configMap:
             name: nextcloud-nginx-conf

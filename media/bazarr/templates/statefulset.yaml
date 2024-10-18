@@ -28,17 +28,14 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /config
-            - name: movies
-              mountPath: /movies
-            - name: series
-              mountPath: /tv
+            - name: media
+              mountPath: /mnt/media
+              readOnly: true
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: bazarr-data
-        - name: movies
-          persistentVolumeClaim:
-            claimName: bazarr-movies
-        - name: series
-          persistentVolumeClaim:
-            claimName: bazarr-series
+        - name: media
+          nfs:
+            path: /mnt/media
+            server: nas.internal

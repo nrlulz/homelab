@@ -115,8 +115,9 @@ spec:
           persistentVolumeClaim:
             claimName: paperless-media
         - name: inbox
-          persistentVolumeClaim:
-            claimName: paperless-inbox
+          nfs:
+            path: /mnt/data/paperless_inbox
+            server: nas.internal
 
 ---
 apiVersion: v1

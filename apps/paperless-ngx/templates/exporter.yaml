@@ -43,5 +43,6 @@ spec:
               persistentVolumeClaim:
                 claimName: paperless-media
             - name: exports
-              persistentVolumeClaim:
-                claimName: paperless-exports
+              nfs:
+                path: /mnt/data/paperless_exports
+                server: nas.internal
