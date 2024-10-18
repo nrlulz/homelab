@@ -1,3 +1,40 @@
 pvc:
   pvcName: sonarr-data
   storageRequest: 2Gi
+
+app-template:
+  controllers:
+    sonarr:
+      containers:
+        sonarr:
+          image:
+            repository: lscr.io/linuxserver/sonarr
+            tag: 4.0.9
+          env:
+            PUID: "1000"
+            PGID: "1000"
+            TZ: "Etc/UTC"
+          ports:
+            - containerPort: 8989
+  service:
+    sonarr:
+      controller: sonarr
+      ports:
+        http:
+          port: 8989
+  ingress:
+    sonarr:
+      hosts:
+        - host: sonarr.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: sonarr
+                port: http
+  persistence:
+    config:
+      existingClaim: sonarr-data
+    media:
+      type: nfs
+      server: nas.internal
+      path: /mnt/media
