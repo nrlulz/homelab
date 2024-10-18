@@ -38,3 +38,5 @@ app-template:
       type: nfs
       server: nas.internal
       path: /mnt/media
+      globalMounts:
+        - path: /mnt/media
