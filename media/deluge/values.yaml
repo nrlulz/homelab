@@ -17,7 +17,6 @@ app-template:
             DEBUG: "false"
             PUID: "1000"
             PGID: "1000"
-            UMASK: "022"
             VPN_ENABLED: "yes"
             VPN_PROV: "pia"
             VPN_CLIENT: "wireguard"
