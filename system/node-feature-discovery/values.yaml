@@ -4,8 +4,9 @@ node-feature-discovery:
       sources:
         usb:
           deviceClassWhitelist:
-            - "02"
-            - "0e"
-            - "ef"
-            - "fe"
-            - "ff"
+            # https://www.usb.org/defined-class-codes
+            - "02"  # Communications and CDC Control
+            - "0e"  # Video
+            - "ef"  # Miscellaneous
+            - "fe"  # Application Specific
+            - "ff"  # Vendor Specific
