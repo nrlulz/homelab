@@ -9,15 +9,16 @@ spec:
 
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: db
 spec:
-  serviceName: db
   selector:
     matchLabels:
       app: db
   replicas: 1
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:

@@ -1,13 +1,14 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: zigbee2mqtt
 spec:
-  serviceName: zigbee2mqtt
   selector:
     matchLabels:
       app: zigbee2mqtt
   replicas: 1
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:

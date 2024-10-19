@@ -1,13 +1,14 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: node-red
 spec:
-  serviceName: node-red
   selector:
     matchLabels:
       app: node-red
   replicas: 1
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:

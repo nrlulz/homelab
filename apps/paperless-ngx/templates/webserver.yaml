@@ -70,15 +70,16 @@ data:
 
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: webserver
 spec:
-  serviceName: webserver
   selector:
     matchLabels:
       app: webserver
   replicas: 1
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:

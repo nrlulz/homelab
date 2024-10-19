@@ -160,7 +160,7 @@ data:
 
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/component: app
@@ -169,8 +169,9 @@ metadata:
   name: nextcloud
   namespace: nextcloud
 spec:
-  serviceName: nextcloud
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/component: app
