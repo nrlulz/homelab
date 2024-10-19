@@ -1,3 +1,36 @@
 pvc:
   pvcName: tautulli-data
   storageRequest: 4Gi
+
+app-template:
+  controllers:
+    tautulli:
+      containers:
+        tautulli:
+          image:
+            repository: lscr.io/linuxserver/tautulli
+            tag: 2.14.6
+          env:
+            PUID: "1000"
+            PGID: "1000"
+            TZ: "Etc/UTC"
+          ports:
+            - containerPort: 8181
+  service:
+    tautulli:
+      controller: tautulli
+      ports:
+        http:
+          port: 8181
+  ingress:
+    tautulli:
+      hosts:
+        - host: tautulli.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: tautulli
+                port: http
+  persistence:
+    config:
+      existingClaim: tautulli-data

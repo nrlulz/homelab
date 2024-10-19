@@ -1,3 +1,57 @@
 pvc:
   pvcName: privoxy-data
   storageRequest: 128Mi
+
+app-template:
+  controllers:
+    privoxy:
+      containers:
+        privoxy:
+          image:
+            repository: binhex/arch-privoxyvpn
+            tag: 3.0.34-2-05
+          envFrom:
+            - secretRef:
+                name: privoxy-vpn-credentials
+          env:
+            DEBUG: "false"
+            PUID: "1000"
+            PGID: "1000"
+            UMASK: "000"
+            ENABLE_PRIVOXY: "yes"
+            VPN_ENABLED: "yes"
+            VPN_PROV: "pia"
+            VPN_CLIENT: "wireguard"
+            LAN_NETWORK: "192.168.1.0/24,10.0.0.0/8"
+            NAME_SERVERS: "1.1.1.1,1.0.0.1"
+          ports:
+            - containerPort: 8118
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+                - SYS_MODULE
+            privileged: true # required for wireguard
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                exec:
+                  command:
+                    - /bin/sh
+                    - -c
+                    - curl --fail --proxy http://localhost:8118 https://jsonip.com || exit 1
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                timeoutSeconds: 10
+                failureThreshold: 20
+  service:
+    privoxy:
+      controller: privoxy
+      ports:
+        http:
+          port: 8118
+  persistence:
+    config:
+      existingClaim: privoxy-data

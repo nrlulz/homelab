@@ -6,3 +6,79 @@ pvc:
     runAsUser: 1000
     runAsGroup: 1000
     fsGroup: 1000
+
+app-template:
+  defaultPodOptions:
+    securityContext:
+      fsGroup: 1000
+  controllers:
+    plex:
+      containers:
+        plex:
+          image:
+            repository: plexinc/pms-docker
+            tag: 1.41.0.8994-f2c27da23
+          env:
+            ADVERTISE_IP: "https://plex.neils.house:443,http://192.168.1.28:32400"
+            PLEX_UID: "1000"
+            PLEX_GID: "1000"
+            TZ: "America/Los_Angeles"
+          ports:
+            - containerPort: 32400
+          resources:
+            requests:
+              gpu.intel.com/i915: 1
+            limits:
+              gpu.intel.com/i915: 1
+  service:
+    plex:
+      controller: plex
+      type: LoadBalancer
+      externalTrafficPolicy: Local
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: 192.168.1.28
+      ports:
+        http:
+          port: 32400
+  ingress:
+    plex:
+      annotations:
+        nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+      hosts:
+        - host: plex.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: plex
+                port: http
+  persistence:
+    cache:
+      storageClass: longhorn-ephemeral
+      size: 8Gi
+      accessMode: ReadWriteOnce
+      globalMounts:
+        - path: /config/Library/Application Support/Plex Media Server/Cache
+    data:
+      existingClaim: plex-data
+      globalMounts:
+        - path: /config/Library/Application Support/Plex Media Server
+    logs:
+      type: emptyDir
+      globalMounts:
+        - path: /config/Library/Application Support/Plex Media Server/Logs
+    media:
+      type: nfs
+      server: nas.internal
+      path: /mnt/media
+      globalMounts:
+        - path: /mnt/media
+    music:
+      type: nfs
+      server: nas.internal
+      path: /mnt/data/music
+      globalMounts:
+        - path: /mnt/data/music
+    tmp:
+      type: emptyDir
+    transcode:
+      type: emptyDir

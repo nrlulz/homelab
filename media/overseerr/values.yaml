@@ -1,3 +1,36 @@
 pvc:
   pvcName: overseerr-data
   storageRequest: 128Mi
+
+app-template:
+  controllers:
+    overseerr:
+      containers:
+        overseerr:
+          image:
+            repository: lscr.io/linuxserver/overseerr
+            tag: 1.33.2
+          env:
+            PUID: "1000"
+            PGID: "1000"
+            TZ: "Etc/UTC"
+          ports:
+            - containerPort: 5055
+  service:
+    overseerr:
+      controller: overseerr
+      ports:
+        http:
+          port: 5055
+  ingress:
+    overseerr:
+      hosts:
+        - host: requests.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: overseerr
+                port: http
+  persistence:
+    config:
+      existingClaim: overseerr-data

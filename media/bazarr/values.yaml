@@ -1,3 +1,42 @@
 pvc:
   pvcName: bazarr-data
   storageRequest: 128Mi
+
+app-template:
+  controllers:
+    bazarr:
+      containers:
+        bazarr:
+          image:
+            repository: lscr.io/linuxserver/bazarr
+            tag: 1.4.5
+          env:
+            PUID: "1000"
+            PGID: "1000"
+            TZ: "Etc/UTC"
+          ports:
+            - containerPort: 6767
+  service:
+    bazarr:
+      controller: bazarr
+      ports:
+        http:
+          port: 6767
+  ingress:
+    bazarr:
+      hosts:
+        - host: bazarr.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: bazarr
+                port: http
+  persistence:
+    config:
+      existingClaim: bazarr-data
+    media:
+      type: nfs
+      server: nas.internal
+      path: /mnt/media
+      globalMounts:
+        - path: /mnt/media

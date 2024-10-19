@@ -1,3 +1,62 @@
 pvc:
   pvcName: deluge-data
   storageRequest: 128Mi
+
+app-template:
+  controllers:
+    deluge:
+      containers:
+        deluge:
+          image:
+            repository: binhex/arch-delugevpn
+            tag: 2.1.1-4-09
+          envFrom:
+            - secretRef:
+                name: deluge-vpn-credentials
+          env:
+            DEBUG: "false"
+            PUID: "1000"
+            PGID: "1000"
+            VPN_ENABLED: "yes"
+            VPN_PROV: "pia"
+            VPN_CLIENT: "wireguard"
+            LAN_NETWORK: "192.168.1.0/24"
+            NAME_SERVERS: "1.1.1.1,1.0.0.1"
+            STRICT_PORT_FORWARD: "yes"
+            DELUGE_DAEMON_LOG_LEVEL: "info"
+            DELUGE_WEB_LOG_LEVEL: "info"
+            DELUGE_ENABLE_WEBUI_PASSWORD: "yes"
+          ports:
+            - containerPort: 8112
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+                - SYS_MODULE
+            privileged: true # required for wireguard
+  service:
+    deluge:
+      controller: deluge
+      ports:
+        http:
+          port: 8112
+  ingress:
+    deluge:
+      annotations:
+        nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
+      hosts:
+        - host: deluge.internal.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: deluge
+                port: http
+  persistence:
+    config:
+      existingClaim: deluge-data
+    downloads:
+      type: nfs
+      server: nas.internal
+      path: /mnt/media/downloads
+      globalMounts:
+        - path: /mnt/media/downloads

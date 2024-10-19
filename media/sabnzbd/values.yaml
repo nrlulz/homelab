@@ -1,3 +1,58 @@
 pvc:
   pvcName: sabnzbd-data
   storageRequest: 128Mi
+
+app-template:
+  controllers:
+    sabnzbd:
+      containers:
+        sabnzbd:
+          image:
+            repository: binhex/arch-sabnzbdvpn
+            tag: 4.3.2-1-06
+          envFrom:
+            - secretRef:
+                name: sabnzbd-vpn-credentials
+          env:
+            DEBUG: "false"
+            PUID: "1000"
+            PGID: "1000"
+            VPN_ENABLED: "yes"
+            VPN_PROV: "pia"
+            VPN_CLIENT: "wireguard"
+            LAN_NETWORK: "192.168.1.0/24"
+            NAME_SERVERS: "1.1.1.1,1.0.0.1"
+          ports:
+            - containerPort: 8080
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+                - SYS_MODULE
+            privileged: true # required for wireguard
+  service:
+    sabnzbd:
+      controller: sabnzbd
+      ports:
+        http:
+          port: 8080
+  ingress:
+    sabnzbd:
+      annotations:
+        nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
+      hosts:
+        - host: sabnzbd.internal.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: sabnzbd
+                port: http
+  persistence:
+    config:
+      existingClaim: sabnzbd-data
+    downloads:
+      type: nfs
+      server: nas.internal
+      path: /mnt/media/downloads
+      globalMounts:
+        - path: /mnt/media/downloads
