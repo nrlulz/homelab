@@ -27,8 +27,6 @@ app-template:
                 - ALL
           env:
             TZ: "America/Los_Angeles"
-          ports:
-            - containerPort: 1880
   service:
     node-red:
       controller: node-red

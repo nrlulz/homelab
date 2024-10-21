@@ -14,8 +14,6 @@ app-template:
             PUID: "1000"
             PGID: "1000"
             TZ: "Etc/UTC"
-          ports:
-            - containerPort: 9696
   service:
     prowlarr:
       controller: prowlarr

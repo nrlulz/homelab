@@ -14,8 +14,6 @@ app-template:
             PUID: "1000"
             PGID: "1000"
             TZ: "Etc/UTC"
-          ports:
-            - containerPort: 6767
   service:
     bazarr:
       controller: bazarr

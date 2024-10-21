@@ -23,8 +23,6 @@ app-template:
             PLEX_UID: "1000"
             PLEX_GID: "1000"
             TZ: "America/Los_Angeles"
-          ports:
-            - containerPort: 32400
           resources:
             requests:
               gpu.intel.com/i915: 1

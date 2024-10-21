@@ -26,8 +26,6 @@ app-template:
             DELUGE_DAEMON_LOG_LEVEL: "info"
             DELUGE_WEB_LOG_LEVEL: "info"
             DELUGE_ENABLE_WEBUI_PASSWORD: "yes"
-          ports:
-            - containerPort: 8112
           securityContext:
             capabilities:
               add:
