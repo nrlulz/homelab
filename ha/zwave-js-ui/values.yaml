@@ -2,5 +2,68 @@ pvc:
   pvcName: zwave-js-ui-data
   storageRequest: 128Mi
 
-nodeSelectorKey: "feature.node.kubernetes.io/usb-02_0658_0200.present"
-controllerPath: "/dev/serial/by-id/usb-0658_0200-if00"
+controllerPath: &controllerPath "/dev/serial/by-id/usb-0658_0200-if00"
+
+app-template:
+  defaultPodOptions:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: "feature.node.kubernetes.io/usb-02_0658_0200.present"
+                  operator: "Exists"
+  controllers:
+    zwave-js-ui:
+      containers:
+        zwave-js-ui:
+          image:
+            repository: zwavejs/zwave-js-ui
+            tag: 9.24.0
+          securityContext:
+            privileged: true
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                failureThreshold: 10
+                httpGet:
+                  httpHeaders:
+                    - name: Accept
+                      value: text/plain
+                  path: /health
+                  port: 8091
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+  service:
+    zwave-js-ui:
+      controller: zwave-js-ui
+      ports:
+        web-ui:
+          port: 8091
+        websocket:
+          port: 3000
+  ingress:
+    zwave-js-ui:
+      annotations:
+        nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
+      hosts:
+        - host: zwave.internal.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: zwave-js-ui
+                port: web-ui
+  persistence:
+    config:
+      existingClaim: zwave-js-ui-data
+      globalMounts:
+        - path: /usr/src/app/store
+    controller:
+      type: hostPath
+      hostPath: *controllerPath
+      hostPathType: CharDevice
+

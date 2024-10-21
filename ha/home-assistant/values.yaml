@@ -5,3 +5,69 @@ pvc:
     runAsUser: 1000
     runAsGroup: 1000
     fsGroup: 1000
+
+app-template:
+  controllers:
+    home-assistant:
+      containers:
+        home-assistant:
+          image:
+            repository: homeassistant/home-assistant
+            tag: 2024.10.3
+          env:
+            PUID: "1000"
+            PGID: "1000"
+            TZ: "America/Los_Angeles"
+          ports:
+            - containerPort: 8123
+        code-server:
+          image:
+            repository: ghcr.io/coder/code-server
+            tag: 4.93.1
+          args:
+            - --auth
+            - none
+            - --user-data-dir
+            - /config/.vscode
+            - --extensions-dir
+            - /config/.vscode
+            - /config
+          ports:
+            - containerPort: 8080
+  service:
+    home-assistant:
+      controller: home-assistant
+      ports:
+        code-server:
+          port: 8080
+        http:
+          port: 8123
+  ingress:
+    home-assistant:
+      hosts:
+        - host: ha.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: home-assistant
+                port: http
+    code-server:
+      hosts:
+        - host: ha-code.internal.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: home-assistant
+                port: code-server
+  persistence:
+    config:
+      existingClaim: home-assistant-data
+      globalMounts:
+        - path: /config
+      advancedMounts:
+        home-assistant:
+          home-assistant:
+            # https://github.com/tribut/homeassistant-docker-venv
+            - path: /etc/services.d/home-assistant/run
+              subPath: docker/run
+              readOnly: true

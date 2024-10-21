@@ -4,3 +4,48 @@ pvc:
   moverSecurityContext:
     runAsUser: 1000
     runAsGroup: 1000
+
+app-template:
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      seccompProfile:
+        type: RuntimeDefault
+  controllers:
+    node-red:
+      containers:
+        node-red:
+          image:
+            repository: nodered/node-red
+            tag: 4.0.5
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          env:
+            TZ: "America/Los_Angeles"
+          ports:
+            - containerPort: 1880
+  service:
+    node-red:
+      controller: node-red
+      ports:
+        http:
+          port: 1880
+  ingress:
+    node-red:
+      annotations:
+        nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
+      hosts:
+        - host: node-red.internal.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: node-red
+                port: http
+  persistence:
+    data:
+      existingClaim: node-red-data

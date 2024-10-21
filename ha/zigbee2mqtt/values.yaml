@@ -2,5 +2,54 @@ pvc:
   pvcName: zigbee2mqtt-data
   storageRequest: 128Mi
 
-nodeSelectorKey: "feature.node.kubernetes.io/usb-ff_10c4_ea60.present"
-coordinatorPath: "/dev/serial/by-id/usb-Nabu_Casa_SkyConnect_v1.0_6abf56c1aa9ced11b8937afaa7669f5d-if00-port0"
+coordinatorPath: &coordinatorPath "/dev/serial/by-id/usb-Nabu_Casa_SkyConnect_v1.0_6abf56c1aa9ced11b8937afaa7669f5d-if00-port0"
+
+app-template:
+  defaultPodOptions:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: "feature.node.kubernetes.io/usb-ff_10c4_ea60.present"
+                  operator: "Exists"
+  controllers:
+    zigbee2mqtt:
+      containers:
+        zigbee2mqtt:
+          image:
+            repository: koenkk/zigbee2mqtt
+            tag: 1.40.2
+          envFrom:
+            - configMapRef:
+                name: zigbee2mqtt
+            - secretRef:
+                name: zigbee2mqtt
+          ports:
+            - containerPort: 8080
+          securityContext:
+            privileged: true
+  service:
+    zigbee2mqtt:
+      controller: zigbee2mqtt
+      ports:
+        http:
+          port: 8080
+  ingress:
+    zigbee2mqtt:
+      annotations:
+        nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
+      hosts:
+        - host: zigbee.internal.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: zigbee2mqtt
+                port: http
+  persistence:
+    config:
+      existingClaim: zigbee2mqtt-data
+    coordinator:
+      type: hostPath
+      hostPath: *coordinatorPath
+      hostPathType: CharDevice
