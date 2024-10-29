@@ -1,0 +1,78 @@
+pvc:
+  pvcName: recyclarr-data
+  storageRequest: 128Mi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+
+app-template:
+  configMaps:
+    recyclarr:
+      data:
+        recyclarr.yml: |
+          radarr:
+            radarr:
+              base_url: http://radarr.radarr.svc.cluster.local:7878
+              api_key: !env_var RADARR_API_KEY
+
+              quality_profiles:
+                - name: SQP-1 (1080p)
+
+              include:
+                - template: radarr-quality-definition-sqp-streaming
+                - template: radarr-quality-profile-sqp-1-1080p
+                - template: radarr-custom-formats-sqp-1-1080p
+
+          sonarr:
+            sonarr:
+              base_url: http://sonarr.sonarr.svc.cluster.local:8989
+              api_key: !env_var SONARR_API_KEY
+
+              include:
+                - template: sonarr-quality-definition-series
+                - template: sonarr-v4-quality-profile-web-1080p
+                - template: sonarr-v4-custom-formats-web-1080p
+
+  defaultPodOptions:
+    securityContext:
+      fsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      seccompProfile:
+        type: RuntimeDefault
+  controllers:
+    recyclarr:
+      type: cronjob
+      cronjob:
+        schedule: "0 0 * * *"
+        timeZone: "America/Los_Angeles"
+      containers:
+        recyclarr:
+          image:
+            repository: ghcr.io/recyclarr/recyclarr
+            tag: 7.2.4
+          args:
+            - sync
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          env:
+            TZ: "America/Los_Angeles"
+          envFrom:
+            - secret: recyclarr
+  persistence:
+    config:
+      existingClaim: recyclarr-data
+    config-yml:
+      type: configMap
+      name: recyclarr
+      globalMounts:
+        - path: /config/recyclarr.yml
+          subPath: recyclarr.yml
+          readOnly: true
+    tmp:
+      type: emptyDir

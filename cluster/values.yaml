@@ -57,6 +57,8 @@ apps:
 
     - name: radarr
 
+    - name: recyclarr
+
     - name: sabnzbd
       managedNamespaceMetadata:
         labels:
