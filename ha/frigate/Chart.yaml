@@ -1,0 +1,10 @@
+apiVersion: v2
+name: hello-world
+version: 0.0.0
+dependencies:
+  - name: pvc
+    version: 0.0.0
+    repository: file://../../charts/pvc
+  - name: frigate
+    version: 7.6.0
+    repository: https://blakeblackshear.github.io/blakeshome-charts

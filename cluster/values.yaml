@@ -24,6 +24,8 @@ apps:
 
     - name: home-assistant
 
+    - name: frigate
+
     - name: node-red
 
     - name: zigbee2mqtt
