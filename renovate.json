@@ -13,6 +13,17 @@
       "\\.ya?ml$"
     ]
   },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "bootstrap/talconfig.yaml"
+      ],
+      "matchStrings": [
+        "\\s*# renovate: depName=(?<depName>\\S+) datasource=(?<datasource>\\S+)( repository=(?<registryUrl>\\S+))?\\n\\s*?version: (?<currentValue>\\S+?)\\s"
+      ]
+    }
+  ],
   "ignoreTests": true,
   "packageRules": [
     {
@@ -21,6 +32,21 @@
       ],
       "matchCurrentVersion": "!/^0/",
       "automerge": true
+    },
+    {
+      "description": [
+        "loose versioning for weird version numbers"
+      ],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "binhex/arch-delugevpn",
+        "binhex/arch-privoxyvpn",
+        "binhex/arch-sabnzbdvpn",
+        "plexinc/pms-docker"
+      ],
+      "versioning": "loose"
     }
   ]
 }
