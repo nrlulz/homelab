@@ -21,6 +21,10 @@ prometheus:
         memory: 4Gi
   extraScrapeConfigs: |
     - job_name: 'truenas'
+      metric_relabel_configs:
+        - source_labels: []
+          target_label: node
+          replacement: nas
       static_configs:
         - targets:
           - 192.168.1.10:9100
