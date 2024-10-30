@@ -20,18 +20,28 @@
         "bootstrap/talconfig.yaml"
       ],
       "matchStrings": [
-        "\\s*# renovate: depName=(?<depName>\\S+) datasource=(?<datasource>\\S+)( repository=(?<registryUrl>\\S+))?\\n\\s*?version: (?<currentValue>\\S+?)\\s"
+        "\\s*# renovate: depName=(?<depName>\\S+) datasource=(?<datasource>\\S+)( repository=(?<registryUrl>\\S+))?\\n.*[Vv]ersion: (?<currentValue>\\S+?)\\s"
       ]
     }
   ],
   "ignoreTests": true,
   "packageRules": [
     {
+      "description": "automerge patch updates",
       "matchUpdateTypes": [
         "patch"
       ],
       "matchCurrentVersion": "!/^0/",
       "automerge": true
+    },
+    {
+      "description": "automerge all updates, but only overnight",
+      "matchPackageNames": [
+        "plexinc/pms-docker"
+      ],
+      "automerge": true,
+      "automergeSchedule": "* 3-6 * * *",
+      "timezone": "America/Los_Angeles"
     },
     {
       "description": [
@@ -47,6 +57,17 @@
         "plexinc/pms-docker"
       ],
       "versioning": "loose"
+    },
+    {
+      "description": "don't automerge talos updates",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "ghcr.io/siderolabs/installer",
+        "ghcr.io/siderolabs/kubelet"
+      ],
+      "automerge": false
     }
   ]
 }
