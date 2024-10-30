@@ -13,7 +13,7 @@ app-template:
           env:
             PUID: "1000"
             PGID: "1000"
-            TZ: "Etc/UTC"
+            TZ: "America/Los_Angeles"
   service:
     prowlarr:
       controller: prowlarr
