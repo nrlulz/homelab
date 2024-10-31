@@ -104,6 +104,8 @@ apps:
 
     - name: ingress-nginx
 
+    - name: ingress-nginx-internal
+
     - name: intel-gpu-device-plugin
       ignoreDifferences:
         - kind: GpuDevicePlugin

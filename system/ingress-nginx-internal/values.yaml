@@ -1,0 +1,21 @@
+ingress-nginx:
+  controller:
+    kind: DaemonSet
+    ingressClassResource:
+      name: internal
+    service:
+      type: LoadBalancer
+      externalTrafficPolicy: Local
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: 192.168.1.27
+    extraArgs:
+      default-ssl-certificate: ingress-nginx-internal/wildcard-tls
+    config:
+      force-ssl-redirect: true
+      proxy-body-size: 0
+      worker-shutdown-timeout: 60s
+    metrics:
+      enabled: true
+    podAnnotations:
+      prometheus.io/port: "10254"
+      prometheus.io/scrape: "true"
