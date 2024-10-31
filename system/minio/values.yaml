@@ -23,9 +23,19 @@ minio:
     hosts:
       - minio.internal.neils.house
   buckets:
+    - name: loki
+      policy: none
     - name: volsync
       policy: none
   policies:
+    - name: loki-rw
+      statements:
+        - effect: Allow
+          resources:
+            - "arn:aws:s3:::loki"
+            - "arn:aws:s3:::loki/*"
+          actions:
+            - "s3:*"
     - name: volsync-rw
       statements:
         - effect: Allow
@@ -39,6 +49,10 @@ minio:
       existingSecret: minio-admin-password
       existingSecretKey: password
       policy: consoleAdmin
+    - accessKey: loki
+      existingSecret: minio-loki-password
+      existingSecretKey: password
+      policy: loki-rw
     - accessKey: volsync
       existingSecret: minio-volsync-password
       existingSecretKey: password
