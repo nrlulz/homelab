@@ -48,8 +48,7 @@ app-template:
           port: 3000
   ingress:
     zwave-js-ui:
-      annotations:
-        nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
+      className: internal
       hosts:
         - host: zwave.internal.neils.house
           paths:

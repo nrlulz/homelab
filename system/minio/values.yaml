@@ -12,14 +12,12 @@ minio:
     existingClaim: minio
   ingress:
     enabled: true
-    annotations:
-      nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
+    ingressClassName: internal
     hosts:
       - s3.internal.neils.house
   consoleIngress:
     enabled: true
-    annotations:
-      nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
+    ingressClassName: internal
     hosts:
       - minio.internal.neils.house
   buckets:

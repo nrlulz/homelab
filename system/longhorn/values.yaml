@@ -1,8 +1,7 @@
 longhorn:
   ingress:
     enabled: true
-    annotations:
-      nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
+    ingressClassName: internal
     host: longhorn.internal.neils.house
   defaultSettings:
     defaultReplicaCount: 2

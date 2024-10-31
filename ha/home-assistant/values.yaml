@@ -48,6 +48,7 @@ app-template:
                 identifier: home-assistant
                 port: http
     code-server:
+      className: internal
       hosts:
         - host: ha-code.internal.neils.house
           paths:

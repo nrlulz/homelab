@@ -26,6 +26,9 @@ app-template:
             DELUGE_DAEMON_LOG_LEVEL: "info"
             DELUGE_WEB_LOG_LEVEL: "info"
             DELUGE_ENABLE_WEBUI_PASSWORD: "yes"
+          resources:
+            limits:
+              memory: 4Gi
           securityContext:
             capabilities:
               add:
@@ -40,8 +43,7 @@ app-template:
           port: 8112
   ingress:
     deluge:
-      annotations:
-        nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.1.0/24
+      className: internal
       hosts:
         - host: deluge.internal.neils.house
           paths:

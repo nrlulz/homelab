@@ -11,4 +11,3 @@ spec:
   dnsNames:
     - "neils.house"
     - "*.neils.house"
-    - "*.internal.neils.house"
