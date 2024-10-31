@@ -85,7 +85,14 @@ apps:
 
     - name: kubernetes-event-exporter
 
+    - name: loki
+
     - name: prometheus
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+
+    - name: promtail
       managedNamespaceMetadata:
         labels:
           pod-security.kubernetes.io/enforce: privileged
