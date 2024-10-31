@@ -5,7 +5,7 @@ metadata:
 spec:
   ingressClassName: internal
   rules:
-    - host: hello.neils.house
+    - host: hello.internal.neils.house
       http:
         paths:
           - path: /
