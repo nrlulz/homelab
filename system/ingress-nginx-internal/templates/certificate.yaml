@@ -7,6 +7,7 @@ spec:
   issuerRef:
     name: cert-issuer
     kind: ClusterIssuer
-  commonName: "neils.house"
+  commonName: "internal.neils.house"
   dnsNames:
+    - "internal.neils.house"
     - "*.internal.neils.house"
