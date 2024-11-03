@@ -44,17 +44,11 @@ app-template:
         type: RuntimeDefault
   controllers:
     recyclarr:
-      type: cronjob
-      cronjob:
-        schedule: "0 0 * * *"
-        timeZone: "America/Los_Angeles"
       containers:
         recyclarr:
           image:
             repository: ghcr.io/recyclarr/recyclarr
             tag: 7.3.0
-          args:
-            - sync
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
