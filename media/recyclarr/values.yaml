@@ -24,6 +24,12 @@ app-template:
                 - template: radarr-quality-profile-sqp-1-1080p
                 - template: radarr-custom-formats-sqp-1-1080p
 
+              media_naming:
+                folder: plex-imdb
+                movie:
+                  rename: true
+                  standard: plex-imdb
+
           sonarr:
             sonarr:
               base_url: http://sonarr.sonarr.svc.cluster.local:8989
@@ -33,6 +39,15 @@ app-template:
                 - template: sonarr-quality-definition-series
                 - template: sonarr-v4-quality-profile-web-1080p
                 - template: sonarr-v4-custom-formats-web-1080p
+
+              media_naming:
+                season: default
+                series: plex-imdb
+                episodes:
+                  rename: true
+                  standard: default
+                  daily: default
+                  anime: default
 
   defaultPodOptions:
     securityContext:
