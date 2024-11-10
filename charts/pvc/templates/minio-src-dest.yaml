@@ -58,3 +58,5 @@ spec:
     accessModes: {{ .Values.accessModes }}
     capacity: {{ .Values.storageRequest }}
     moverSecurityContext: {{ .Values.moverSecurityContext | toYaml | nindent 6 }}
+    cleanupCachePVC: true
+    cleanupTempPVC: true
