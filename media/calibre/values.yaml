@@ -1,0 +1,44 @@
+pvc:
+  pvcName: calibre-data
+  storageRequest: 4Gi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+
+app-template:
+  controllers:
+    calibre:
+      containers:
+        calibre:
+          image:
+            repository: crocodilestick/calibre-web-automated
+            tag: V2.1.1
+          env:
+            PUID: "1000"
+            PGID: "1000"
+            TZ: "America/Los_Angeles"
+            DOCKER_MODS: lscr.io/linuxserver/mods:universal-calibre-v7.16.0
+  service:
+    calibre:
+      controller: calibre
+      ports:
+        http:
+          port: 8083
+  ingress:
+    calibre:
+      className: internal
+      hosts:
+        - host: calibre.internal.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: calibre
+                port: http
+  persistence:
+    config:
+      existingClaim: calibre-data
+    calibre-library:
+      type: nfs
+      server: nas.internal
+      path: /mnt/data/calibre

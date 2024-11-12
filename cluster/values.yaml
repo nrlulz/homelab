@@ -41,6 +41,8 @@ apps:
   media:
     - name: bazarr
 
+    - name: calibre
+
     - name: deluge
       managedNamespaceMetadata:
         labels:
