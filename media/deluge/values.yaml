@@ -60,3 +60,4 @@ app-template:
       path: /mnt/media/downloads
       globalMounts:
         - path: /mnt/media/downloads
+          readOnly: true
