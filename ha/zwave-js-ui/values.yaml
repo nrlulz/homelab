@@ -19,7 +19,7 @@ app-template:
         zwave-js-ui:
           image:
             repository: zwavejs/zwave-js-ui
-            tag: 9.26.0
+            tag: 9.27.2
           securityContext:
             privileged: true
           probes:
