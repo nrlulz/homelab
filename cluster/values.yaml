@@ -43,11 +43,6 @@ apps:
 
     - name: calibre
 
-    - name: deluge
-      managedNamespaceMetadata:
-        labels:
-          pod-security.kubernetes.io/enforce: privileged
-
     - name: overseerr
 
     - name: plex
@@ -58,6 +53,11 @@ apps:
           pod-security.kubernetes.io/enforce: privileged
 
     - name: prowlarr
+
+    - name: qbittorrent
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
 
     - name: radarr
 
