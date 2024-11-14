@@ -23,10 +23,6 @@ argocd-apps:
       destination:
         name: in-cluster
         namespace: argocd
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
       ignoreDifferences:
         - kind: Application
           group: argoproj.io
