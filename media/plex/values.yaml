@@ -17,7 +17,7 @@ app-template:
         plex:
           image:
             repository: plexinc/pms-docker
-            tag: 1.41.1.9057-af5eaea7a
+            tag: 1.41.2.9200-c6bbc1b53
           env:
             ADVERTISE_IP: "https://plex.neils.house:443,http://192.168.1.28:32400"
             PLEX_UID: "1000"
