@@ -13,7 +13,7 @@ app-template:
         qbittorrent:
           image:
             repository: binhex/arch-qbittorrentvpn
-            tag: 5.0.1-1-02
+            tag: 2024033106
           envFrom:
             - secretRef:
                 name: qbittorrent-vpn-credentials
