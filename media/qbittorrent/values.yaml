@@ -27,9 +27,19 @@ app-template:
             LAN_NETWORK: "192.168.1.0/24"
             NAME_SERVERS: "1.1.1.1,1.0.0.1"
             STRICT_PORT_FORWARD: "yes"
+          probes:
+            startup:
+              enabled: true
+              spec:
+                failureThreshold: 30
+                periodSeconds: 10
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
           resources:
             limits:
-              memory: 4Gi
+              memory: 8Gi
           securityContext:
             capabilities:
               add:

@@ -51,8 +51,8 @@
         "docker"
       ],
       "matchPackageNames": [
-        "binhex/arch-delugevpn",
         "binhex/arch-privoxyvpn",
+        "binhex/arch-qbittorrentvpn",
         "binhex/arch-sabnzbdvpn",
         "plexinc/pms-docker"
       ],
