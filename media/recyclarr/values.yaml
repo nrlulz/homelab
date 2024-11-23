@@ -64,8 +64,6 @@ app-template:
           image:
             repository: ghcr.io/recyclarr/recyclarr
             tag: 7.4.0
-          args:
-            - sync
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
