@@ -59,10 +59,6 @@ app-template:
         type: RuntimeDefault
   controllers:
     recyclarr:
-      type: cronjob
-      cronjob:
-        schedule: "0 0 * * *"
-        timeZone: "America/Los_Angeles"
       containers:
         recyclarr:
           image:
