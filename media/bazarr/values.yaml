@@ -14,6 +14,11 @@ app-template:
             PUID: "1000"
             PGID: "1000"
             TZ: "America/Los_Angeles"
+          probes:
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
   service:
     bazarr:
       controller: bazarr
