@@ -1,6 +1,6 @@
 pvc:
   pvcName: recyclarr-data
-  storageRequest: 128Mi
+  storageRequest: 256Mi
   moverSecurityContext:
     runAsUser: 1000
     runAsGroup: 1000
