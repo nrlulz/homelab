@@ -6,5 +6,5 @@ dependencies:
     version: 0.0.0
     repository: file://../../charts/pvc
   - name: emqx
-    version: 5.8.2
+    version: 5.8.3
     repository: https://repos.emqx.io/charts
