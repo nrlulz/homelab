@@ -203,7 +203,7 @@ spec:
                 name: nextcloud
             - secretRef:
                 name: nextcloud-db-credentials
-          image: nextcloud:30.0.2-fpm-alpine
+          image: nextcloud:30.0.3-fpm-alpine
           imagePullPolicy: IfNotPresent
           readinessProbe:
             failureThreshold: 3
@@ -232,7 +232,7 @@ spec:
                 name: nextcloud
             - secretRef:
                 name: nextcloud-db-credentials
-          image: nextcloud:30.0.2-fpm-alpine
+          image: nextcloud:30.0.3-fpm-alpine
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: /var/www/html
