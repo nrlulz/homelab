@@ -44,9 +44,7 @@
       "timezone": "America/Los_Angeles"
     },
     {
-      "description": [
-        "loose versioning for weird version numbers"
-      ],
+      "description": "use loose versioning for packages with weird version numbers",
       "matchDatasources": [
         "docker"
       ],
@@ -68,6 +66,19 @@
         "ghcr.io/siderolabs/kubelet"
       ],
       "automerge": false
+    },
+    {
+      "description": "ignore certain x.0 and x.1 releases",
+      "matchPackageNames": [
+        "homeassistant/home-assistant",
+        "nextcloud"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "matchCurrentVersion": "/\\.[01]$/",
+      "enabled": false
     }
   ]
 }
