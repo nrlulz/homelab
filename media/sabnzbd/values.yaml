@@ -9,7 +9,7 @@ app-template:
         sabnzbd:
           image:
             repository: binhex/arch-sabnzbdvpn
-            tag: 4.3.3-1-01
+            tag: 4.4.0-1-01
           envFrom:
             - secretRef:
                 name: sabnzbd-vpn-credentials
