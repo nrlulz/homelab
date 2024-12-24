@@ -7,7 +7,7 @@ ingress-nginx:
       type: LoadBalancer
       externalTrafficPolicy: Local
       annotations:
-        metallb.universe.tf/loadBalancerIPs: 192.168.1.27
+        metallb.io/loadBalancerIPs: 192.168.1.27
     extraArgs:
       default-ssl-certificate: ingress-nginx-internal/wildcard-tls
     config:
