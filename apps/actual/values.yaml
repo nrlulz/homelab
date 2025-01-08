@@ -1,0 +1,47 @@
+pvc:
+  pvcName: actual-data
+  storageRequest: 256Mi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+
+app-template:
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      seccompProfile:
+        type: RuntimeDefault
+  controllers:
+    actual:
+      containers:
+        actual:
+          image:
+            repository: ghcr.io/actualbudget/actual-server
+            tag: 24.12.0
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+  service:
+    actual:
+      controller: actual
+      ports:
+        http:
+          port: 5006
+  ingress:
+    actual:
+      className: internal
+      hosts:
+        - host: budget.internal.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: actual
+                port: http
+  persistence:
+    data:
+      existingClaim: actual-data

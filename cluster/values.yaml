@@ -13,6 +13,8 @@ allApps:
 
 apps:
   apps:
+    - name: actual
+
     - name: hello-world
 
     - name: nextcloud
