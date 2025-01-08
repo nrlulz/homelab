@@ -5,6 +5,7 @@ pvc:
 app-template:
   controllers:
     bazarr:
+      replicas: 0
       containers:
         bazarr:
           image:
