@@ -46,3 +46,13 @@ spec:
               nfs:
                 path: /mnt/data/paperless_exports
                 server: nas.internal
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: app
+                        operator: In
+                        values:
+                          - webserver
+                  topologyKey: kubernetes.io/hostname
