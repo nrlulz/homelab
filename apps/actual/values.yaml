@@ -36,7 +36,7 @@ app-template:
     actual:
       className: external
       hosts:
-        - host: budget.neils.house
+        - host: actual.neils.house
           paths:
             - path: /
               service:
