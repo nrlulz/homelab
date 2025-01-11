@@ -42,15 +42,6 @@ app-template:
               service:
                 identifier: actual
                 port: http
-    wtf:
-      className: internal
-      hosts:
-        - host: budget.internal.neils.house
-          paths:
-            - path: /
-              service:
-                identifier: actual
-                port: http
   persistence:
     data:
       existingClaim: actual-data
