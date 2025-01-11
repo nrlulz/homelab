@@ -22,6 +22,7 @@ app-template:
           port: 8989
   ingress:
     sonarr:
+      className: external
       hosts:
         - host: sonarr.neils.house
           paths:

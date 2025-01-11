@@ -22,6 +22,7 @@ app-template:
           port: 8181
   ingress:
     tautulli:
+      className: external
       hosts:
         - host: tautulli.neils.house
           paths:

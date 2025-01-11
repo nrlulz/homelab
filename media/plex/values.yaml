@@ -43,6 +43,7 @@ app-template:
     plex:
       annotations:
         nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+      className: external
       hosts:
         - host: plex.neils.house
           paths:

@@ -22,6 +22,7 @@ app-template:
           port: 5055
   ingress:
     overseerr:
+      className: external
       hosts:
         - host: requests.neils.house
           paths:

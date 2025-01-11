@@ -139,6 +139,7 @@ kind: Ingress
 metadata:
   name: paperless
 spec:
+  ingressClassName: external
   rules:
     - host: docs.neils.house
       http:

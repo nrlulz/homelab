@@ -28,6 +28,7 @@ app-template:
           port: 6767
   ingress:
     bazarr:
+      className: external
       hosts:
         - host: bazarr.neils.house
           paths:

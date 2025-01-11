@@ -22,6 +22,7 @@ app-template:
           port: 9696
   ingress:
     prowlarr:
+      className: external
       hosts:
         - host: prowlarr.neils.house
           paths:

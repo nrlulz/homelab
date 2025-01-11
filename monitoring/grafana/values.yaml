@@ -4,9 +4,11 @@ pvc:
   moverSecurityContext:
     runAsUser: 472
     runAsGroup: 472
+
 grafana:
   ingress:
     enabled: true
+    ingressClassName: external
     hosts:
       - grafana.neils.house
   persistence:
