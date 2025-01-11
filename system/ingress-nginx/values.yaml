@@ -2,6 +2,8 @@ ingress-nginx:
   controller:
     kind: DaemonSet
     watchIngressWithoutClass: true
+    ingressClassResource:
+      name: external
     service:
       type: LoadBalancer
       externalTrafficPolicy: Local
