@@ -13,7 +13,7 @@ app-template:
         home-assistant:
           image:
             repository: homeassistant/home-assistant
-            tag: 2024.12.5
+            tag: 2025.1.2
           env:
             PUID: "1000"
             PGID: "1000"
