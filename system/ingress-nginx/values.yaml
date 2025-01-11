@@ -3,6 +3,8 @@ ingress-nginx:
     kind: DaemonSet
     ingressClassResource:
       name: external
+      default: false
+      controllerValue: k8s.io/ingress-nginx-external
     service:
       type: LoadBalancer
       externalTrafficPolicy: Local
