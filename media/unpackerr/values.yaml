@@ -1,0 +1,37 @@
+app-template:
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      seccompProfile:
+        type: RuntimeDefault
+  controllers:
+    unpackerr:
+      containers:
+        unpackerr:
+          image:
+            repository: ghcr.io/unpackerr/unpackerr
+            tag: 0.14.5
+          env:
+            TZ: "America/Los_Angeles"
+            UN_RADARR_0_URL: http://radarr.radarr.svc.cluster.local:7878
+            UN_SONARR_0_URL: http://sonarr.sonarr.svc.cluster.local:8989
+            UN_WEBSERVER_LOG_FILE: /logs/unpackerr.log
+          envFrom:
+            - secretRef:
+                name: unpackerr-api-keys
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+  persistence:
+    downloads:
+      type: nfs
+      server: nas.internal
+      path: /mnt/media/downloads
+      globalMounts:
+        - path: /mnt/media/downloads
+    logs:
+      type: emptyDir
