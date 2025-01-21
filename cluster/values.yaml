@@ -74,6 +74,8 @@ apps:
 
     - name: tautulli
 
+    - name: unpackerr
+
   monitoring:
     - name: grafana
       ignoreDifferences:
