@@ -42,15 +42,15 @@ frigate:
         doorbell_low:
           - rtspx://192.168.1.2:7441/War6N7XcwG5qZQPA
         lanes_room:
-          - rtspx://192.168.1.2:7441/IhNLgvvnMANAjUQM
+          - rtspx://192.168.1.2:7441/U2OJpGGog8oNfOY0
           - "ffmpeg:lanes_room#audio=opus"
         lanes_room_low:
-          - rtspx://192.168.1.2:7441/iaCJB4k8UCy6g9cw
+          - rtspx://192.168.1.2:7441/e7G6IyxJ7eqPTYUf
         lolas_room:
-          - rtspx://192.168.1.2:7441/hDL4Xu0TOO5ZX5Xs
+          - rtspx://192.168.1.2:7441/fzwBCyL0GYhejs76
           - "ffmpeg:lolas_room#audio=opus"
         lolas_room_low:
-          - rtspx://192.168.1.2:7441/G30iIHsKMJFeVCdu
+          - rtspx://192.168.1.2:7441/FQ8ye23BPjf2BGhd
     cameras:
       doorbell:
         enabled: True
