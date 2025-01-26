@@ -1,6 +1,6 @@
 pvc:
   pvcName: plex-data
-  storageRequest: 64Gi
+  storageRequest: 96Gi
   cacheCapacity: 4Gi
   moverSecurityContext:
     runAsUser: 1000
