@@ -52,6 +52,7 @@
         "binhex/arch-privoxyvpn",
         "binhex/arch-qbittorrentvpn",
         "binhex/arch-sabnzbdvpn",
+        "crocodilestick/calibre-web-automated",
         "plexinc/pms-docker"
       ],
       "versioning": "loose"

@@ -1,6 +1,14 @@
-pvc:
+pvc-data:
   pvcName: calibre-data
   storageRequest: 4Gi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+
+pvc-library:
+  pvcName: calibre-library
+  storageRequest: 8Gi
   moverSecurityContext:
     runAsUser: 1000
     runAsGroup: 1000
@@ -13,12 +21,11 @@ app-template:
         calibre:
           image:
             repository: crocodilestick/calibre-web-automated
-            tag: V2.1.1
+            tag: V3.0.1
           env:
             PUID: "1000"
             PGID: "1000"
             TZ: "America/Los_Angeles"
-            DOCKER_MODS: lscr.io/linuxserver/mods:universal-calibre-v7.16.0
   service:
     calibre:
       controller: calibre
@@ -39,6 +46,4 @@ app-template:
     config:
       existingClaim: calibre-data
     calibre-library:
-      type: nfs
-      server: nas.internal
-      path: /mnt/data/calibre
+      existingClaim: calibre-library
