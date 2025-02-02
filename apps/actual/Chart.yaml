@@ -5,6 +5,11 @@ dependencies:
   - name: pvc
     version: 0.0.0
     repository: file://../../charts/pvc
-  - name: app-template
+  - alias: actual
+    name: app-template
+    version: 3.6.1
+    repository: https://bjw-s.github.io/helm-charts
+  - alias: actual-helpers
+    name: app-template
     version: 3.6.1
     repository: https://bjw-s.github.io/helm-charts

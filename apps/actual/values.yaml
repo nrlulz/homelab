@@ -6,8 +6,8 @@ pvc:
     runAsGroup: 1000
     fsGroup: 1000
 
-app-template:
-  defaultPodOptions:
+actual:
+  defaultPodOptions: &defaultPodOptions
     securityContext:
       runAsNonRoot: true
       runAsUser: 1000
@@ -21,7 +21,7 @@ app-template:
           image:
             repository: ghcr.io/actualbudget/actual-server
             tag: 25.1.0
-          securityContext:
+          securityContext: &securityContext
             allowPrivilegeEscalation: false
             capabilities:
               drop:
@@ -45,3 +45,61 @@ app-template:
   persistence:
     data:
       existingClaim: actual-data
+
+helperBase: &helperBase
+  image:
+    repository: ghcr.io/psybers/actual-helpers@sha256
+    tag: f3131b10399d5424c99aad186f99102e74002cd244d3f9a1f11bdd7c78b84039
+  securityContext: *securityContext
+  envFrom:
+    - configMapRef:
+        name: actual-helpers
+    - secretRef:
+        name: actual-helpers
+
+actual-helpers:
+  global:
+    nameOverride: helpers
+  defaultPodOptions: *defaultPodOptions
+  configMaps:
+    actual-helpers:
+      data:
+        ACTUAL_SERVER_URL: http://actual:5006
+        NODE_TLS_REJECT_UNAUTHORIZED: "1"
+  controllers:
+    sync-banks:
+      type: cronjob
+      cronjob:
+        timeZone: America/Los_Angeles
+        schedule: "0 5 * * *"  # 5am daily
+      containers:
+        sync-banks:
+          <<: *helperBase
+          command: ["node", "sync-banks.js"]
+    track-investments:
+      type: cronjob
+      cronjob:
+        timeZone: America/Los_Angeles
+        schedule: "0 1 * * 0"  # 1am on Sundays
+      containers:
+        track-investments:
+          <<: *helperBase
+          command: ["node", "track-investments.js"]
+    sync-kbb:
+      type: cronjob
+      cronjob:
+        timeZone: America/Los_Angeles
+        schedule: "0 2 1 * *"  # 2am on the 1st
+      containers:
+        sync-kbb:
+          <<: *helperBase
+          command: ["node", "kbb.js"]
+    apply-interest:
+      type: cronjob
+      cronjob:
+        timeZone: America/Los_Angeles
+        schedule: "0 3 1 * *"  # 3am on the 1st
+      containers:
+        apply-interest:
+          <<: *helperBase
+          command: ["node", "apply-interest.js"]
