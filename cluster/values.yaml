@@ -21,6 +21,11 @@ apps:
 
     - name: paperless-ngx
 
+    - name: wireguard
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+
   ha:
     - name: emqx
 

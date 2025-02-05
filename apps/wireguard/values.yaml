@@ -1,0 +1,56 @@
+pvc:
+  pvcName: wireguard-data
+  storageRequest: 128Mi
+
+app-template:
+  controllers:
+    wireguard:
+      containers:
+        wireguard:
+          image:
+            repository: ghcr.io/wg-easy/wg-easy
+            tag: 14
+          envFrom:
+            - secretRef:
+                name: wireguard
+          env:
+            LANG: en
+            WG_HOST: neils.house
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+                - SYS_MODULE
+            privileged: true
+  service:
+    wireguard:
+      controller: wireguard
+      type: LoadBalancer
+      externalTrafficPolicy: Local
+      annotations:
+        metallb.io/loadBalancerIPs: 192.168.1.26
+      ports:
+        wireguard:
+          port: 51820
+          protocol: UDP
+    wireguard-web-ui:
+      controller: wireguard
+      ports:
+        http:
+          port: 51821
+  ingress:
+    wireguard:
+      className: internal
+      hosts:
+        - host: wireguard.internal.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: wireguard-web-ui
+                port: http
+  persistence:
+    config:
+      existingClaim: wireguard-data
+      globalMounts:
+        - path: /etc/wireguard
+
