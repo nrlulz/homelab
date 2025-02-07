@@ -14,7 +14,7 @@ pvc-library:
     runAsGroup: 1000
     fsGroup: 1000
 
-app-template:
+calibre:
   controllers:
     calibre:
       containers:
@@ -47,3 +47,42 @@ app-template:
       existingClaim: calibre-data
     calibre-library:
       existingClaim: calibre-library
+    cwa-book-ingest:
+      existingClaim: calibre-ingest
+
+downloader:
+  global:
+    nameOverride: downloader
+  controllers:
+    downloader:
+      containers:
+        downloader:
+          image:
+            repository: ghcr.io/calibrain/calibre-web-automated-book-downloader
+            tag: sha-af3d2cc
+          env:
+            UID: "1000"
+            GID: "1000"
+        cloudflarebypass:
+          image:
+            repository: ghcr.io/sarperavci/cloudflarebypassforscraping@sha256
+            tag: e937223b9321168efec4ce4b60958d399b6dde37791ea6dc67d05b057c0f167e
+  service:
+    downloader:
+      controller: downloader
+      ports:
+        http:
+          port: 8084
+  ingress:
+    downloader:
+      className: internal
+      hosts:
+        - host: calibre-downloader.internal.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: downloader
+                port: http
+  persistence:
+    cwa-book-ingest:
+      existingClaim: calibre-ingest
