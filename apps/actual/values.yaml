@@ -20,7 +20,7 @@ actual:
         actual:
           image:
             repository: ghcr.io/actualbudget/actual-server
-            tag: 25.2.0
+            tag: 25.2.1
           securityContext: &securityContext
             allowPrivilegeEscalation: false
             capabilities:
