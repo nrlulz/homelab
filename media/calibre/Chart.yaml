@@ -12,9 +12,9 @@ dependencies:
     repository: file://../../charts/pvc
   - alias: calibre
     name: app-template
-    version: 3.6.1
+    version: 3.7.1
     repository: https://bjw-s.github.io/helm-charts
   - alias: downloader
     name: app-template
-    version: 3.6.1
+    version: 3.7.1
     repository: https://bjw-s.github.io/helm-charts
