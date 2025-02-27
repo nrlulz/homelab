@@ -6,5 +6,5 @@ dependencies:
     version: 0.0.0
     repository: file://../../charts/pvc
   - name: frigate
-    version: 7.7.2
+    version: 7.7.3
     repository: https://blakeblackshear.github.io/blakeshome-charts
