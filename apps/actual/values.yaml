@@ -19,8 +19,8 @@ actual:
       containers:
         actual:
           image:
-            repository: ghcr.io/actualbudget/actual-server
-            tag: 25.2.1
+            repository: ghcr.io/actualbudget/actual
+            tag: 25.3.0
           securityContext: &securityContext
             allowPrivilegeEscalation: false
             capabilities:
