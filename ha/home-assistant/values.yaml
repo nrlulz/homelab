@@ -9,6 +9,9 @@ pvc:
 app-template:
   controllers:
     home-assistant:
+      pod:
+        annotations:
+          kubectl.kubernetes.io/default-container: home-assistant
       containers:
         home-assistant:
           image:
