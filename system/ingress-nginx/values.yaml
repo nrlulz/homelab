@@ -15,6 +15,8 @@ ingress-nginx:
     config:
       force-ssl-redirect: true
       proxy-body-size: 0
+      proxy-read-timeout: 300
+      proxy-send-timeout: 300
       worker-shutdown-timeout: 60s
     metrics:
       enabled: true
