@@ -9,7 +9,7 @@ app-template:
         radarr:
           image:
             repository: lscr.io/linuxserver/radarr
-            tag: 5.19.3
+            tag: 5.20.2
           env:
             PUID: "1000"
             PGID: "1000"
