@@ -9,7 +9,7 @@ app-template:
         privoxy:
           image:
             repository: binhex/arch-privoxyvpn
-            tag: 3.0.34-3-06
+            tag: 4.0.0-1-01
           envFrom:
             - secretRef:
                 name: privoxy-vpn-credentials
