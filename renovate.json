@@ -80,6 +80,48 @@
       ],
       "matchCurrentVersion": "/\\.[01]$/",
       "enabled": false
+    },
+    {
+      "matchPackageNames": [
+        "lscr.io/linuxserver/overseerr"
+      ],
+      "changelogUrl": "https://github.com/sct/overseerr"
+    },
+    {
+      "matchPackageNames": [
+        "lscr.io/linuxserver/radarr"
+      ],
+      "changelogUrl": "https://github.com/Radarr/Radarr"
+    },
+    {
+      "matchPackageNames": [
+        "lscr.io/linuxserver/sonarr"
+      ],
+      "changelogUrl": "https://github.com/Sonarr/Sonarr"
+    },
+    {
+      "matchPackageNames": [
+        "lscr.io/linuxserver/prowlarr"
+      ],
+      "changelogUrl": "https://github.com/Prowlarr/Prowlarr"
+    },
+    {
+      "matchPackageNames": [
+        "lscr.io/linuxserver/tautulli"
+      ],
+      "changelogUrl": "https://github.com/Tautulli/Tautulli"
+    },
+    {
+      "matchPackageNames": [
+        "ghcr.io/coder/code-server"
+      ],
+      "changelogUrl": "https://github.com/coder/code-server"
+    },
+    {
+      "matchPackageNames": [
+        "https://github.com/morpheus65535/bazarr"
+      ],
+      "changelogUrl": "https://github.com/morpheus65535/bazarr"
     }
   ]
 }
