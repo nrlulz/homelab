@@ -85,43 +85,43 @@
       "matchPackageNames": [
         "lscr.io/linuxserver/overseerr"
       ],
-      "changelogUrl": "https://github.com/sct/overseerr"
+      "changelogUrl": "https://github.com/sct/overseerr/releases"
     },
     {
       "matchPackageNames": [
         "lscr.io/linuxserver/radarr"
       ],
-      "changelogUrl": "https://github.com/Radarr/Radarr"
+      "changelogUrl": "https://github.com/Radarr/Radarr/releases?q=prerelease%3Afalse&expanded=true"
     },
     {
       "matchPackageNames": [
         "lscr.io/linuxserver/sonarr"
       ],
-      "changelogUrl": "https://github.com/Sonarr/Sonarr"
+      "changelogUrl": "https://github.com/Sonarr/Sonarr/releases?q=prerelease%3Afalse&expanded=true"
     },
     {
       "matchPackageNames": [
         "lscr.io/linuxserver/prowlarr"
       ],
-      "changelogUrl": "https://github.com/Prowlarr/Prowlarr"
+      "changelogUrl": "https://github.com/Prowlarr/Prowlarr/releases?q=prerelease%3Afalse&expanded=true"
     },
     {
       "matchPackageNames": [
         "lscr.io/linuxserver/tautulli"
       ],
-      "changelogUrl": "https://github.com/Tautulli/Tautulli"
+      "changelogUrl": "https://github.com/Tautulli/Tautulli/releases"
     },
     {
       "matchPackageNames": [
         "ghcr.io/coder/code-server"
       ],
-      "changelogUrl": "https://github.com/coder/code-server"
+      "changelogUrl": "https://github.com/coder/code-server/releases?q=prerelease%3Afalse&expanded=true"
     },
     {
       "matchPackageNames": [
-        "https://github.com/morpheus65535/bazarr"
+        "lscr.io/linuxserver/bazarr"
       ],
-      "changelogUrl": "https://github.com/morpheus65535/bazarr"
+      "changelogUrl": "https://github.com/morpheus65535/bazarr/releases?q=prerelease%3Afalse&expanded=true"
     }
   ]
 }
