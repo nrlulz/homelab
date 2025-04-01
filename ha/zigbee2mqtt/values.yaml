@@ -19,12 +19,10 @@ app-template:
         zigbee2mqtt:
           image:
             repository: koenkk/zigbee2mqtt
-            tag: 1.42.0
-          envFrom:
-            - configMapRef:
-                name: zigbee2mqtt
-            - secretRef:
-                name: zigbee2mqtt
+            tag: 2.1.3
+          env:
+            ZIGBEE2MQTT_CONFIG_SERIAL_PORT: *coordinatorPath
+            ZIGBEE2MQTT_DATA: /config
           securityContext:
             privileged: true
   service:
