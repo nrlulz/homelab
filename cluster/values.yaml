@@ -21,6 +21,8 @@ apps:
 
     - name: paperless-ngx
 
+    - name: radicale
+
     - name: wireguard
       managedNamespaceMetadata:
         labels:

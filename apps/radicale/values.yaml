@@ -1,0 +1,67 @@
+pvc:
+  pvcName: radicale-data
+  storageRequest: 128Mi
+  moverSecurityContext:
+    runAsUser: 2999
+    runAsGroup: 2999
+
+app-template:
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 2999
+      runAsGroup: 2999
+      seccompProfile:
+        type: RuntimeDefault
+  controllers:
+    radicale:
+      containers:
+        radicale:
+          image:
+            repository: tomsquest/docker-radicale
+            tag: 3.5.0.1
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          env:
+            TAKE_FILE_OWNERSHIP: "false"
+          probes:
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
+  service:
+    radicale:
+      controller: radicale
+      ports:
+        http:
+          port: 5232
+  ingress:
+    radicale:
+      className: external
+      hosts:
+        - host: radicale.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: radicale
+                port: http
+  persistence:
+    config:
+      type: configMap
+      name: radicale
+      globalMounts:
+        - path: /config/config
+          subPath: config
+          readOnly: true
+    data:
+      existingClaim: radicale-data
+    users:
+      type: secret
+      name: radicale
+      globalMounts:
+        - path: /config/users
+          subPath: users
+          readOnly: true
