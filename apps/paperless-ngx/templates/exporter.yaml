@@ -12,7 +12,7 @@ spec:
             - name: exporter
               image: ghcr.io/paperless-ngx/paperless-ngx:2.15.1
               imagePullPolicy: IfNotPresent
-              command:
+              args:
                 - document_exporter
                 - /usr/src/paperless/export
                 - --delete
