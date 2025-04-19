@@ -56,7 +56,7 @@ data:
   # in seconds here, which will then cause paperless to periodically check your
   # consumption directory for changes
   PAPERLESS_CONSUMER_POLLING: "60"
-  PAPERLESS_CONSUMER_POLLING_RETRY_COUNT: "10"
+  PAPERLESS_CONSUMER_POLLING_RETRY_COUNT: "20"
   PAPERLESS_CONSUMER_POLLING_DELAY: "30"
 
   # Paperless will try to determine the document creation date from its contents.
