@@ -27,7 +27,7 @@
   "ignoreTests": true,
   "packageRules": [
     {
-      "description": "automerge patch updates",
+      "description": "automerge patch updates (if major version is not 0)",
       "matchUpdateTypes": [
         "patch"
       ],
@@ -42,6 +42,13 @@
       "automerge": true,
       "automergeSchedule": "* 3-6 * * *",
       "timezone": "America/Los_Angeles"
+    },
+    {
+      "description": "automerge all updates",
+      "matchPackageNames": [
+        "ghcr.io/calibrain/calibre-web-automated-book-downloader"
+      ],
+      "automerge": true
     },
     {
       "description": "use loose versioning for packages with weird version numbers",
