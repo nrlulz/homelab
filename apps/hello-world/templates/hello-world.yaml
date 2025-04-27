@@ -38,6 +38,8 @@ spec:
     matchLabels:
       app: hello-world
   replicas: 1
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
