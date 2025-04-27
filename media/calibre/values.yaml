@@ -59,7 +59,7 @@ downloader:
         downloader:
           image:
             repository: ghcr.io/calibrain/calibre-web-automated-book-downloader
-            tag: "20250416"
+            tag: "20250427"
           env:
             UID: "1000"
             GID: "1000"
