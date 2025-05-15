@@ -4,20 +4,20 @@
     "config:recommended"
   ],
   "argocd": {
-    "fileMatch": [
-      "apps/.*\\.ya?ml$"
+    "managerFilePatterns": [
+      "/apps/.*\\.ya?ml$/"
     ]
   },
   "kubernetes": {
-    "fileMatch": [
-      "\\.ya?ml$"
+    "managerFilePatterns": [
+      "/\\.ya?ml$/"
     ]
   },
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": [
-        "bootstrap/talconfig.yaml"
+      "managerFilePatterns": [
+        "/bootstrap/talconfig.yaml/"
       ],
       "matchStrings": [
         "\\s*# renovate: depName=(?<depName>\\S+) datasource=(?<datasource>\\S+)( repository=(?<registryUrl>\\S+))?\\n.*[Vv]ersion: (?<currentValue>\\S+?)\\s"
