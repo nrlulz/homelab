@@ -25,8 +25,13 @@ metadata:
 spec:
   sourcePVC: {{ .Values.pvcName }}
   trigger:
-    # daily at 12:00 utc
-    schedule: "0 12 * * *"
+    schedule: {{ if eq .Values.triggerSchedule.b2 "random" -}}
+        {{- $triggerMinute := mod (randNumeric 2 | int64) 60 -}}
+        {{- $triggerHour := mod (randNumeric 2 | int64) 24 -}}
+        "{{ $triggerMinute }} {{ $triggerHour }} * * *"
+      {{- else -}}
+        {{ .Values.triggerSchedule.b2 | quote }}
+      {{- end }}
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 7

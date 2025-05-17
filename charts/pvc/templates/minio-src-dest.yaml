@@ -24,8 +24,13 @@ metadata:
 spec:
   sourcePVC: {{ .Values.pvcName }}
   trigger:
-    # daily at 11:00 utc
-    schedule: "0 11 * * *"
+    schedule: {{ if eq .Values.triggerSchedule.minio "random" -}}
+        {{- $triggerMinute := mod (randNumeric 2 | int64) 60 -}}
+        {{- $triggerHour := mod (randNumeric 2 | int64) 24 -}}
+        "{{ $triggerMinute }} {{ $triggerHour }} * * *"
+      {{- else -}}
+        {{ .Values.triggerSchedule.minio | quote }}
+      {{- end }}
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 7
@@ -59,4 +64,4 @@ spec:
     capacity: {{ .Values.storageRequest }}
     moverSecurityContext: {{ .Values.moverSecurityContext | toYaml | nindent 6 }}
     cleanupCachePVC: true
-    cleanupTempPVC: true
+    # cleanupTempPVC: true

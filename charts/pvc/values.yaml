@@ -33,3 +33,10 @@ snapshotRetention:
   hourly: 24
   daily: 7
   weekly: 5
+
+triggerSchedule:
+  # e.g. "0 11 * * *"
+  # "random" will generate a random daily interval
+  # note: the interval is generated when the chart is rendered
+  minio: "random"
+  b2: "random"
