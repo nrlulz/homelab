@@ -1,0 +1,85 @@
+pvc:
+  pvcName: jellyfin-data
+  storageRequest: 96Gi
+  cacheCapacity: 4Gi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+
+app-template:
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      seccompProfile:
+        type: RuntimeDefault
+  controllers:
+    jellyfin:
+      containers:
+        jellyfin:
+          image:
+            repository: jellyfin/jellyfin
+            tag: 10.10.7
+          env:
+            JELLYFIN_LOG_DIR: "/logs"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              gpu.intel.com/i915: 1
+            limits:
+              gpu.intel.com/i915: 1
+              memory: 16Gi
+  service:
+    jellyfin:
+      controller: jellyfin
+      type: LoadBalancer
+      externalTrafficPolicy: Local
+      annotations:
+        metallb.io/loadBalancerIPs: 192.168.1.25
+      ports:
+        http:
+          port: 8096
+  ingress:
+    jellyfin:
+      className: internal
+      hosts:
+        - host: jellyfin.internal.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: jellyfin
+                port: http
+  persistence:
+    cache:
+      storageClass: longhorn-ephemeral
+      size: 8Gi
+      accessMode: ReadWriteOnce
+    config:
+      existingClaim: jellyfin-data
+    logs:
+      type: emptyDir
+    media:
+      type: nfs
+      server: nas.internal
+      path: /mnt/media
+      globalMounts:
+        - path: /mnt/media
+          readOnly: true
+    music:
+      type: nfs
+      server: nas.internal
+      path: /mnt/data/music
+      globalMounts:
+        - path: /mnt/data/music
+          readOnly: true
+    tmp:
+      type: emptyDir
+    transcode:
+      type: emptyDir
