@@ -33,6 +33,10 @@ spec:
       - RespectIgnoreDifferences=true
     managedNamespaceMetadata: {{- $app.managedNamespaceMetadata | toYaml | nindent 6 }}
   ignoreDifferences:
+    - kind: ReplicationSource
+      group: volsync.backube
+      jsonPointers:
+        - /spec/trigger/schedule
     - kind: Application
       group: argoproj.io
       jsonPointers:
