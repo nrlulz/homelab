@@ -16,7 +16,7 @@ spec:
   selector:
     matchLabels:
       app: db
-  replicas: 1
+  replicas: 0
   strategy:
     type: Recreate
   template:
