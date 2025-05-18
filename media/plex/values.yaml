@@ -54,6 +54,7 @@ app-template:
   persistence:
     cache:
       storageClass: longhorn-ephemeral
+      suffix: cache
       size: 8Gi
       accessMode: ReadWriteOnce
       globalMounts:
