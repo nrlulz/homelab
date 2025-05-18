@@ -17,6 +17,8 @@ For a new cluster:
 
 ## Upgrading Talos
 
+Update the `talosVersion` in talconfig.yaml
+
 Pulling the image from talconfig:
 
     export TALOS_IMAGE=$(talhelper genurl installer --config-file ./talconfig.yaml)
@@ -25,7 +27,11 @@ Upgrade nodes one at a time. **Don't forget --preserve=true**!!!
 
     talosctl upgrade --preserve=true --image $TALOS_IMAGE --nodes 192.168.1.31
 
+Wait for all volumes and apps to get back to healthy status before upgrading the next
+
 ## Upgrading Kubernetes
+
+Update the `kubernetesVersion` in talconfig.yaml
 
 Pulling the k8s version from talconfig:
 
