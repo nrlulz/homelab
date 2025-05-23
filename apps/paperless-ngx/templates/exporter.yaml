@@ -10,7 +10,7 @@ spec:
         spec:
           containers:
             - name: exporter
-              image: ghcr.io/paperless-ngx/paperless-ngx:2.15.3
+              image: ghcr.io/paperless-ngx/paperless-ngx:2.16.1
               imagePullPolicy: IfNotPresent
               args:
                 - document_exporter
