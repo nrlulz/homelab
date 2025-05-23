@@ -21,11 +21,21 @@ minio:
     hosts:
       - minio.internal.neils.house
   buckets:
+    - name: cloudnativepg
+      policy: none
     - name: loki
       policy: none
     - name: volsync
       policy: none
   policies:
+    - name: cloudnativepg-rw
+      statements:
+        - effect: Allow
+          resources:
+            - "arn:aws:s3:::cloudnativepg"
+            - "arn:aws:s3:::cloudnativepg/*"
+          actions:
+            - "s3:*"
     - name: loki-rw
       statements:
         - effect: Allow
@@ -47,6 +57,10 @@ minio:
       existingSecret: minio-admin-password
       existingSecretKey: password
       policy: consoleAdmin
+    - accessKey: cloudnativepg
+      existingSecret: minio-cloudnativepg-password
+      existingSecretKey: password
+      policy: cloudnativepg-rw
     - accessKey: loki
       existingSecret: minio-loki-password
       existingSecretKey: password
