@@ -71,7 +71,6 @@ actual-helpers:
     sync-banks:
       type: cronjob
       cronjob:
-        suspend: true
         timeZone: America/Los_Angeles
         schedule: "0 5 * * *"  # 5am daily
       containers:
