@@ -1,7 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    ":automergeBranch",
+    ":configMigration",
+    ":disableRateLimiting",
+    ":skipStatusChecks",
+    ":timezone(America/Los_Angeles)"
   ],
   "argocd": {
     "managerFilePatterns": [
@@ -24,7 +29,6 @@
       ]
     }
   ],
-  "ignoreTests": true,
   "packageRules": [
     {
       "description": "automerge patch updates (if major version is not 0)",
@@ -40,8 +44,7 @@
         "plexinc/pms-docker"
       ],
       "automerge": true,
-      "automergeSchedule": "* 3-6 * * *",
-      "timezone": "America/Los_Angeles"
+      "automergeSchedule": "* 3-6 * * *"
     },
     {
       "description": "automerge all updates",
@@ -76,7 +79,7 @@
       "automerge": false
     },
     {
-      "description": "ignore certain x.0 and x.1 releases",
+      "description": "ignore certain x.0 releases",
       "matchPackageNames": [
         "homeassistant/home-assistant",
         "nextcloud"
@@ -85,8 +88,22 @@
         "major",
         "minor"
       ],
-      "matchCurrentVersion": "/\\.[01]$/",
+      "matchNewValue": "/\\.[0]$/",
       "enabled": false
+    },
+    {
+      "matchPackageNames": [
+        "ghcr.io/psybers/actual-helpers"
+      ],
+      "pinDigests": true
+    },
+    {
+      "description": "group actual and actual-helpers updates",
+      "matchPackageNames": [
+        "ghcr.io/actualbudget/actual",
+        "ghcr.io/psybers/actual-helpers"
+      ],
+      "groupName": "actual"
     },
     {
       "matchPackageNames": [
@@ -129,6 +146,12 @@
         "lscr.io/linuxserver/bazarr"
       ],
       "changelogUrl": "https://github.com/morpheus65535/bazarr/releases?q=prerelease%3Afalse&expanded=true"
+    },
+    {
+      "matchPackageNames": [
+        "longhorn"
+      ],
+      "changelogUrl": "https://github.com/longhorn/longhorn/releases?q=prerelease%3Afalse&expanded=true"
     }
   ]
 }
