@@ -98,11 +98,11 @@
       "enabled": false
     },
     {
-      "description": "use OSS version of redis",
+      "description": "use redis 7",
       "matchPackageNames": [
         "docker.io/library/redis"
       ],
-      "allowedVersions": "<7.3"
+      "allowedVersions": "<8"
     },
     {
       "matchPackageNames": [

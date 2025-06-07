@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: redis
-          image: docker.io/library/redis:7.2.9-alpine
+          image: docker.io/library/redis:7.4.4-alpine
           ports:
             - containerPort: 6379
           volumeMounts:
