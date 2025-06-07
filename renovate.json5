@@ -92,6 +92,13 @@
       "enabled": false
     },
     {
+      "description": "use OSS version of redis",
+      "matchPackageNames": [
+        "docker.io/library/redis"
+      ],
+      "allowedVersions": "<7.3"
+    },
+    {
       "matchPackageNames": [
         "ghcr.io/psybers/actual-helpers"
       ],
