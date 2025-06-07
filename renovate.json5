@@ -81,14 +81,20 @@
     {
       "description": "ignore certain x.0 releases",
       "matchPackageNames": [
-        "homeassistant/home-assistant",
-        "nextcloud"
+        "homeassistant/home-assistant"
       ],
       "matchUpdateTypes": [
         "major",
         "minor"
       ],
       "matchNewValue": "/\\.[0]$/",
+      "enabled": false
+    },
+    {
+      "description": "ignore certain packages for now",
+      "matchPackageNames": [
+        "nextcloud"
+      ],
       "enabled": false
     },
     {
