@@ -95,6 +95,7 @@
       "matchPackageNames": [
         "ghcr.io/psybers/actual-helpers"
       ],
+      "changelogUrl": "https://github.com/psybers/actual-helpers/commits/main/",
       "pinDigests": true
     },
     {
