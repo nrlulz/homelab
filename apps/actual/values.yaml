@@ -50,7 +50,6 @@ helperBase: &helperBase
   image:
     repository: ghcr.io/psybers/actual-helpers
     tag: latest@sha256:e2e783227669c615cb7c737b932850c09e22b4ee95a39a85d7a103d0224e13c2
-    pullPolicy: Always
   securityContext: *securityContext
   envFrom:
     - configMapRef:
