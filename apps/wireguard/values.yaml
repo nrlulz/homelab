@@ -9,7 +9,7 @@ app-template:
         wireguard:
           image:
             repository: ghcr.io/wg-easy/wg-easy
-            tag: 14
+            tag: 15
           envFrom:
             - secretRef:
                 name: wireguard
