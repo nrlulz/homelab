@@ -166,6 +166,12 @@
         "longhorn"
       ],
       "changelogUrl": "https://github.com/longhorn/longhorn/releases?q=prerelease%3Afalse&expanded=true"
+    },
+    {
+      "matchPackageNames": [
+        "ghcr.io/wg-easy/wg-easy"
+      ],
+      "changelogUrl": "https://github.com/wg-easy/wg-easy/releases?q=prerelease%3Afalse&expanded=true"
     }
   ]
 }
