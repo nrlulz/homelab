@@ -112,6 +112,12 @@
       "pinDigests": true
     },
     {
+      "matchPackageNames": [
+        "ghcr.io/actualbudget/actual"
+      ],
+      "changelogUrl": "https://actualbudget.org/docs/releases/"
+    },
+    {
       "description": "group actual and actual-helpers updates",
       "matchPackageNames": [
         "ghcr.io/actualbudget/actual",
