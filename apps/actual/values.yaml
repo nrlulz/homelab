@@ -49,7 +49,7 @@ actual:
 helperBase: &helperBase
   image:
     repository: ghcr.io/psybers/actual-helpers
-    tag: latest@sha256:a0980dca79af963fd1d7572121a756b3b855caac7ae0be86cdb32c67eeab82a9
+    tag: latest@sha256:8eced69a158dba411b20dbd2111389e53e2c43e378f416935864912268861670
   securityContext: *securityContext
   envFrom:
     - configMapRef:
