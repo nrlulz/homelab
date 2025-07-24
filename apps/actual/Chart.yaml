@@ -7,9 +7,9 @@ dependencies:
     repository: file://../../charts/pvc
   - alias: actual
     name: app-template
-    version: 4.0.1
+    version: 4.1.2
     repository: https://bjw-s-labs.github.io/helm-charts
   - alias: actual-helpers
     name: app-template
-    version: 4.0.1
+    version: 4.1.2
     repository: https://bjw-s-labs.github.io/helm-charts
