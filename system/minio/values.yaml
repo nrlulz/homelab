@@ -8,6 +8,7 @@ minio:
     runAsUser: 473
     runAsGroup: 473
     fsGroup: 473
+    fsGroupChangePolicy: OnRootMismatch
   persistence:
     existingClaim: minio
   ingress:

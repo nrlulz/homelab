@@ -11,6 +11,7 @@ app-template:
   defaultPodOptions:
     securityContext:
       fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
   controllers:
     plex:
       containers:
