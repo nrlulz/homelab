@@ -21,7 +21,7 @@ calibre:
         calibre:
           image:
             repository: crocodilestick/calibre-web-automated
-            tag: V3.0.4
+            tag: V3.1.4
           env:
             PUID: "1000"
             PGID: "1000"
