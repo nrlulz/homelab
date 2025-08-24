@@ -7,6 +7,17 @@ pvc:
     fsGroup: 1000
 
 app-template:
+  defaultPodOptions:
+    affinity:
+      podAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/controller
+                  operator: In
+                  values:
+                    - zwave-js-ui
+            topologyKey: kubernetes.io/hostname
   controllers:
     home-assistant:
       pod:
