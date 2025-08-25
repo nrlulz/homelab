@@ -10,7 +10,7 @@ app-template:
   defaultPodOptions:
     affinity:
       podAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
+        requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
               matchExpressions:
                 - key: app.kubernetes.io/controller
