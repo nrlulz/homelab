@@ -12,3 +12,13 @@ emqx:
   persistence:
     enabled: true
     existingClaim: emqx-data
+  affinity:
+    podAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/controller
+                operator: In
+                values:
+                  - home-assistant
+          topologyKey: kubernetes.io/hostname

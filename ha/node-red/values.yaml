@@ -13,6 +13,16 @@ app-template:
       runAsGroup: 1000
       seccompProfile:
         type: RuntimeDefault
+    affinity:
+      podAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/controller
+                  operator: In
+                  values:
+                    - home-assistant
+            topologyKey: kubernetes.io/hostname
   controllers:
     node-red:
       containers:
