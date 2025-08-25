@@ -23,11 +23,6 @@ apps:
 
     - name: radicale
 
-    - name: wireguard
-      managedNamespaceMetadata:
-        labels:
-          pod-security.kubernetes.io/enforce: privileged
-
   ha:
     - name: emqx
 
