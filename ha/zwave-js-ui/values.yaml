@@ -2,7 +2,7 @@ pvc:
   pvcName: zwave-js-ui-data
   storageRequest: 128Mi
 
-controllerPath: &controllerPath "/dev/serial/by-id/usb-0658_0200-if00"
+controllerPath: &controllerPath "/dev/serial/by-id/usb-Nabu_Casa_ZWA-2_80B54EE0AD28-if00"
 
 app-template:
   defaultPodOptions:
@@ -11,7 +11,7 @@ app-template:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: "feature.node.kubernetes.io/usb-02_0658_0200.present"
+                - key: "feature.node.kubernetes.io/usb-ef_303a_4001.present"
                   operator: "Exists"
   controllers:
     zwave-js-ui:
