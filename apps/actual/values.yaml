@@ -67,15 +67,6 @@ actual-helpers:
         ACTUAL_SERVER_URL: http://actual:5006
         NODE_TLS_REJECT_UNAUTHORIZED: "1"
   controllers:
-    sync-banks:
-      type: cronjob
-      cronjob:
-        timeZone: America/Los_Angeles
-        schedule: "0 5 * * *"  # 5am daily
-      containers:
-        sync-banks:
-          <<: *helperBase
-          command: ["node", "sync-banks.js"]
     track-investments:
       type: cronjob
       cronjob:
