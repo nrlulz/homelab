@@ -139,6 +139,14 @@
       "groupName": "actual"
     },
     {
+      "description": "group intel-device-plugins updates",
+      "matchPackageNames": [
+        "intel-device-plugins-gpu",
+        "intel-device-plugins-operator"
+      ],
+      "groupName": "intel-device-plugins"
+    },
+    {
       "matchPackageNames": [
         "lscr.io/linuxserver/overseerr"
       ],
