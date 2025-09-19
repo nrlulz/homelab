@@ -30,6 +30,10 @@ apps:
 
     - name: node-red
 
+    - name: piper
+
+    - name: whisper
+
     - name: zigbee2mqtt
       managedNamespaceMetadata:
         labels:

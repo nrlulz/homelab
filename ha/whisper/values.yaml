@@ -1,0 +1,33 @@
+app-template:
+  defaultPodOptions:
+    affinity:
+      podAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/controller
+                  operator: In
+                  values:
+                    - home-assistant
+            topologyKey: kubernetes.io/hostname
+  controllers:
+    whisper:
+      containers:
+        whisper:
+          image:
+            repository: rhasspy/wyoming-whisper
+            tag: 2.4.0
+          args:
+            - --language
+            - en
+            - --model
+            - base-int8
+  service:
+    whisper:
+      controller: whisper
+      ports:
+        http:
+          port: 10300
+  persistence:
+    data:
+      type: emptyDir

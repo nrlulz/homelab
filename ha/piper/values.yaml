@@ -1,0 +1,42 @@
+app-template:
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      seccompProfile:
+        type: RuntimeDefault
+    affinity:
+      podAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/controller
+                  operator: In
+                  values:
+                    - home-assistant
+            topologyKey: kubernetes.io/hostname
+  controllers:
+    piper:
+      containers:
+        piper:
+          image:
+            repository: rhasspy/wyoming-piper
+            tag: 1.5.0
+          args:
+            - --voice
+            - en_US-lessac-medium
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+  service:
+    piper:
+      controller: piper
+      ports:
+        http:
+          port: 10200
+  persistence:
+    data:
+      type: emptyDir
