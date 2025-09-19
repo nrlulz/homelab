@@ -9,6 +9,8 @@ app-template:
                   operator: In
                   values:
                     - home-assistant
+            namespaces:
+              - home-assistant
             topologyKey: kubernetes.io/hostname
   controllers:
     whisper:
