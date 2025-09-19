@@ -193,6 +193,18 @@
         "longhorn"
       ],
       "changelogUrl": "https://github.com/longhorn/longhorn/releases?q=prerelease%3Afalse&expanded=true"
+    },
+    {
+      "matchPackageNames": [
+        "rhasspy/wyoming-piper"
+      ],
+      "changelogUrl": "https://github.com/rhasspy/wyoming-piper/blob/master/CHANGELOG.md"
+    },
+    {
+      "matchPackageNames": [
+        "rhasspy/wyoming-whisper"
+      ],
+      "changelogUrl": "https://github.com/rhasspy/wyoming-faster-whisper/blob/master/CHANGELOG.md"
     }
   ]
 }
