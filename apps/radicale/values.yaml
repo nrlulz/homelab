@@ -11,8 +11,6 @@ app-template:
       runAsNonRoot: true
       runAsUser: 2999
       runAsGroup: 2999
-      seccompProfile:
-        type: RuntimeDefault
   controllers:
     radicale:
       containers:
