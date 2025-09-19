@@ -18,7 +18,7 @@ app-template:
         whisper:
           image:
             repository: rhasspy/wyoming-whisper
-            tag: 2.4.0
+            tag: 2.5.0
           args:
             - --language
             - en
