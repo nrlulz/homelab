@@ -52,3 +52,26 @@ controlPlane:
         install:
           extraKernelArgs:
             - pcie_aspm=off
+
+    # Preserve data on the install disk (equivalent to --preserve)
+    - |
+      machine:
+        install:
+          wipe: false
+
+    # Allow Talos API access to system-upgrade-controller
+    - |
+      machine:
+        features:
+          kubernetesTalosAPIAccess:
+            enabled: true
+            allowedRoles:
+              - os:admin
+            allowedKubernetesNamespaces:
+              - system-upgrade-controller
+
+    # Use RuntimeDefault seccomp profile for all workloads
+    - |
+      machine:
+        kubelet:
+          defaultRuntimeSeccompProfileEnabled: true
