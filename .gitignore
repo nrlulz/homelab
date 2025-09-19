@@ -1,8 +1,9 @@
 .history
 .vscode
 .DS_Store
-*rendered.y*ml
+*rendered*.y*ml
 *allvalues.y*ml
 Chart.lock
 *.tgz
 *.tar.gz
+**/secrets/**
