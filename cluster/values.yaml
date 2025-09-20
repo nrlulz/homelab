@@ -185,4 +185,9 @@ apps:
             - /webhooks/0/clientConfig/caBundle
             - /webhooks/1/clientConfig/caBundle
 
+    - name: system-upgrade-controller
+      managedNamespaceMetadata:
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+
     - name: volsync

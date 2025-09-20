@@ -1,0 +1,44 @@
+apiVersion: upgrade.cattle.io/v1
+kind: Plan
+metadata:
+  name: talos
+spec:
+  # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
+  version: v1.10.7
+  concurrency: 1
+  postCompleteDelay: 2m
+  exclusive: true
+  serviceAccountName: system-upgrade-controller
+  secrets:
+    - name: system-upgrade-controller
+      path: /var/run/secrets/talos.dev
+      ignoreUpdates: true
+  nodeSelector:
+    matchExpressions:
+      - key: feature.node.kubernetes.io/system-os_release.ID
+        operator: In
+        values:
+          - "talos"
+  prepare:
+    # wait for all attached longhorn volumes to have healthy status
+    # some of them take a while to rebuild and we don't wanna interrupt that
+    image: bitnami/kubectl:1.33.4
+    command:
+      - /bin/sh
+    args:
+      - -c
+      - |
+        until [ -z "$(kubectl -n longhorn get volumes.longhorn.io -o json | jq -r ".items[] | select(.status.state==\"attached\" and .status.robustness!=\"healthy\")" )" ]; do
+          echo "some volumes are not healthy, waiting..." && sleep 10;
+        done
+        echo "all volumes are healthy!"
+  upgrade:
+    image: ghcr.io/jfroy/tnu:0.4.4
+    envs:
+      - name: NODE_IP
+        valueFrom:
+          fieldRef:
+            fieldPath: status.hostIP
+    args:
+      - --node=$(NODE_IP)
+      - --tag=$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
