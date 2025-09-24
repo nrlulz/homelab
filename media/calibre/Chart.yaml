@@ -13,8 +13,8 @@ dependencies:
   - alias: calibre
     name: app-template
     version: 4.3.0
-    repository: https://bjw-s-labs.github.io/helm-charts
+    repository: oci://ghcr.io/bjw-s-labs/helm
   - alias: downloader
     name: app-template
     version: 4.3.0
-    repository: https://bjw-s-labs.github.io/helm-charts
+    repository: oci://ghcr.io/bjw-s-labs/helm

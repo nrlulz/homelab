@@ -4,8 +4,8 @@ version: 0.0.0
 dependencies:
   - name: argo-cd
     version: 8.5.6
-    repository: https://argoproj.github.io/argo-helm
+    repository: oci://ghcr.io/argoproj/argo-helm
   - name: argocd-apps
     version: 2.0.2
-    repository: https://argoproj.github.io/argo-helm
+    repository: oci://ghcr.io/argoproj/argo-helm
     condition: argocd-apps.enabled
