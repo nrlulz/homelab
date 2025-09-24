@@ -4,4 +4,4 @@ version: 0.0.0
 dependencies:
   - name: kubernetes-event-exporter
     version: 3.6.3
-    repository: https://charts.bitnami.com/bitnami
+    repository: oci://registry-1.docker.io/bitnamicharts
