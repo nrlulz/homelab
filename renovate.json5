@@ -29,6 +29,16 @@
       "matchStrings": [
         "\\s*# renovate: depName=(?<depName>\\S+) datasource=(?<datasource>\\S+)( repository=(?<registryUrl>\\S+))?\\n.*[Vv]ersion: (?<currentValue>\\S+?)\\s"
       ]
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/\\.github/workflows/diff\\.yaml$/"
+      ],
+      "matchStrings": [
+        "docker run[\\s\\S]*\\n\\s+(?<depName>\\S+):(?<currentValue>\\S+)\\n\\n"
+      ],
+      "datasourceTemplate": "docker"
     }
   ],
   "packageRules": [
