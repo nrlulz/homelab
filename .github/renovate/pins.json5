@@ -1,0 +1,51 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "description": "ignore nextcloud for now",
+      "matchPackageNames": [
+        "nextcloud"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "use postgres 15",
+      "matchPackageNames": [
+        "docker.io/library/postgres"
+      ],
+      "allowedVersions": "<16"
+    },
+    {
+      "description": "use redis 7",
+      "matchPackageNames": [
+        "docker.io/library/redis"
+      ],
+      "allowedVersions": "<8"
+    },
+    {
+      "description": "ignore certain x.0 releases",
+      "matchPackageNames": [
+        "bitnami/kubectl",
+        "ghcr.io/siderolabs/installer",
+        "ghcr.io/siderolabs/kubelet",
+        "ghcr.io/siderolabs/talosctl",
+        "homeassistant/home-assistant"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "matchNewValue": "/\\.[0]$/",
+      "enabled": false
+    },
+    {
+      "description": "ignore year/date tags",
+      "matchPackageNames": [
+        "binhex/arch-qbittorrentvpn",
+        "lscr.io/linuxserver/overseerr",
+        "lscr.io/linuxserver/tautulli"
+      ],
+      "allowedVersions": "<2000"
+    }
+  ]
+}

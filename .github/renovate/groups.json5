@@ -1,0 +1,38 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "description": "group talos updates",
+      "matchPackageNames": [
+        "ghcr.io/siderolabs/installer",
+        "ghcr.io/siderolabs/talosctl"
+      ],
+      "groupName": "talos",
+      "minimumGroupSize": 2
+    },
+    {
+      "description": "group kubernetes updates",
+      "matchPackageNames": [
+        "bitnami/kubectl",
+        "ghcr.io/siderolabs/kubelet"
+      ],
+      "groupName": "kubernetes"
+    },
+    {
+      "description": "group actual and actual-helpers updates",
+      "matchPackageNames": [
+        "ghcr.io/actualbudget/actual",
+        "ghcr.io/psybers/actual-helpers"
+      ],
+      "groupName": "actual"
+    },
+    {
+      "description": "group intel-device-plugins updates",
+      "matchPackageNames": [
+        "intel-device-plugins-gpu",
+        "intel-device-plugins-operator"
+      ],
+      "groupName": "intel-device-plugins"
+    }
+  ]
+}
