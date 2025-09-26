@@ -5,6 +5,10 @@ longhorn:
     host: longhorn.internal.neils.house
   defaultSettings:
     defaultReplicaCount: 2
+  longhornManager:
+    serviceAnnotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "9500"
   persistence:
     defaultClass: false
   preUpgradeChecker:
