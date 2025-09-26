@@ -22,7 +22,7 @@ spec:
   prepare:
     # wait for all attached longhorn volumes to have healthy status
     # some of them take a while to rebuild and we don't wanna interrupt that
-    image: bitnami/kubectl:1.33.4
+    image: ghcr.io/nrlulz/kubectl:v1.34.0
     command:
       - /bin/sh
     args:

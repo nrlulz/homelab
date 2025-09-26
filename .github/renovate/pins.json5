@@ -25,7 +25,7 @@
     {
       "description": "ignore certain x.0 releases",
       "matchPackageNames": [
-        "bitnami/kubectl",
+        "ghcr.io/nrlulz/kubectl",
         "ghcr.io/siderolabs/installer",
         "ghcr.io/siderolabs/kubelet",
         "ghcr.io/siderolabs/talosctl",

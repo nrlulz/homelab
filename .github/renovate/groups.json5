@@ -13,7 +13,7 @@
     {
       "description": "group kubernetes updates",
       "matchPackageNames": [
-        "bitnami/kubectl",
+        "ghcr.io/nrlulz/kubectl",
         "ghcr.io/siderolabs/kubelet"
       ],
       "groupName": "kubernetes"
