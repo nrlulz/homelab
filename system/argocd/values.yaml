@@ -4,6 +4,8 @@ argo-cd:
   configs:
     params:
       server.insecure: true
+    secret:
+      githubSecret: "$argocd-webhook:secret"
   server:
     ingress:
       enabled: true

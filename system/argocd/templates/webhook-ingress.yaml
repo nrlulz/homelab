@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-webhook
+spec:
+  ingressClassName: external
+  rules:
+    - host: argocd.neils.house
+      http:
+        paths:
+          - backend:
+              service:
+                name: argocd-server
+                port:
+                  number: 80
+            path: /api/webhook
+            pathType: Exact
