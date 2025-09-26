@@ -2,79 +2,79 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "packageRules": [
     {
-      "matchPackageNames": [
+      "matchDepNames": [
         "ghcr.io/psybers/actual-helpers"
       ],
       "changelogUrl": "https://github.com/psybers/actual-helpers/commits/main/"
     },
     {
-      "matchPackageNames": [
+      "matchDepNames": [
         "ghcr.io/actualbudget/actual"
       ],
       "changelogUrl": "https://actualbudget.org/docs/releases/"
     },
     {
-      "matchPackageNames": [
+      "matchDepNames": [
         "lscr.io/linuxserver/bazarr"
       ],
       "changelogUrl": "https://github.com/morpheus65535/bazarr/releases?q=prerelease%3Afalse&expanded=true"
     },
     {
-      "matchPackageNames": [
+      "matchDepNames": [
         "ghcr.io/coder/code-server"
       ],
       "changelogUrl": "https://github.com/coder/code-server/releases?q=prerelease%3Afalse&expanded=true"
     },
     {
-      "matchPackageNames": [
+      "matchDepNames": [
         "loki"
       ],
       "changelogUrl": "https://github.com/grafana/loki/blob/main/production/helm/loki/CHANGELOG.md"
     },
     {
-      "matchPackageNames": [
+      "matchDepNames": [
         "longhorn"
       ],
       "changelogUrl": "https://github.com/longhorn/longhorn/releases?q=prerelease%3Afalse&expanded=true"
     },
     {
-      "matchPackageNames": [
+      "matchDepNames": [
         "lscr.io/linuxserver/overseerr"
       ],
       "changelogUrl": "https://github.com/sct/overseerr/releases"
     },
     {
-      "matchPackageNames": [
+      "matchDepNames": [
         "rhasspy/wyoming-piper"
       ],
       "changelogUrl": "https://github.com/rhasspy/wyoming-piper/blob/master/CHANGELOG.md"
     },
     {
-      "matchPackageNames": [
+      "matchDepNames": [
         "lscr.io/linuxserver/prowlarr"
       ],
       "changelogUrl": "https://github.com/Prowlarr/Prowlarr/releases?q=prerelease%3Afalse&expanded=true"
     },
     {
-      "matchPackageNames": [
+      "matchDepNames": [
         "lscr.io/linuxserver/radarr"
       ],
       "changelogUrl": "https://github.com/Radarr/Radarr/releases?q=prerelease%3Afalse&expanded=true"
     },
     {
-      "matchPackageNames": [
+      "matchDepNames": [
         "lscr.io/linuxserver/sonarr"
       ],
       "changelogUrl": "https://github.com/Sonarr/Sonarr/releases?q=prerelease%3Afalse&expanded=true"
     },
     {
-      "matchPackageNames": [
+      "matchDepNames": [
         "lscr.io/linuxserver/tautulli"
       ],
       "changelogUrl": "https://github.com/Tautulli/Tautulli/releases"
     },
     {
-      "matchPackageNames": [
+      "matchDepNames": [
         "rhasspy/wyoming-whisper"
       ],
       "changelogUrl": "https://github.com/rhasspy/wyoming-faster-whisper/blob/master/CHANGELOG.md"
