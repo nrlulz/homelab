@@ -16,3 +16,6 @@ grafana:
     existingClaim: grafana-data
   deploymentStrategy:
     type: Recreate
+  grafana.ini:
+    server:
+      root_url: https://grafana.neils.house
