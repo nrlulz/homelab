@@ -35,6 +35,9 @@ jobs:
           echo "ARGOCD_CHART_VERSION=$version" >> $GITHUB_ENV
 
       - name: Generate Diff
+        env:
+          ARGOCD_DIFF_PREVIEW_IMAGE: dagandersen/argocd-diff-preview:v0.1.17
+          KIND_NODE_IMAGE: kindest/node:v1.34.0
         run: |
           docker run \
             --network=host \
@@ -47,12 +50,10 @@ jobs:
             -e DIFF_IGNORE="checksum/" \
             -e TARGET_BRANCH=refs/pull/${{ github.event.number }}/merge \
             -e REPO=${{ github.repository }} \
-            #
-            -e KIND_OPTIONS="--image=kindest/node:v1.34.0" \
+            -e KIND_OPTIONS="--image=${KIND_NODE_IMAGE}" \
             -e FILE_REGEX="rendered\.yaml" \
             -e DEBUG=true \
-            #
-            dagandersen/argocd-diff-preview:v0.1.17
+            ${ARGOCD_DIFF_PREVIEW_IMAGE}
 
       - name: Post diff as comment
         run: |
