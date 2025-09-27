@@ -29,7 +29,8 @@
         "ghcr.io/siderolabs/installer",
         "ghcr.io/siderolabs/kubelet",
         "ghcr.io/siderolabs/talosctl",
-        "homeassistant/home-assistant"
+        "homeassistant/home-assistant",
+        "longhorn"
       ],
       "matchUpdateTypes": [
         "major",
