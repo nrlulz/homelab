@@ -5,10 +5,8 @@
     "github>nrlulz/homelab//.github/renovate/changelogs.json5",
     "github>nrlulz/homelab//.github/renovate/groups.json5",
     "github>nrlulz/homelab//.github/renovate/pins.json5",
-    ":automergeBranch",
     ":configMigration",
     ":disableRateLimiting",
-    ":skipStatusChecks",
     ":timezone(America/Los_Angeles)"
   ],
   // only do automerges overnight
