@@ -4,7 +4,7 @@ longhorn:
     ingressClassName: internal
     host: longhorn.internal.neils.house
   defaultSettings:
-    defaultReplicaCount: 2
+    defaultReplicaCount: "2"
   longhornManager:
     serviceAnnotations:
       prometheus.io/scrape: "true"
