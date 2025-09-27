@@ -37,7 +37,7 @@
         "/\\.github/workflows/diff\\.yaml$/"
       ],
       "matchStrings": [
-        "docker run[\\s\\S]*\\n\\s+(?<depName>\\S+):(?<currentValue>\\S+)\\n\\n"
+        "(?i)image: (?<depName>\\S+):(?<currentValue>\\S+)"
       ],
       "datasourceTemplate": "docker"
     }
