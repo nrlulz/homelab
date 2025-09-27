@@ -48,6 +48,7 @@ jobs:
             -e TARGET_BRANCH=refs/pull/${{ github.event.number }}/merge \
             -e REPO=${{ github.repository }} \
             -e KIND_OPTIONS="--image=kindest/node:v1.34.0" \
+            -e FILE_REGEX="rendered\.yaml" \
             -e DEBUG=true \
             dagandersen/argocd-diff-preview:v0.1.17
 
