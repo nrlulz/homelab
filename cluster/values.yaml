@@ -37,11 +37,13 @@ apps:
     - name: zigbee2mqtt
       managedNamespaceMetadata:
         labels:
+          # host path mount
           pod-security.kubernetes.io/enforce: privileged
 
     - name: zwave-js-ui
       managedNamespaceMetadata:
         labels:
+          # host path mount
           pod-security.kubernetes.io/enforce: privileged
 
   media:
@@ -58,6 +60,7 @@ apps:
     - name: privoxy
       managedNamespaceMetadata:
         labels:
+          # NET_ADMIN, SYS_MODULE capabilities (vpn)
           pod-security.kubernetes.io/enforce: privileged
 
     - name: prowlarr
@@ -65,6 +68,7 @@ apps:
     - name: qbittorrent
       managedNamespaceMetadata:
         labels:
+          # NET_ADMIN, SYS_MODULE capabilities (vpn)
           pod-security.kubernetes.io/enforce: privileged
 
     - name: radarr
@@ -74,6 +78,7 @@ apps:
     - name: sabnzbd
       managedNamespaceMetadata:
         labels:
+          # NET_ADMIN, SYS_MODULE capabilities (vpn)
           pod-security.kubernetes.io/enforce: privileged
 
     - name: sonarr
@@ -102,11 +107,13 @@ apps:
     - name: prometheus
       managedNamespaceMetadata:
         labels:
+          # host path mount (node exporter)
           pod-security.kubernetes.io/enforce: privileged
 
     - name: promtail
       managedNamespaceMetadata:
         labels:
+          # host path mount
           pod-security.kubernetes.io/enforce: privileged
 
   system:
@@ -126,6 +133,7 @@ apps:
             - /spec/resourceManager
       managedNamespaceMetadata:
         labels:
+          # host path mount
           pod-security.kubernetes.io/enforce: privileged
 
     - name: longhorn
@@ -136,6 +144,7 @@ apps:
             - /spec/preserveUnknownFields
       managedNamespaceMetadata:
         labels:
+          # host path mount
           pod-security.kubernetes.io/enforce: privileged
 
     - name: metallb
@@ -147,6 +156,7 @@ apps:
             - /spec/conversion/webhook/clientConfig/caBundle
       managedNamespaceMetadata:
         labels:
+          # NET_ADMIN, NET_RAW, SYS_ADMIN, NET_BIND_SERVICE capabilities
           pod-security.kubernetes.io/enforce: privileged
 
     - name: minio
@@ -165,6 +175,7 @@ apps:
     - name: node-feature-discovery
       managedNamespaceMetadata:
         labels:
+          # host path mount
           pod-security.kubernetes.io/enforce: privileged
 
     - name: sealed-secrets
@@ -188,6 +199,7 @@ apps:
     - name: system-upgrade-controller
       managedNamespaceMetadata:
         labels:
+          # host path mount, SYS_BOOT capability
           pod-security.kubernetes.io/enforce: privileged
 
     - name: volsync
