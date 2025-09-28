@@ -1,6 +1,6 @@
 {{- range $group, $apps := .Values.apps}}
 {{- range $app := $apps }}
-{{ $app = merge $app $.Values.allApps }}
+{{ $app = mergeOverwrite (deepCopy $.Values.allApps) $app }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -17,11 +17,7 @@ spec:
     targetRevision: {{ $.Values.spec.source.targetRevision }}
     repoURL: {{ $.Values.spec.source.repoURL }}
   syncPolicy:
-    {{- if $.Values.spec.automatedSync }}
-    automated:
-      prune: true
-      selfHeal: true
-    {{- end }}
+    automated: {{- $app.automatedSync | toYaml | nindent 6 }}
     retry:
       limit: 10
       backoff:

@@ -4,9 +4,12 @@ spec:
   source:
     repoURL: https://github.com/nrlulz/homelab
     targetRevision: master
-  automatedSync: true
 
 allApps:
+  automatedSync:
+    enabled: true
+    prune: true
+    selfHeal: true
   managedNamespaceMetadata:
     annotations:
       volsync.backube/privileged-movers: "true"
