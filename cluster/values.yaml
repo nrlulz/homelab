@@ -20,8 +20,6 @@ apps:
 
     - name: hello-world
 
-    - name: nextcloud
-
     - name: paperless-ngx
 
     - name: radicale
