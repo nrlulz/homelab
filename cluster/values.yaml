@@ -18,8 +18,6 @@ apps:
   apps:
     - name: actual
 
-    - name: hello-world
-
     - name: paperless-ngx
 
     - name: radicale
