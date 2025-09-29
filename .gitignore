@@ -2,8 +2,7 @@
 .vscode
 .DS_Store
 *rendered*.y*ml
-*allvalues.y*ml
 Chart.lock
 *.tgz
-*.tar.gz
+*.gz
 **/secrets/**
