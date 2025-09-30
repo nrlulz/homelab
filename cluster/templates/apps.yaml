@@ -13,9 +13,12 @@ spec:
     server: {{ $.Values.spec.destination.server }}
   project: default
   source:
-    path: {{ $group }}/{{ $app.name }}
-    targetRevision: {{ $.Values.spec.source.targetRevision }}
-    repoURL: {{ $.Values.spec.source.repoURL }}
+    path: {{ if $app.path }}{{ $app.path }}{{ else }}{{ $group }}/{{ $app.name }}{{ end }}
+    targetRevision: {{ $app.targetRevision | default $.Values.spec.source.targetRevision }}
+    repoURL: {{ $app.repoURL | default $.Values.spec.source.repoURL }}
+    {{- if $app.source }}
+      {{- $app.source | toYaml | nindent 4 }}
+    {{- end }}
   syncPolicy:
     automated: {{- $app.automatedSync | toYaml | nindent 6 }}
     retry:
