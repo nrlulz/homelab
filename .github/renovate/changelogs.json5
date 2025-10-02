@@ -15,6 +15,12 @@
     },
     {
       "matchDepNames": [
+        "dagandersen/argocd-diff-preview"
+      ],
+      "changelogUrl": "https://github.com/dag-andersen/argocd-diff-preview/releases"
+    },
+    {
+      "matchDepNames": [
         "lscr.io/linuxserver/bazarr"
       ],
       "changelogUrl": "https://github.com/morpheus65535/bazarr/releases?q=prerelease%3Afalse&expanded=true"
