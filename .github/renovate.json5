@@ -28,7 +28,7 @@
         "/\\.ya?ml$/"
       ],
       "matchStrings": [
-        "\\s*# renovate: depName=(?<depName>\\S+) datasource=(?<datasource>\\S+)( repository=(?<registryUrl>\\S+))?\\n.*[Vv]ersion: (?<currentValue>\\S+?)\\s"
+        "\\s*# renovate: depName=(?<depName>\\S+) datasource=(?<datasource>\\S+)( repository=(?<registryUrl>\\S+))?\\n.*\\S+: (?<currentValue>\\S+?)\\s"
       ]
     },
     {
