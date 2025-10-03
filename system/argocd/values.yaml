@@ -29,8 +29,3 @@ argocd-apps:
       destination:
         name: in-cluster
         namespace: argocd
-      ignoreDifferences:
-        - kind: Application
-          group: argoproj.io
-          jsonPointers:
-            - /status
