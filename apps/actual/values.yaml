@@ -18,7 +18,7 @@ actual:
         actual:
           image:
             repository: ghcr.io/actualbudget/actual
-            tag: 25.9.0
+            tag: 25.10.0
           securityContext: &securityContext
             allowPrivilegeEscalation: false
             capabilities:
@@ -47,7 +47,7 @@ actual:
 helperBase: &helperBase
   image:
     repository: ghcr.io/psybers/actual-helpers
-    tag: latest@sha256:c34ae5954dbc90f61c109e7bdeb4481543fc4c13ac4fff3f50fdfd2f1521830e
+    tag: latest@sha256:43c4104316f36f0843aa0828a4127544a6ed3ae68eb70ae9eb9b30912aaa534d
   securityContext: *securityContext
   envFrom:
     - configMapRef:
