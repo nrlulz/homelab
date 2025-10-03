@@ -3,7 +3,6 @@ argo-cd:
     domain: argocd.internal.neils.house
   configs:
     params:
-      controller.diff.server.side: true
       server.insecure: true
     secret:
       githubSecret: "$argocd-webhook:secret"
@@ -26,7 +25,7 @@ argocd-apps:
       destination:
         name: in-cluster
         namespace: argocd
-      ignoreDifferences:  # necessary?
+      ignoreDifferences:
         - kind: Application
           group: argoproj.io
           jsonPointers:
