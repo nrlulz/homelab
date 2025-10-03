@@ -1,8 +1,6 @@
 argo-cd:
   global:
     domain: argocd.internal.neils.house
-    image:
-      tag: v3.2.0-rc2
   configs:
     params:
       controller.diff.server.side: true
