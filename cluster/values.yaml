@@ -123,18 +123,6 @@ apps:
     - name: cloudnative-pg
       namespace: cnpg-system
 
-    # migrate to helm chart when available:
-    # https://github.com/cloudnative-pg/charts/issues/575
-    - name: cloudnative-pg-plugin-barman-cloud
-      namespace: cnpg-system
-      repoURL: https://github.com/cloudnative-pg/plugin-barman-cloud.git
-      # renovate: depName=cloudnative-pg/plugin-barman-cloud datasource=github-releases
-      targetRevision: v0.7.0
-      path: .
-      source:
-        directory:
-          include: manifest.yaml
-
     - name: ingress-nginx
 
     - name: ingress-nginx-internal
