@@ -7,7 +7,7 @@ spec:
 
 allApps:
   automatedSync:
-    enabled: true
+    enabled: false
     prune: true
     selfHeal: true
   managedNamespaceMetadata:
