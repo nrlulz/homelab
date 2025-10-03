@@ -31,8 +31,13 @@ spec:
       - CreateNamespace=true
       - RespectIgnoreDifferences=true
     managedNamespaceMetadata: {{- $app.managedNamespaceMetadata | toYaml | nindent 6 }}
-  {{- if $app.ignoreDifferences }}
-  ignoreDifferences: {{- $app.ignoreDifferences | toYaml | nindent 4 }}
-  {{- end }}
+  ignoreDifferences:
+    - kind: ReplicationSource
+      group: volsync.backube
+      jsonPointers:
+        - /spec/trigger/schedule
+{{- if $app.ignoreDifferences }}
+    {{- $app.ignoreDifferences | toYaml | nindent 4 }}
+{{- end }}
 {{- end }}
 {{- end }}

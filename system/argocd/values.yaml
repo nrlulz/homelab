@@ -2,10 +2,6 @@ argo-cd:
   global:
     domain: argocd.internal.neils.house
   configs:
-    cm:
-      resource.customizations.ignoreDifferences.volsync.backube_ReplicationSource: |
-        jsonPointers:
-          - /spec/trigger/schedule
     params:
       server.insecure: true
     secret:
