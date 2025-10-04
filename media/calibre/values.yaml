@@ -59,14 +59,10 @@ downloader:
         downloader:
           image:
             repository: ghcr.io/calibrain/calibre-web-automated-book-downloader
-            tag: "20250815"
+            tag: v0.2.2
           env:
             UID: "1000"
             GID: "1000"
-        cloudflarebypass:
-          image:
-            repository: ghcr.io/sarperavci/cloudflarebypassforscraping
-            tag: latest
   service:
     downloader:
       controller: downloader
