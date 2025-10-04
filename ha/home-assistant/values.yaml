@@ -29,7 +29,7 @@ app-template:
         home-assistant:
           image:
             repository: ghcr.io/home-assistant/home-assistant
-            tag: 2025.9.4
+            tag: 2025.10.1
           env:
             PUID: "1000"
             PGID: "1000"
