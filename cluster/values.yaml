@@ -161,19 +161,6 @@ apps:
           # NET_ADMIN, NET_RAW, SYS_ADMIN, NET_BIND_SERVICE capabilities
           pod-security.kubernetes.io/enforce: privileged
 
-    - name: minio
-      ignoreDifferences:
-        - kind: Secret
-          name: minio
-          jsonPointers:
-            - /data/rootUser
-            - /data/rootPassword
-        - kind: Deployment
-          group: apps
-          name: minio
-          jsonPointers:
-            - /spec/template/metadata/annotations/checksum~1secrets
-
     - name: node-feature-discovery
       managedNamespaceMetadata:
         labels:
