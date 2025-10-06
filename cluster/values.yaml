@@ -118,22 +118,12 @@ apps:
     - name: ingress-nginx-internal
 
     - name: intel-gpu-device-plugin
-      ignoreDifferences:
-        - kind: GpuDevicePlugin
-          group: deviceplugin.intel.com
-          jsonPointers:
-            - /spec/resourceManager
       managedNamespaceMetadata:
         labels:
           # host path mount
           pod-security.kubernetes.io/enforce: privileged
 
     - name: longhorn
-      ignoreDifferences:
-        - kind: CustomResourceDefinition
-          group: apiextensions.k8s.io
-          jsonPointers:
-            - /spec/preserveUnknownFields
       managedNamespaceMetadata:
         labels:
           # host path mount
