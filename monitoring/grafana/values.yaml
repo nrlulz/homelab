@@ -6,6 +6,8 @@ pvc:
     runAsGroup: 472
 
 grafana:
+  env:
+    GF_SECURITY_DISABLE_INITIAL_ADMIN_CREATION: "true"
   ingress:
     enabled: true
     ingressClassName: external
