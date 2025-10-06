@@ -88,16 +88,6 @@ apps:
 
   monitoring:
     - name: grafana
-      ignoreDifferences:
-        - kind: Secret
-          name: grafana
-          jsonPointers:
-            - /data/admin-password
-        - kind: Deployment
-          group: apps
-          name: grafana
-          jsonPointers:
-            - /spec/template/metadata/annotations/checksum~1secret
 
     - name: kubernetes-event-exporter
 
