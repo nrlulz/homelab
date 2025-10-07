@@ -1,0 +1,50 @@
+pvc:
+  pvcName: mosquitto-data
+  storageRequest: 128Mi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+
+app-template:
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+  configMaps:
+    mosquitto:
+      data:
+        mosquitto.conf: |
+          allow_anonymous true
+          listener 1883
+          persistence true
+          persistence_location /data
+  controllers:
+    mosquitto:
+      containers:
+        mosquitto:
+          image:
+            repository: eclipse-mosquitto
+            tag: 2.0.22
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+  service:
+    mosquitto:
+      controller: mosquitto
+      ports:
+        mqtt:
+          port: 1883
+  persistence:
+    data:
+      existingClaim: mosquitto-data
+    config:
+      type: configMap
+      identifier: mosquitto
+      globalMounts:
+        - path: /mosquitto/config/mosquitto.conf
+          subPath: mosquitto.conf

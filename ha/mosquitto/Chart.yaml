@@ -1,10 +1,10 @@
 apiVersion: v2
-name: emqx
+name: mosquitto
 version: 0.0.0
 dependencies:
   - name: pvc
     version: 0.0.0
     repository: file://../../charts/pvc
-  - name: emqx
-    version: 5.8.8
-    repository: https://repos.emqx.io/charts
+  - name: app-template
+    version: 4.3.0
+    repository: oci://ghcr.io/bjw-s-labs/helm

@@ -23,9 +23,9 @@ apps:
     - name: radicale
 
   ha:
-    - name: emqx
-
     - name: home-assistant
+
+    - name: mosquitto
 
     - name: node-red
 
