@@ -7,10 +7,9 @@
     "github>nrlulz/homelab//.github/renovate/pins.json5",
     ":configMigration",
     ":disableRateLimiting",
+    ":skipStatusChecks",
     ":timezone(America/Los_Angeles)"
   ],
-  // only do automerges overnight
-  "automergeSchedule": "* 3-6 * * *",
   "argocd": {
     "managerFilePatterns": [
       "/apps/.*\\.ya?ml$/"
