@@ -7,7 +7,6 @@
     "github>nrlulz/homelab//.github/renovate/pins.json5",
     ":configMigration",
     ":disableRateLimiting",
-    ":skipStatusChecks",
     ":timezone(America/Los_Angeles)"
   ],
   "argocd": {
