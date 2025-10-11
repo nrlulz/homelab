@@ -74,12 +74,14 @@ app-template:
       path: /mnt/media
       globalMounts:
         - path: /mnt/media
+          readOnly: true
     music:
       type: nfs
       server: nas.internal
       path: /mnt/data/music
       globalMounts:
         - path: /mnt/data/music
+          readOnly: true
     tmp:
       type: emptyDir
     transcode:
