@@ -147,6 +147,8 @@ apps:
           # host path mount
           pod-security.kubernetes.io/enforce: privileged
 
+    - name: pocket-id
+
     - name: sealed-secrets
       namespace: kube-system
 

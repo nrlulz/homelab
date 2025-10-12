@@ -1,0 +1,10 @@
+apiVersion: v2
+name: pocket-id
+version: 0.0.0
+dependencies:
+  - name: pvc
+    version: 0.0.0
+    repository: file://../../charts/pvc
+  - name: app-template
+    version: 4.3.0
+    repository: oci://ghcr.io/bjw-s-labs/helm
