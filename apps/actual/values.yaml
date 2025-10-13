@@ -24,6 +24,14 @@ actual:
             capabilities:
               drop:
                 - ALL
+          env:
+            ACTUAL_LOGIN_METHOD: openid
+            ACTUAL_OPENID_CLIENT_ID: 290e9d0e-e4d1-4c7c-a720-e7967cd6c191
+            ACTUAL_OPENID_DISCOVERY_URL: https://auth.neils.house/.well-known/openid-configuration
+            ACTUAL_OPENID_SERVER_HOSTNAME: https://actual.neils.house
+          envFrom:
+            - secretRef:
+                name: actual
   service:
     actual:
       controller: actual
