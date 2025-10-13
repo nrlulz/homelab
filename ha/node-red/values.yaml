@@ -29,7 +29,7 @@ app-template:
         node-red:
           image:
             repository: nodered/node-red
-            tag: 4.1.0
+            tag: 4.1.1
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
