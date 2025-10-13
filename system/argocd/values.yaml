@@ -2,6 +2,13 @@ argo-cd:
   global:
     domain: argocd.internal.neils.house
   configs:
+    cm:
+      admin.enabled: false
+      oidc.config: |
+        name: Pocket ID
+        issuer: https://auth.neils.house
+        clientID: 8096bbd7-0a9f-4a40-bc97-929197471342
+        clientSecret: $argocd-oidc:clientSecret
     params:
       server.insecure: true
     secret:
