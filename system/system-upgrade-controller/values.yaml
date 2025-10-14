@@ -10,7 +10,7 @@ app-template:
         system-upgrade-controller:
           image:
             repository: rancher/system-upgrade-controller
-            tag: v0.16.3
+            tag: v0.17.0
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
