@@ -113,6 +113,12 @@ apps:
     - name: cloudnative-pg
       namespace: cnpg-system
 
+    - name: external-secrets
+      managedNamespaceMetadata:
+        labels:
+          # tells trust-manager to create a configmap containing ca cert in this namespace
+          selfsigned-root-ca: "true"
+
     - name: ingress-nginx
 
     - name: ingress-nginx-internal
