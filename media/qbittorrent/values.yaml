@@ -16,7 +16,7 @@ app-template:
             tag: 5.1.2-1-05
           envFrom:
             - secretRef:
-                name: qbittorrent-vpn-credentials
+                name: qbittorrent
           env:
             DEBUG: "false"
             PUID: "1000"

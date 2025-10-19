@@ -1,19 +1,26 @@
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
 metadata:
-  name: paperless
-  namespace: paperless-ngx
+  name: paperless-ngx
 spec:
-  encryptedData:
+  secretStoreRef:
+    name: bitwarden
+    kind: ClusterSecretStore
+  data:
     # Adjust this key if you plan to make paperless available publicly. It should
     # be a very long sequence of random characters. You don't need to remember it.
-    PAPERLESS_SECRET_KEY: AgCveMTVsKYP+4sy15UJQ1tOQmPnlecRQbJpopcpgIFlGxQHGjFofmOWsesrY22L8pZzpP3VQat/vLJV7oq4PdpHQopYd2De6qFeHsBqQPsTobBNqeki4aj707aLrHdwb5r+DD87bKHWaJ2nwuL8+NsERRboST2nDVcYsdmTUIdvVLov71xbQiP58djRLdFjSegAu12HmeVbiA/Kwvr4mFPkzPjjawgRG/2jsq2aiIxYF+HPF3BPHIXwFtlivzn+H2DeOe7fZMFZ+Yh6rT4q96pu0+eG5xDO92eoW0moI5OZx5RVPstx3ILho2SYxD72mWFY429bBGrxsNHcpaLt6UWDREvuvSqGUuXtCdLjSiI8d8BX+ecqhvKSeCo03LlElEWqMYSiyhahe/liVp8iiCnAAaSpwJSFNfE7Jz5JwHgrPXisXbAzfpLumRDascdHx5o5CY+2yVILw7Zw8+fkBbDr2Oky+fTc6KdANBY36xomBGQ3BovVj2xMJkpYtdOL2nDTZzqbPnhVxXbV1375ZCjeZ5Q2rBEsksPcj8Fup4zW0naGwmGJsegqlbj3VFJksKZWRNkGBesNv3G6SKXEq2FN+8SzNsC5vq4LLxeBTAScZxAkR7pa7AEjrBzPfxQua8sOGxlqE2DgPrDSRHEcj3IyXnSZ0Gmlhhknn1okcPOBtTlnIHMv4ECwBO7bBQaxAiBbE1f74XbJo0R+6dLcKJh+POg6bmEJCTDrEisdlkN78nFDkIErAl5ajNy8FL9lamHrmA==
+    - secretKey: PAPERLESS_SECRET_KEY
+      remoteRef:
+        key: PAPERLESS_SECRET_KEY
+    - secretKey: PAPERLESS_DBPASS
+      remoteRef:
+        key: PAPERLESS_DBPASS
 
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: paperless
+  name: paperless-ngx
 data:
   # The UID and GID of the user used to run paperless in the container. Set this
   # to your UID and GID on the host so that you have write access to the
@@ -90,17 +97,11 @@ spec:
           image: ghcr.io/paperless-ngx/paperless-ngx:2.18.4
           ports:
             - containerPort: 8000
-          env:
-            - name: PAPERLESS_DBPASS
-              valueFrom:
-                secretKeyRef:
-                  name: paperless-db-credentials
-                  key: POSTGRES_PASSWORD
           envFrom:
             - configMapRef:
-                name: paperless
+                name: paperless-ngx
             - secretRef:
-                name: paperless
+                name: paperless-ngx
           volumeMounts:
             - name: data
               mountPath: /usr/src/paperless/data
