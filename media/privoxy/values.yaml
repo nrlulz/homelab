@@ -12,7 +12,7 @@ app-template:
             tag: 4.0.0-1-01
           envFrom:
             - secretRef:
-                name: privoxy-vpn-credentials
+                name: privoxy
           env:
             DEBUG: "false"
             PUID: "1000"

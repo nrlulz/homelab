@@ -18,7 +18,7 @@ app-template:
             UN_WEBSERVER_LOG_FILE: /logs/unpackerr.log
           envFrom:
             - secretRef:
-                name: unpackerr-api-keys
+                name: unpackerr
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:

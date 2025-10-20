@@ -16,17 +16,11 @@ spec:
                 - document_exporter
                 - /usr/src/paperless/export
                 - --delete
-              env:
-                - name: PAPERLESS_DBPASS
-                  valueFrom:
-                    secretKeyRef:
-                      name: paperless-db-credentials
-                      key: POSTGRES_PASSWORD
               envFrom:
                 - configMapRef:
-                    name: paperless
+                    name: paperless-ngx
                 - secretRef:
-                    name: paperless
+                    name: paperless-ngx
               volumeMounts:
                 - name: data
                   mountPath: /usr/src/paperless/data

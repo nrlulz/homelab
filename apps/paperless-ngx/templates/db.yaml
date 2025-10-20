@@ -1,13 +1,3 @@
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
-metadata:
-  name: paperless-db-credentials
-  namespace: paperless-ngx
-spec:
-  encryptedData:
-    POSTGRES_PASSWORD: AgA/zKM+WLa7C6ZTRgIo7+kImyW6i5+gc+q1bbOlTM72bhWgnFdW9gJvKMYAt+RtRCTpldtNdfxff5qB6zoR58BmgvLmL01HbwTkS2970uIhHemtZqil4LxIrGpkO/TBGHez18vezgF+PFtn9k5r0BAymL4eELtIPNmC/DJ46QphgFF32s1FMAnNYdWWJRzDOZ4LzmIBYOreakZF4YXtWm1N6UdLAPX6Can1CQedimu8WAet+6ky+/1WdgAsyYRDzRDUwIGExnCroEV9MngmHwDjHTFHZS6zZpeqp8joJk/EZYjsULREniu6/tY1P6guZSG+p4vKG4FvvTdeqqXVDqTt992FqROwdq03/xJj+smP5G4wyXvz+ah9+RXKsXq711IFXi5TvsjRckJDKgiIA10ApY54rqypWkssjlp15c0umsPZaC7df1efctQmEAsi3JHWWmNTVRVKC3bqHOjBPEbCd3sRNDMgKFLL1BPNjy3g8cYHUZX9t5jHvJERWeEoiF3RSEAr/xew2bQk+rpV36gdt2YSIvksYk/X8WcSDe9tk9dhwEJTS5msW6MxVvn9EHzE6rhrsfgVXr/wIuvwaQcf+lL1JzyvmXp7g6rFOkSPoGk/44oCsyO6yF2hu0Id3tmlKaAHHOIrCcU/1H7KKWPDZ0fxrldz/1svgp0WpM93t/kuPQNCFt82vuOpN1BXXaIVUCdfoa6iJyts3zXF0OpWN/SXyw==
-
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -34,9 +24,11 @@ spec:
               value: paperless
             - name: POSTGRES_USER
               value: paperless
-          envFrom:
-            - secretRef:
-                name: paperless-db-credentials
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-ngx
+                  key: PAPERLESS_DBPASS
           volumeMounts:
             - name: data
               mountPath: /var/lib/postgresql/data
