@@ -45,10 +45,6 @@ Do the upgrade just once for the cluster
 
 1.  Backups, obviously
 
-    To backup sealedsecrets keys:
-
-        k get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml > secretkeys.yaml
-
 1.  Nuke nodes (do for each node):
 
         talosctl reset --graceful=false --nodes 192.168.1.31
@@ -80,12 +76,8 @@ Do the upgrade just once for the cluster
 
     Go to http://localhost:8443 and log in with `admin` and copied password
 
-1.  Install Sealed Secrets
+1.  Install External Secrets
 
-    Restore keys backup:
+    Create a secret with the bitwarden secrets manager machine account access token:
 
-        k -n kube-system apply -f secretkeys.yaml
-
-    Then restart the controller:
-
-        k -n kube-system delete pod -l app.kubernetes.io/instance=sealed-secrets
+        k -n external-secrets create secret generic bitwarden-access-token --from-literal=token=<token goes here>

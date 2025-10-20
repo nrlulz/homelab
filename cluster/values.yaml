@@ -155,9 +155,6 @@ apps:
 
     - name: pocket-id
 
-    - name: sealed-secrets
-      namespace: kube-system
-
     - name: snapshot-controller
       ignoreDifferences:
         - kind: Secret
