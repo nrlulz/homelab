@@ -6,6 +6,8 @@ app-template:
       runAsGroup: 1000
   controllers:
     unpackerr:
+      annotations:
+        reloader.stakater.com/auto: "true"
       containers:
         unpackerr:
           image:

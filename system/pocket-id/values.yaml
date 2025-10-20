@@ -14,6 +14,8 @@ app-template:
       fsGroup: 1000
   controllers:
     pocket-id:
+      annotations:
+        reloader.stakater.com/auto: "true"
       containers:
         pocket-id:
           image:

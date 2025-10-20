@@ -3,6 +3,8 @@ loki:
     priorityClassName: system-node-critical
   deploymentMode: SingleBinary
   loki:
+    annotations:
+      secret.reloader.stakater.com/reload: "loki"
     auth_enabled: false
     commonConfig:
       replication_factor: 1
