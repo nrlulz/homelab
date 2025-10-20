@@ -5,6 +5,8 @@ pvc:
 app-template:
   controllers:
     privoxy:
+      annotations:
+        reloader.stakater.com/auto: "true"
       containers:
         privoxy:
           image:

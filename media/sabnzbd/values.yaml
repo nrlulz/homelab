@@ -5,6 +5,8 @@ pvc:
 app-template:
   controllers:
     sabnzbd:
+      annotations:
+        reloader.stakater.com/auto: "true"
       containers:
         sabnzbd:
           image:
