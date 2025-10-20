@@ -153,6 +153,8 @@ apps:
           # host path mount
           pod-security.kubernetes.io/enforce: privileged
 
+    - name: reloader
+
     - name: pocket-id
 
     - name: snapshot-controller
