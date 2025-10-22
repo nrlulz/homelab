@@ -6,20 +6,52 @@ pvc:
     runAsGroup: 472
 
 grafana:
+  deploymentStrategy:
+    type: Recreate
+
   env:
     GF_SECURITY_DISABLE_INITIAL_ADMIN_CREATION: "true"
+
+  extraObjects:
+    - apiVersion: external-secrets.io/v1
+      kind: ExternalSecret
+      metadata:
+        name: grafana
+      spec:
+        secretStoreRef:
+          name: bitwarden
+          kind: ClusterSecretStore
+        data:
+          - secretKey: user
+            remoteRef:
+              key: GRAFANA_SMTP_USERNAME
+          - secretKey: password
+            remoteRef:
+              key: GRAFANA_SMTP_PASSWORD
+
+  grafana.ini:
+    auth:
+      disable_login_form: true
+    server:
+      root_url: https://grafana.neils.house
+    smtp:
+      enabled: true
+      host: smtp.mailgun.org:465
+      from_address: grafana@neils.house
+
   ingress:
     enabled: true
     ingressClassName: external
     hosts:
       - grafana.neils.house
+
   persistence:
     enabled: true
     existingClaim: grafana-data
-  deploymentStrategy:
-    type: Recreate
-  grafana.ini:
-    server:
-      root_url: https://grafana.neils.house
-    auth:
-      disable_login_form: true
+
+  smtp:
+    existingSecret: grafana
+
+  testFramework:
+    enabled: false
+
