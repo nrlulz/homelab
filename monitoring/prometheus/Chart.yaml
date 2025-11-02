@@ -3,5 +3,5 @@ name: prometheus
 version: 0.0.0
 dependencies:
   - name: prometheus
-    version: 27.42.1
+    version: 27.42.2
     repository: oci://ghcr.io/prometheus-community/charts
