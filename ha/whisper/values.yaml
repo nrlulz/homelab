@@ -24,6 +24,8 @@ app-template:
             - en
             - --model
             - base-int8
+            - --data-dir
+            - /data
   service:
     whisper:
       controller: whisper

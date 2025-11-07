@@ -26,6 +26,8 @@ app-template:
           args:
             - --voice
             - en_US-lessac-medium
+            - --data-dir
+            - /data
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
