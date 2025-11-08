@@ -1,0 +1,4 @@
+cloudnative-pg:
+  config:
+    data:
+      INHERITED_ANNOTATIONS: "prometheus.io/*"
