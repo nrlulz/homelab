@@ -10,8 +10,8 @@ app-template:
       containers:
         privoxy:
           image:
-            repository: binhex/arch-privoxyvpn
-            tag: 4.0.0-1-01
+            repository: ghcr.io/binhex/arch-privoxyvpn
+            tag: 4.0.0-1-01@sha256:905e12ec81986fcc947c1fd7945a7f8e2ddd247c3c2b12c8585b0a9b21a62244
           envFrom:
             - secretRef:
                 name: privoxy

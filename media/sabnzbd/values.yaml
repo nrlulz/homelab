@@ -10,8 +10,8 @@ app-template:
       containers:
         sabnzbd:
           image:
-            repository: binhex/arch-sabnzbdvpn
-            tag: 4.5.5-1-01
+            repository: ghcr.io/binhex/arch-sabnzbdvpn
+            tag: 4.5.5-1-01@sha256:411ed4ba589529960690c08de64fb2791c76d37d9a4278a99d30d7d32fc701f5
           envFrom:
             - secretRef:
                 name: sabnzbd
