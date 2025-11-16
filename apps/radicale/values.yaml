@@ -19,7 +19,7 @@ app-template:
         radicale:
           image:
             repository: tomsquest/docker-radicale
-            tag: 3.5.8.0
+            tag: 3.5.8.1@sha256:0449632d7de7ff62577b12bc9940692b873a2d5de17de6dfad15f1f6643b12c3
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
