@@ -1,11 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended",
+    "config:best-practices",
     "github>nrlulz/homelab//.github/renovate/changelogs.json5",
     "github>nrlulz/homelab//.github/renovate/groups.json5",
     "github>nrlulz/homelab//.github/renovate/pins.json5",
-    ":configMigration",
     ":disableRateLimiting",
     ":timezone(America/Los_Angeles)"
   ],
@@ -72,11 +71,12 @@
       "versioning": "loose"
     },
     {
-      "description": "don't automerge talos updates",
+      "description": "don't automerge talos/k8s updates",
       "matchDatasources": [
         "docker"
       ],
       "matchPackageNames": [
+        "ghcr.io/nrlulz/kubectl",
         "ghcr.io/siderolabs/installer",
         "ghcr.io/siderolabs/kubelet",
         "ghcr.io/siderolabs/talosctl"
@@ -86,6 +86,7 @@
     {
       "description": "separate minor/patch updates",
       "matchPackageNames": [
+        "ghcr.io/nrlulz/kubectl",
         "ghcr.io/siderolabs/installer",
         "ghcr.io/siderolabs/kubelet",
         "ghcr.io/siderolabs/talosctl",
