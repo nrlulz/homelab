@@ -19,7 +19,7 @@ app-template:
         zwave-js-ui:
           image:
             repository: zwavejs/zwave-js-ui
-            tag: 11.6.1
+            tag: 11.7.0@sha256:1a1e858dd454e50c2ead9a8f64b17fb7c4cbf67fe413bb8009d73e7fdf33c615
           securityContext:
             privileged: true
           probes:
