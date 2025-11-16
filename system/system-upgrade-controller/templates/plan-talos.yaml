@@ -22,7 +22,7 @@ spec:
   prepare:
     # wait for all attached longhorn volumes to have healthy status
     # some of them take a while to rebuild and we don't wanna interrupt that
-    image: ghcr.io/nrlulz/kubectl:v1.34.1
+    image: ghcr.io/nrlulz/kubectl:v1.34.2@sha256:46fdf8f2b0839da43c2fd3af204b0cad4c5262807c453b90ab33c887330843c8
     command:
       - /bin/sh
     args:
