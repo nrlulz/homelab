@@ -29,7 +29,7 @@ app-template:
         node-red:
           image:
             repository: docker.io/nodered/node-red
-            tag: 4.1.1
+            tag: 4.1.1@sha256:a840dff7e3f704466600d9e4660d46a9f795c589bf9be20a5727c636a8125563
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:

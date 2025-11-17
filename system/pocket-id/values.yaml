@@ -20,7 +20,7 @@ app-template:
         pocket-id:
           image:
             repository: ghcr.io/pocket-id/pocket-id
-            tag: v1.15.0-distroless
+            tag: v1.15.0-distroless@sha256:102e9dcb75f15adfd154ef7eab0ce36c36d82fc7a56cfb006ced980cfaa3a188
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true

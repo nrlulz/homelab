@@ -33,7 +33,7 @@ spec:
         done
         echo "all volumes are healthy!"
   upgrade:
-    image: ghcr.io/jfroy/tnu:0.4.4
+    image: ghcr.io/jfroy/tnu:0.4.4@sha256:b3f75c7bab94daff74b048410665fffed0a2278e0071ef88e0cf24ba29d48cfc
     envs:
       - name: NODE_IP
         valueFrom:

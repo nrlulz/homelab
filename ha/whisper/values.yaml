@@ -18,7 +18,7 @@ app-template:
         whisper:
           image:
             repository: docker.io/rhasspy/wyoming-whisper
-            tag: 3.0.2
+            tag: 3.0.2@sha256:995b37523bc422f4f7649e50ccded97a5b9bf6d1d0420591183a778dd5d7d3f2
           args:
             - --language
             - en
