@@ -34,7 +34,7 @@
         "/\\.github/workflows/diff\\.yaml$/"
       ],
       "matchStrings": [
-        "(?i)image: (?<depName>\\S+):(?<currentValue>\\S+)(@(?<currentDigest>sha256:[a-f0-9]{64}))?"
+        "(?i)image: (?<depName>[a-zA-Z\\./-]+):(?<currentValue>[v0-9\\.]+)(@(?<currentDigest>sha256:[a-f0-9]{64}))?"
       ],
       "datasourceTemplate": "docker"
     }
