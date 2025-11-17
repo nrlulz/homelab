@@ -59,7 +59,7 @@ downloader:
         downloader:
           image:
             repository: ghcr.io/calibrain/calibre-web-automated-book-downloader
-            tag: v0.2.4
+            tag: v0.2.4@sha256:b1296c5edc89eee8742d86392ce40707233671044a454e002821e5c76cd58deb
           env:
             UID: "1000"
             GID: "1000"

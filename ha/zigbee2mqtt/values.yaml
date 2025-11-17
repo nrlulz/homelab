@@ -19,7 +19,7 @@ app-template:
         zigbee2mqtt:
           image:
             repository: docker.io/koenkk/zigbee2mqtt
-            tag: 2.6.3
+            tag: 2.6.3@sha256:3baac2a3b74a9945fbbcb665b3e6e0ace5df2d49b5502e3d26b66a5454316e81
           env:
             ZIGBEE2MQTT_CONFIG_SERIAL_PORT: *coordinatorPath
             ZIGBEE2MQTT_DATA: /config
