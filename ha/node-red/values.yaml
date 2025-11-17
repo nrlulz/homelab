@@ -28,7 +28,7 @@ app-template:
       containers:
         node-red:
           image:
-            repository: nodered/node-red
+            repository: docker.io/nodered/node-red
             tag: 4.1.1
           securityContext:
             allowPrivilegeEscalation: false

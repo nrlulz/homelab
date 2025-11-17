@@ -18,7 +18,7 @@ app-template:
       containers:
         zwave-js-ui:
           image:
-            repository: zwavejs/zwave-js-ui
+            repository: docker.io/zwavejs/zwave-js-ui
             tag: 11.6.1
           securityContext:
             privileged: true

@@ -21,7 +21,7 @@ app-template:
       containers:
         piper:
           image:
-            repository: rhasspy/wyoming-piper
+            repository: docker.io/rhasspy/wyoming-piper
             tag: 2.1.2
           args:
             - --voice

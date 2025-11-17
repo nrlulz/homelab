@@ -20,7 +20,7 @@ app-template:
       containers:
         jellyfin:
           image:
-            repository: jellyfin/jellyfin
+            repository: docker.io/jellyfin/jellyfin
             tag: 10.10.7
           env:
             JELLYFIN_LOG_DIR: "/logs"

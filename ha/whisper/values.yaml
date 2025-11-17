@@ -17,7 +17,7 @@ app-template:
       containers:
         whisper:
           image:
-            repository: rhasspy/wyoming-whisper
+            repository: docker.io/rhasspy/wyoming-whisper
             tag: 3.0.2
           args:
             - --language
