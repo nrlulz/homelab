@@ -51,8 +51,7 @@
     {
       "description": "automerge all updates",
       "matchPackageNames": [
-        "ghcr.io/calibrain/calibre-web-automated-book-downloader",
-        "plexinc/pms-docker"
+        "docker.io/plexinc/pms-docker"
       ],
       "automerge": true
     },
@@ -62,11 +61,11 @@
         "docker"
       ],
       "matchPackageNames": [
-        "binhex/arch-privoxyvpn",
-        "binhex/arch-qbittorrentvpn",
-        "binhex/arch-sabnzbdvpn",
-        "crocodilestick/calibre-web-automated",
-        "plexinc/pms-docker"
+        "ghcr.io/binhex/arch-privoxyvpn",
+        "ghcr.io/binhex/arch-qbittorrentvpn",
+        "ghcr.io/binhex/arch-sabnzbdvpn",
+        "ghcr.io/crocodilestick/calibre-web-automated",
+        "docker.io/plexinc/pms-docker"
       ],
       "versioning": "loose"
     },
@@ -90,22 +89,28 @@
         "ghcr.io/siderolabs/installer",
         "ghcr.io/siderolabs/kubelet",
         "ghcr.io/siderolabs/talosctl",
-        "homeassistant/home-assistant"
+        "ghcr.io/home-assistant/home-assistant"
       ],
       "separateMinorPatch": true
     },
     {
       "description": "don't separate major/minor updates for packages using YYYY.MM.DD versioning",
       "matchPackageNames": [
-        "homeassistant/home-assistant"
+        "ghcr.io/home-assistant/home-assistant"
       ],
       "separateMajorMinor": false
     },
     {
-      "matchPackageNames": [
-        "ghcr.io/psybers/actual-helpers"
+      "description": "don't pin digests for things that aren't specific image tags",
+      "matchDatasources": [
+        "docker"
       ],
-      "pinDigests": true
+      "matchFileNames": [
+        "bootstrap/talconfig.yaml",
+        "system/system-upgrade-controller/templates/plan-k8s.yaml",
+        "system/system-upgrade-controller/templates/plan-talos.yaml"
+      ],
+      "pinDigests": false
     }
   ]
 }

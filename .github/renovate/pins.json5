@@ -2,13 +2,6 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "packageRules": [
     {
-      "description": "ignore nextcloud for now",
-      "matchPackageNames": [
-        "nextcloud"
-      ],
-      "enabled": false
-    },
-    {
       "description": "use postgres 15",
       "matchPackageNames": [
         "docker.io/library/postgres"
@@ -42,7 +35,7 @@
     {
       "description": "ignore year/date tags",
       "matchPackageNames": [
-        "binhex/arch-qbittorrentvpn",
+        "ghcr.io/binhex/arch-qbittorrentvpn",
         "lscr.io/linuxserver/overseerr",
         "lscr.io/linuxserver/tautulli"
       ],

@@ -15,7 +15,7 @@
     },
     {
       "matchDepNames": [
-        "dagandersen/argocd-diff-preview"
+        "docker.io/dagandersen/argocd-diff-preview"
       ],
       "changelogUrl": "https://github.com/dag-andersen/argocd-diff-preview/releases"
     },
@@ -51,7 +51,7 @@
     },
     {
       "matchDepNames": [
-        "rhasspy/wyoming-piper"
+        "docker.io/rhasspy/wyoming-piper"
       ],
       "changelogUrl": "https://github.com/rhasspy/wyoming-piper/blob/master/CHANGELOG.md"
     },
@@ -81,7 +81,7 @@
     },
     {
       "matchDepNames": [
-        "rhasspy/wyoming-whisper"
+        "docker.io/rhasspy/wyoming-whisper"
       ],
       "changelogUrl": "https://github.com/rhasspy/wyoming-faster-whisper/blob/master/CHANGELOG.md"
     }
