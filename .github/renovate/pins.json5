@@ -36,8 +36,7 @@
       "description": "ignore year/date tags",
       "matchPackageNames": [
         "ghcr.io/binhex/arch-qbittorrentvpn",
-        "lscr.io/linuxserver/overseerr",
-        "lscr.io/linuxserver/tautulli"
+        "lscr.io/linuxserver/overseerr"
       ],
       "allowedVersions": "<2000"
     }

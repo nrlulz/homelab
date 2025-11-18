@@ -1,19 +1,45 @@
 pvc:
   pvcName: tautulli-data
   storageRequest: 4Gi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
 
 app-template:
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
   controllers:
     tautulli:
       containers:
         tautulli:
           image:
-            repository: lscr.io/linuxserver/tautulli
-            tag: 2.16.0@sha256:f8b84be159b6e413db2b60426154522ceaf33d7190489c160de415501d5e722e
+            repository: ghcr.io/home-operations/tautulli
+            tag: 2.16.0@sha256:2a092f86a51f5718111097b0fced33eaa876b5904a543b7504f92357a4f75635
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
           env:
-            PUID: "1000"
-            PGID: "1000"
             TZ: "America/Los_Angeles"
+          probes:
+            liveness: &probe
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /status
+                  port: 8181
+            readiness: *probe
   service:
     tautulli:
       controller: tautulli

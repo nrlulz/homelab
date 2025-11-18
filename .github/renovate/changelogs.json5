@@ -21,7 +21,7 @@
     },
     {
       "matchDepNames": [
-        "lscr.io/linuxserver/bazarr"
+        "ghcr.io/home-operations/bazarr"
       ],
       "changelogUrl": "https://github.com/morpheus65535/bazarr/releases?q=prerelease%3Afalse&expanded=true"
     },
@@ -57,25 +57,25 @@
     },
     {
       "matchDepNames": [
-        "lscr.io/linuxserver/prowlarr"
+        "ghcr.io/home-operations/prowlarr"
       ],
       "changelogUrl": "https://github.com/Prowlarr/Prowlarr/releases?q=prerelease%3Afalse&expanded=true"
     },
     {
       "matchDepNames": [
-        "lscr.io/linuxserver/radarr"
+        "ghcr.io/home-operations/radarr"
       ],
       "changelogUrl": "https://github.com/Radarr/Radarr/releases?q=prerelease%3Afalse&expanded=true"
     },
     {
       "matchDepNames": [
-        "lscr.io/linuxserver/sonarr"
+        "ghcr.io/home-operations/sonarr"
       ],
       "changelogUrl": "https://github.com/Sonarr/Sonarr/releases?q=prerelease%3Afalse&expanded=true"
     },
     {
       "matchDepNames": [
-        "lscr.io/linuxserver/tautulli"
+        "ghcr.io/home-operations/tautulli"
       ],
       "changelogUrl": "https://github.com/Tautulli/Tautulli/releases"
     },

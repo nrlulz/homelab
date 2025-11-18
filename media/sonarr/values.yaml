@@ -1,19 +1,45 @@
 pvc:
   pvcName: sonarr-data
   storageRequest: 2Gi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
 
 app-template:
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
   controllers:
     sonarr:
       containers:
         sonarr:
           image:
-            repository: lscr.io/linuxserver/sonarr
-            tag: 4.0.16@sha256:4b8a853b76337cd5de5f69961e23b7d0792ce7bf0a8be083dd7202ef670bfc34
+            repository: ghcr.io/home-operations/sonarr
+            tag: 4.0.16.2943@sha256:0a1b8f5cb5b072f7ad8c6ff64a25dc512115d1a114ecf19a58a3b4f870207ddd
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
           env:
-            PUID: "1000"
-            PGID: "1000"
             TZ: "America/Los_Angeles"
+          probes:
+            liveness: &probe
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /ping
+                  port: 8989
+            readiness: *probe
   service:
     sonarr:
       controller: sonarr
