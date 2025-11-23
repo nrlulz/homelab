@@ -33,6 +33,15 @@
         "intel-device-plugins-operator"
       ],
       "groupName": "intel-device-plugins"
+    },
+    {
+      "description": "group immich updates",
+      "matchPackageNames": [
+        "ghcr.io/immich-app/immich-machine-learning",
+        "ghcr.io/immich-app/immich-server"
+      ],
+      "groupName": "immich",
+      "minimumGroupSize": 2
     }
   ]
 }
