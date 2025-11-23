@@ -1,0 +1,16 @@
+apiVersion: v2
+name: immich
+version: 0.0.0
+sources:
+  - https://github.com/immich-app/immich-charts/tree/main/charts/immich
+  - https://github.com/immich-app/immich
+dependencies:
+  - name: pvc
+    version: 0.0.0
+    repository: file://../../charts/pvc
+  - name: pgcluster
+    version: 0.0.0
+    repository: file://../../charts/pgcluster
+  - name: immich
+    version: 0.10.1
+    repository: oci://ghcr.io/immich-app/immich-charts

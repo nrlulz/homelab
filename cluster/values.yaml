@@ -18,6 +18,8 @@ apps:
   apps:
     - name: actual
 
+    - name: immich
+
     - name: paperless-ngx
 
     - name: radicale

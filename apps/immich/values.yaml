@@ -1,0 +1,128 @@
+pvc:
+  pvcName: immich-data
+  storageRequest: 64Gi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+
+pgcluster:
+  image: ghcr.io/tensorchord/cloudnative-vectorchord:17.6-0.5.3@sha256:ef3bf2e3abe76c3939b994afbde46cb9f24d2fbdf7ff2026a03aefa84d9a2a23
+  databaseName: immich
+  generation: 1
+
+  # ref: https://github.com/immich-app/immich-charts/blob/main/local/cloudnative-pg.yaml
+  cluster:
+    storage:
+      size: 8Gi
+
+    postgresql:
+      shared_preload_libraries:
+        - vchord.so
+
+  initdb:
+    postInitApplicationSQL:
+      - CREATE EXTENSION vchord CASCADE;
+      - CREATE EXTENSION earthdistance CASCADE;
+
+immich:
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+
+  controllers:
+    main:
+      annotations:
+        reloader.stakater.com/auto: "true"
+      containers:
+        main:
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+
+  immich:
+    persistence:
+      library:
+        existingClaim: immich-data
+
+  valkey:
+    enabled: true
+
+  server:
+    defaultPodOptions:
+      securityContext:
+        supplementalGroups:
+          - 3003
+          - 3004
+
+    controllers:
+      main:
+        strategy: Recreate
+        containers:
+          main:
+            image:
+              repository: ghcr.io/immich-app/immich-server
+              tag: v2.3.1@sha256:f8d06a32b1b2a81053d78e40bf8e35236b9faefb5c3903ce9ca8712c9ed78445
+            env:
+              DB_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: immich-cluster-v1-app
+                    key: uri
+
+    ingress:
+      main:
+        enabled: true
+        className: external
+        hosts:
+          - host: photos.neils.house
+            paths:
+              - path: "/"
+                service:
+                  identifier: main
+
+    persistence:
+      photos:
+        type: nfs
+        server: nas.internal
+        path: /mnt/data/photos
+        globalMounts:
+          - path: /mnt/data/photos
+            readOnly: true
+      photosync-emily:
+        type: nfs
+        server: nas.internal
+        path: /mnt/data/photosync_emily
+        globalMounts:
+          - path: /mnt/data/photosync_emily
+            readOnly: true
+      photosync-neil:
+        type: nfs
+        server: nas.internal
+        path: /mnt/data/photosync_neil
+        globalMounts:
+          - path: /mnt/data/photosync_neil
+            readOnly: true
+
+  machine-learning:
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/immich-app/immich-machine-learning
+              tag: v2.3.1@sha256:379e31b8c75107b0af8141904baa8cc933d7454b88fdb204265ef11749d7d908
+
+    persistence:
+      dotconfig:
+        type: emptyDir
+        globalMounts:
+          - path: /.config
+      dotcache:
+        type: emptyDir
+        globalMounts:
+          - path: /.cache
