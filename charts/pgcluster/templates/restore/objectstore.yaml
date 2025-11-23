@@ -1,0 +1,25 @@
+{{- if .Values.recovery.enabled }}
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: {{ include "pgcluster.instanceName" . }}-restore
+spec:
+  retentionPolicy: 90d
+  configuration:
+    destinationPath: {{ .Values.s3.bucket }}/{{ required "source instance name is required" .Values.recovery.sourceInstanceName }}
+    endpointURL: {{ .Values.s3.endpoint }}
+    s3Credentials:
+      region:
+        name: {{ include "pgcluster.instanceName" . }}-ro
+        key: region
+      accessKeyId:
+        name: {{ include "pgcluster.instanceName" . }}-ro
+        key: accessKeyId
+      secretAccessKey:
+        name: {{ include "pgcluster.instanceName" . }}-ro
+        key: secretAccessKey
+    wal:
+      compression: gzip
+    data:
+      compression: gzip
+{{- end -}}

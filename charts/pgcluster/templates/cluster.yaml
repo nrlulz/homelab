@@ -1,0 +1,44 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: {{ include "pgcluster.instanceName" . }}
+  annotations: {{ toYaml .Values.annotations | nindent 4 }}
+spec:
+  imageName: {{ .Values.image }}
+
+  {{- toYaml .Values.cluster | nindent 2 }}
+
+  {{- if .Values.recovery.enabled }}
+  bootstrap:
+    recovery:
+      database: {{ required "databaseName is required" .Values.databaseName }}
+      owner: {{ .Values.databaseOwner | default .Values.databaseName }}
+      source: restore
+      {{- if .Values.recovery.target }}
+      recoveryTarget: {{ toYaml .Values.recovery.target | nindent 8 }}
+      {{- end }}
+
+  externalClusters:
+    - name: restore
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: {{ include "pgcluster.instanceName" . }}-restore
+          serverName: {{ .Values.recovery.sourceServerName | default .Values.databaseName }}
+
+  {{- else }}
+  bootstrap:
+    initdb:
+      database: {{ .Values.databaseName }}
+      owner: {{ .Values.databaseOwner | default .Values.databaseName }}
+      {{ if .Values.initdb -}}
+      {{ toYaml .Values.initdb | nindent 6 }}
+      {{- end }}
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: {{ .Values.backup.enabled }}
+      parameters:
+        barmanObjectName: {{ include "pgcluster.instanceName" . }}-backup
+        serverName: {{ .Values.databaseName }}
+
+  {{- end -}}

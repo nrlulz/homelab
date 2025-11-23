@@ -1,0 +1,23 @@
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: {{ include "pgcluster.instanceName" . }}-backup
+spec:
+  retentionPolicy: 90d
+  configuration:
+    destinationPath: {{ .Values.s3.bucket }}/{{ include "pgcluster.instanceName" . }}
+    endpointURL: {{ .Values.s3.endpoint }}
+    s3Credentials:
+      region:
+        name: {{ include "pgcluster.instanceName" . }}-rw
+        key: region
+      accessKeyId:
+        name: {{ include "pgcluster.instanceName" . }}-rw
+        key: accessKeyId
+      secretAccessKey:
+        name: {{ include "pgcluster.instanceName" . }}-rw
+        key: secretAccessKey
+    wal:
+      compression: gzip
+    data:
+      compression: gzip
