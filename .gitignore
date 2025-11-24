@@ -6,3 +6,5 @@ Chart.lock
 *.tgz
 *.gz
 **/secrets/**
+*.sql
+*.dump
