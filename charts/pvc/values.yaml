@@ -1,5 +1,5 @@
 # this should be unique across all PVCs in the cluster
-pvcName: name
+pvcName: ""
 
 accessModes:
   - ReadWriteOnce

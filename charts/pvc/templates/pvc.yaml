@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Values.pvcName }}
+  name: {{ required "pvcName is required" .Values.pvcName }}
 spec:
   accessModes: {{ .Values.accessModes }}
   dataSourceRef:
