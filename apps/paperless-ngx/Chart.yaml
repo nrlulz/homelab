@@ -10,11 +10,22 @@ dependencies:
     name: pvc
     version: 0.0.0
     repository: file://../../charts/pvc
-  - alias: pvc-pgdata
-    name: pvc
+  - name: pgcluster
     version: 0.0.0
-    repository: file://../../charts/pvc
-  - alias: pvc-redisdata
-    name: pvc
-    version: 0.0.0
-    repository: file://../../charts/pvc
+    repository: file://../../charts/pgcluster
+  - alias: gotenberg
+    name: app-template
+    version: 4.4.0
+    repository: oci://ghcr.io/bjw-s-labs/helm
+  - alias: redis
+    name: app-template
+    version: 4.4.0
+    repository: oci://ghcr.io/bjw-s-labs/helm
+  - alias: tika
+    name: app-template
+    version: 4.4.0
+    repository: oci://ghcr.io/bjw-s-labs/helm
+  - alias: server
+    name: app-template
+    version: 4.4.0
+    repository: oci://ghcr.io/bjw-s-labs/helm
