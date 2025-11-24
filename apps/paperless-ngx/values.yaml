@@ -6,10 +6,226 @@ pvc-media:
   pvcName: paperless-media
   storageRequest: 4Gi
 
-pvc-pgdata:
-  pvcName: paperless-pgdata
-  storageRequest: 512Mi
+pgcluster:
+  image: ghcr.io/cloudnative-pg/postgresql:18.1@sha256:368c8ee05071bca5a2464e54c75da39b423dc9e80698b545b212ae42aa97abba
+  databaseName: paperless
+  generation: 1
 
-pvc-redisdata:
-  pvcName: paperless-redisdata
-  storageRequest: 128Mi
+base:
+  defaultPodOptions: &defaultPodOptions
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+
+  containerSecurityContext: &containerSecurityContext
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    readOnlyRootFilesystem: true
+    seccompProfile:
+      type: RuntimeDefault
+
+gotenberg:
+  global:
+    nameOverride: gotenberg
+  defaultPodOptions: *defaultPodOptions
+  controllers:
+    gotenberg:
+      strategy: RollingUpdate
+      containers:
+        gotenberg:
+          image:
+            repository: docker.io/gotenberg/gotenberg
+            tag: 8.25.0@sha256:e304e45acee3c400f8ef76afa195c76b1d0eaf0ab6fe9651e305067ab6a1560c
+          command:
+            - "gotenberg"
+            - "--chromium-disable-javascript=true"
+            - "--chromium-allow-list=file:///tmp/.*"
+          securityContext: *containerSecurityContext
+  service:
+    gotenberg:
+      controller: gotenberg
+      ports:
+        http:
+          port: 3000
+
+redis:
+  global:
+    nameOverride: redis
+  defaultPodOptions: *defaultPodOptions
+  controllers:
+    redis:
+      strategy: RollingUpdate
+      containers:
+        redis:
+          image:
+            repository: docker.io/library/redis
+            tag: 7.4.4-alpine@sha256:ee9e8748ace004102a267f7b8265dab2c618317df22507b89d16a8add7154273
+          securityContext: *containerSecurityContext
+  service:
+    redis:
+      controller: redis
+      ports:
+        redis:
+          port: 6379
+
+tika:
+  global:
+    nameOverride: tika
+  defaultPodOptions: *defaultPodOptions
+  controllers:
+    tika:
+      strategy: RollingUpdate
+      containers:
+        tika:
+          image:
+            repository: docker.io/apache/tika
+            tag: 3.2.3.0@sha256:c0154cb95587cde64be74f35ada1a2bd7892219f3f0ac3c9dc6cab34046b3573
+          securityContext: *containerSecurityContext
+  service:
+    tika:
+      controller: tika
+      ports:
+        tika:
+          port: 9998
+  persistence:
+    tmp:
+      type: emptyDir
+
+server:
+  defaultPodOptions: *defaultPodOptions
+
+  configMaps:
+    config:
+      data:
+        PAPERLESS_CONSUMER_ENABLE_BARCODES: "true"
+        PAPERLESS_CONSUMER_POLLING_DELAY: "30"
+        PAPERLESS_CONSUMER_POLLING_RETRY_COUNT: "20"
+        PAPERLESS_CONSUMER_POLLING: "60"
+        PAPERLESS_DATE_ORDER: "MDY"
+        PAPERLESS_REDIS: "redis://paperless-ngx-redis:6379"
+        PAPERLESS_TIKA_ENABLED: "1"
+        PAPERLESS_TIKA_ENDPOINT: "http://paperless-ngx-tika:9998"
+        PAPERLESS_TIKA_GOTENBERG_ENDPOINT: "http://paperless-ngx-gotenberg:3000"
+        PAPERLESS_TIME_ZONE: "America/Los_Angeles"
+        PAPERLESS_URL: "https://docs.neils.house"
+        S6_READ_ONLY_ROOT: "1"
+        S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: "1"
+        USERMAP_GID: "1000"
+        USERMAP_UID: "1000"
+
+  controllers:
+    server:
+      annotations:
+        reloader.stakater.com/auto: "true"
+      containers:
+        server: &serverBase
+          image:
+            repository: ghcr.io/paperless-ngx/paperless-ngx
+            tag: 2.20.0@sha256:8ffd737c69a569bbdadc118e7f54b0b1050ffac2868fdf9e390a68cb7c82a79d
+          securityContext: *containerSecurityContext
+          envFrom:
+            - configMapRef:
+                name: paperless-ngx
+            - secretRef:
+                name: paperless-ngx
+          env:
+            PAPERLESS_DBHOST:
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-cluster-v1-app
+                  key: host
+            PAPERLESS_DBPASS:
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-cluster-v1-app
+                  key: password
+
+    exporter:
+      type: cronjob
+      cronjob:
+        schedule: "0 * * * *"
+      containers:
+        exporter:
+          <<: *serverBase
+          args:
+            - document_exporter
+            - /usr/src/paperless/export
+            - --delete
+      pod:
+        affinity:
+          podAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                    - key: app.kubernetes.io/controller
+                      operator: In
+                      values:
+                        - server
+                topologyKey: kubernetes.io/hostname
+
+  service:
+    server:
+      controller: server
+      ports:
+        http:
+          port: 8000
+
+  ingress:
+    server:
+      className: external
+      hosts:
+        - host: docs.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: server
+                port: http
+
+  persistence:
+    data:
+      existingClaim: paperless-data
+      globalMounts:
+        - path: /usr/src/paperless/data
+    export:
+      type: nfs
+      server: nas.internal
+      path: /mnt/data/paperless_exports
+      advancedMounts:
+        exporter:
+          exporter:
+            - path: /usr/src/paperless/export
+    inbox:
+      type: nfs
+      server: nas.internal
+      path: /mnt/data/paperless_inbox
+      advancedMounts:
+        server:
+          server:
+            - path: /usr/src/paperless/consume
+    media:
+      existingClaim: paperless-media
+      globalMounts:
+        - path: /usr/src/paperless/media
+    run:
+      type: emptyDir
+    tmp:
+      type: emptyDir
+
+  rawResources:
+    secret:
+      apiVersion: external-secrets.io/v1
+      kind: ExternalSecret
+      spec:
+        spec:
+          secretStoreRef:
+            name: bitwarden
+            kind: ClusterSecretStore
+          data:
+            - secretKey: PAPERLESS_SECRET_KEY
+              remoteRef:
+                key: PAPERLESS_SECRET_KEY
+
