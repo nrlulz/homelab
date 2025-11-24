@@ -6,6 +6,10 @@ pvc-media:
   pvcName: paperless-media
   storageRequest: 4Gi
 
+pvc-redisdata:
+  pvcName: paperless-redisdata
+  storageRequest: 128Mi
+
 pgcluster:
   image: ghcr.io/cloudnative-pg/postgresql:18.1@sha256:368c8ee05071bca5a2464e54c75da39b423dc9e80698b545b212ae42aa97abba
   databaseName: paperless
@@ -55,10 +59,13 @@ gotenberg:
 redis:
   global:
     nameOverride: redis
-  defaultPodOptions: *defaultPodOptions
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 999
+      runAsGroup: 1000
   controllers:
     redis:
-      strategy: RollingUpdate
       containers:
         redis:
           image:
@@ -71,6 +78,9 @@ redis:
       ports:
         redis:
           port: 6379
+  persistence:
+    data:
+      existingClaim: paperless-redisdata
 
 tika:
   global:
