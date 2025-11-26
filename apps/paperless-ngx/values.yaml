@@ -32,6 +32,28 @@ base:
     seccompProfile:
       type: RuntimeDefault
 
+  server: &serverBase
+    image:
+      repository: ghcr.io/paperless-ngx/paperless-ngx
+      tag: 2.20.0@sha256:8ffd737c69a569bbdadc118e7f54b0b1050ffac2868fdf9e390a68cb7c82a79d
+    securityContext: *containerSecurityContext
+    envFrom:
+      - configMapRef:
+          name: paperless-ngx
+      - secretRef:
+          name: paperless-ngx
+    env:
+      PAPERLESS_DBHOST:
+        valueFrom:
+          secretKeyRef:
+            name: paperless-cluster-v1-app
+            key: host
+      PAPERLESS_DBPASS:
+        valueFrom:
+          secretKeyRef:
+            name: paperless-cluster-v1-app
+            key: password
+
 gotenberg:
   global:
     nameOverride: gotenberg
@@ -49,6 +71,13 @@ gotenberg:
             - "--chromium-disable-javascript=true"
             - "--chromium-allow-list=file:///tmp/.*"
           securityContext: *containerSecurityContext
+          probes:
+            startup:
+              enabled: true
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
   service:
     gotenberg:
       controller: gotenberg
@@ -72,6 +101,13 @@ redis:
             repository: docker.io/library/redis
             tag: 7.4.4-alpine@sha256:ee9e8748ace004102a267f7b8265dab2c618317df22507b89d16a8add7154273
           securityContext: *containerSecurityContext
+          probes:
+            startup:
+              enabled: true
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
   service:
     redis:
       controller: redis
@@ -95,6 +131,13 @@ tika:
             repository: docker.io/apache/tika
             tag: 3.2.3.0@sha256:c0154cb95587cde64be74f35ada1a2bd7892219f3f0ac3c9dc6cab34046b3573
           securityContext: *containerSecurityContext
+          probes:
+            startup:
+              enabled: true
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
   service:
     tika:
       controller: tika
@@ -132,27 +175,15 @@ server:
       annotations:
         reloader.stakater.com/auto: "true"
       containers:
-        server: &serverBase
-          image:
-            repository: ghcr.io/paperless-ngx/paperless-ngx
-            tag: 2.20.0@sha256:8ffd737c69a569bbdadc118e7f54b0b1050ffac2868fdf9e390a68cb7c82a79d
-          securityContext: *containerSecurityContext
-          envFrom:
-            - configMapRef:
-                name: paperless-ngx
-            - secretRef:
-                name: paperless-ngx
-          env:
-            PAPERLESS_DBHOST:
-              valueFrom:
-                secretKeyRef:
-                  name: paperless-cluster-v1-app
-                  key: host
-            PAPERLESS_DBPASS:
-              valueFrom:
-                secretKeyRef:
-                  name: paperless-cluster-v1-app
-                  key: password
+        server:
+          <<: *serverBase
+          probes:
+            startup:
+              enabled: true
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
 
     exporter:
       type: cronjob
