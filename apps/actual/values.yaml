@@ -26,6 +26,16 @@ actual:
             capabilities:
               drop:
                 - ALL
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: RuntimeDefault
+          probes:
+            startup:
+              enabled: true
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
           env:
             ACTUAL_LOGIN_METHOD: openid
             ACTUAL_OPENID_CLIENT_ID: 290e9d0e-e4d1-4c7c-a720-e7967cd6c191

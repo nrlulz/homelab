@@ -43,6 +43,9 @@ immich:
             capabilities:
               drop:
                 - ALL
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: RuntimeDefault
 
   immich:
     persistence:
@@ -126,3 +129,5 @@ immich:
         type: emptyDir
         globalMounts:
           - path: /.cache
+      tmp:
+        type: emptyDir

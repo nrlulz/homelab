@@ -25,9 +25,14 @@ app-template:
             capabilities:
               drop:
                 - ALL
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: RuntimeDefault
           env:
             TAKE_FILE_OWNERSHIP: "false"
           probes:
+            startup:
+              enabled: true
             liveness:
               enabled: true
             readiness:
