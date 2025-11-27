@@ -33,6 +33,16 @@ app-template:
             capabilities:
               drop:
                 - ALL
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: RuntimeDefault
+          probes:
+            startup:
+              enabled: true
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
   service:
     piper:
       controller: piper

@@ -1,5 +1,9 @@
 app-template:
   defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
     affinity:
       podAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -26,6 +30,21 @@ app-template:
             - base-int8
             - --data-dir
             - /data
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: RuntimeDefault
+          probes:
+            startup:
+              enabled: true
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
   service:
     whisper:
       controller: whisper
@@ -35,3 +54,7 @@ app-template:
   persistence:
     data:
       type: emptyDir
+    dotcache:
+      type: emptyDir
+      globalMounts:
+        - path: /.cache

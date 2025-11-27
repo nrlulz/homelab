@@ -34,6 +34,13 @@ app-template:
             PUID: "1000"
             PGID: "1000"
             TZ: "America/Los_Angeles"
+          probes:
+            startup:
+              enabled: true
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
         code-server:
           image:
             repository: ghcr.io/coder/code-server
@@ -46,6 +53,13 @@ app-template:
             - --extensions-dir
             - /config/.vscode
             - /config
+          probes:
+            startup:
+              enabled: true
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
   service:
     home-assistant:
       controller: home-assistant

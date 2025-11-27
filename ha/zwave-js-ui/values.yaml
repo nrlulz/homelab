@@ -23,7 +23,7 @@ app-template:
           securityContext:
             privileged: true
           probes:
-            liveness:
+            liveness: &probe
               enabled: true
               custom: true
               spec:
@@ -38,6 +38,8 @@ app-template:
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 1
+            startup: *probe
+            readiness: *probe
   service:
     zwave-js-ui:
       controller: zwave-js-ui

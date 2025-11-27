@@ -25,6 +25,13 @@ app-template:
             ZIGBEE2MQTT_DATA: /config
           securityContext:
             privileged: true
+          probes:
+            startup:
+              enabled: true
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
   service:
     zigbee2mqtt:
       controller: zigbee2mqtt
