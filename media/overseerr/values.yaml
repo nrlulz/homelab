@@ -9,7 +9,7 @@ app-template:
         overseerr:
           image:
             repository: lscr.io/linuxserver/overseerr
-            tag: 1.34.0@sha256:19fe26c92c48136136478790725d680cedfae0bf9cb0f25c6a44ab3008ad6e6a
+            tag: 1.34.0@sha256:feddc11664639721d4e220d161ce5eb8fd2483d2e252e3e119570abcce3c7474
           env:
             PUID: "1000"
             PGID: "1000"
