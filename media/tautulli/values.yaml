@@ -59,3 +59,5 @@ app-template:
   persistence:
     config:
       existingClaim: tautulli-data
+    tmp:
+      type: emptyDir

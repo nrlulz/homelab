@@ -59,3 +59,5 @@ app-template:
   persistence:
     config:
       existingClaim: prowlarr-data
+    tmp:
+      type: emptyDir

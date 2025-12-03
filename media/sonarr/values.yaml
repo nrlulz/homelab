@@ -65,3 +65,5 @@ app-template:
       path: /mnt/media
       globalMounts:
         - path: /mnt/media
+    tmp:
+      type: emptyDir
