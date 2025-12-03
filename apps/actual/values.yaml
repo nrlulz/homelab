@@ -69,6 +69,8 @@ helperBase: &helperBase
     repository: ghcr.io/psybers/actual-helpers
     tag: latest@sha256:3d225312039ef26c56ab46a8e4f6af2d13e45270616d61cf0a8dc682afbbb9d4
   securityContext: *securityContext
+  env:
+    ACTUAL_CACHE_DIR: /cache
   envFrom:
     - configMapRef:
         name: actual-helpers
@@ -112,3 +114,6 @@ actual-helpers:
         apply-interest:
           <<: *helperBase
           command: ["node", "apply-interest.js"]
+  persistence:
+    cache:
+      type: emptyDir
