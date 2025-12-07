@@ -4,4 +4,4 @@ version: 0.0.0
 dependencies:
   - name: metallb
     version: 0.15.3
-    repository: https://metallb.github.io/metallb
+    repository: oci://quay.io/metallb/chart
