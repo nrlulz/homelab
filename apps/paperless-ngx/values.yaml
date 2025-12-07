@@ -154,12 +154,15 @@ server:
   configMaps:
     config:
       data:
+        PAPERLESS_APPS: "allauth.socialaccount.providers.openid_connect"
         PAPERLESS_CONSUMER_ENABLE_BARCODES: "true"
         PAPERLESS_CONSUMER_POLLING_DELAY: "30"
         PAPERLESS_CONSUMER_POLLING_RETRY_COUNT: "20"
         PAPERLESS_CONSUMER_POLLING: "60"
         PAPERLESS_DATE_ORDER: "MDY"
+        PAPERLESS_DISABLE_REGULAR_LOGIN: "true"
         PAPERLESS_REDIS: "redis://paperless-ngx-redis:6379"
+        PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS: "false"
         PAPERLESS_TIKA_ENABLED: "1"
         PAPERLESS_TIKA_ENDPOINT: "http://paperless-ngx-tika:9998"
         PAPERLESS_TIKA_GOTENBERG_ENDPOINT: "http://paperless-ngx-gotenberg:3000"
@@ -265,7 +268,15 @@ server:
           secretStoreRef:
             name: bitwarden
             kind: ClusterSecretStore
+          target:
+            template:
+              data:
+                PAPERLESS_SOCIALACCOUNT_PROVIDERS: '{"openid_connect": {"APPS": [{"provider_id": "pocketid", "name": "Pocket ID", "client_id": "6643a76f-dae7-4cad-a7c0-625b324d0dac", "secret": "{{ `{{ .PAPERLESS_OPENID_CLIENT_SECRET }}` }}", "settings": {"server_url": "https://auth.neils.house/.well-known/openid-configuration"}}]}}'
+                PAPERLESS_SECRET_KEY: "{{ `{{ .PAPERLESS_SECRET_KEY }}` }}"
           data:
+            - secretKey: PAPERLESS_OPENID_CLIENT_SECRET
+              remoteRef:
+                key: PAPERLESS_OPENID_CLIENT_SECRET
             - secretKey: PAPERLESS_SECRET_KEY
               remoteRef:
                 key: PAPERLESS_SECRET_KEY
