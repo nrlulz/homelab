@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "oauth2-proxy.fullname" . }}
+  labels:
+    {{- include "oauth2-proxy.labels" . | nindent 4 }}
+spec:
+  ingressClassName: {{ required "ingress.className is required" .Values.ingress.className }}
+  rules:
+    - host: {{ required "ingress.host is required" .Values.ingress.host }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: {{ include "oauth2-proxy.fullname" . }}
+                port:
+                  number: 80
+            path: {{ required "ingress.prefix is required" .Values.ingress.prefix }}
+            pathType: Prefix

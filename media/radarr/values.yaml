@@ -1,3 +1,12 @@
+oauth2-proxy:
+  ingress:
+    className: &ingressClassName external
+    host: &ingressHost radarr.neils.house
+  oidc:
+    clientID: eb843124-4b1f-4a3b-b282-cd1f69d0dc92
+    clientSecretKey: RADARR_OPENID_CLIENT_SECRET
+    cookieSecretKey: RADARR_OPENID_COOKIE_SECRET
+
 pvc:
   pvcName: radarr-data
   storageRequest: 4Gi
@@ -48,9 +57,12 @@ app-template:
           port: 7878
   ingress:
     radarr:
-      className: external
+      annotations:
+        nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+      className: *ingressClassName
       hosts:
-        - host: radarr.neils.house
+        - host: *ingressHost
           paths:
             - path: /
               service:
