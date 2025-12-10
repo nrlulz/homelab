@@ -4,7 +4,7 @@ metadata:
   name: kubernetes
 spec:
   # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
-  version: v1.34.2
+  version: v1.34.3
   concurrency: 1
   exclusive: true
   serviceAccountName: system-upgrade-controller
