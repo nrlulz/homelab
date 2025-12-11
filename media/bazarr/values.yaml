@@ -1,3 +1,12 @@
+oauth2-proxy:
+  ingress:
+    className: &ingressClassName external
+    host: &ingressHost bazarr.neils.house
+  oidc:
+    clientID: f7440f57-95e2-454c-b132-d108333331fc
+    clientSecretKey: BAZARR_OPENID_CLIENT_SECRET
+    cookieSecretKey: BAZARR_OPENID_COOKIE_SECRET
+
 pvc:
   pvcName: bazarr-data
   storageRequest: 256Mi
@@ -44,9 +53,12 @@ app-template:
           port: 6767
   ingress:
     bazarr:
-      className: external
+      annotations:
+        nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+      className: *ingressClassName
       hosts:
-        - host: bazarr.neils.house
+        - host: *ingressHost
           paths:
             - path: /
               service:

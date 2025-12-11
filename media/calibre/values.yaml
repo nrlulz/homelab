@@ -1,3 +1,12 @@
+oauth2-proxy:
+  ingress:
+    className: &ingressClassName internal
+    host: &ingressHost calibre-downloader.internal.neils.house
+  oidc:
+    clientID: 14cf21c8-41cc-4459-ab9c-53d384a084cb
+    clientSecretKey: CALIBRE_OPENID_CLIENT_SECRET
+    cookieSecretKey: CALIBRE_OPENID_COOKIE_SECRET
+
 pvc-data:
   pvcName: calibre-data
   storageRequest: 4Gi
@@ -77,9 +86,12 @@ downloader:
           port: 8084
   ingress:
     downloader:
-      className: internal
+      annotations:
+        nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+      className: *ingressClassName
       hosts:
-        - host: calibre-downloader.internal.neils.house
+        - host: *ingressHost
           paths:
             - path: /
               service:

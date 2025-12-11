@@ -1,3 +1,12 @@
+oauth2-proxy:
+  ingress:
+    className: &ingressClassName internal
+    host: &ingressHost node-red.internal.neils.house
+  oidc:
+    clientID: b63df408-c370-4648-b065-cf00eccc4bd3
+    clientSecretKey: HOMEASSISTANT_OPENID_CLIENT_SECRET
+    cookieSecretKey: HOMEASSISTANT_OPENID_COOKIE_SECRET
+
 pvc:
   pvcName: node-red-data
   storageRequest: 1Gi
@@ -55,9 +64,12 @@ app-template:
           port: 1880
   ingress:
     node-red:
-      className: internal
+      annotations:
+        nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+      className: *ingressClassName
       hosts:
-        - host: node-red.internal.neils.house
+        - host: *ingressHost
           paths:
             - path: /
               service:

@@ -1,3 +1,12 @@
+oauth2-proxy:
+  ingress:
+    className: &ingressClassName internal
+    host: &ingressHost qbittorrent.internal.neils.house
+  oidc:
+    clientID: 2cd14457-bf14-4467-8c86-e1a77fd6b57d
+    clientSecretKey: QBITTORRENT_OPENID_CLIENT_SECRET
+    cookieSecretKey: QBITTORRENT_OPENID_COOKIE_SECRET
+
 pvc:
   pvcName: qbittorrent-data
   storageRequest: 128Mi
@@ -56,9 +65,12 @@ app-template:
           port: 8080
   ingress:
     qbittorrent:
-      className: internal
+      annotations:
+        nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+      className: *ingressClassName
       hosts:
-        - host: qbittorrent.internal.neils.house
+        - host: *ingressHost
           paths:
             - path: /
               service:

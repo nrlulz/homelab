@@ -1,8 +1,20 @@
+oauth2-proxy:
+  ingress:
+    className: &ingressClassName internal
+    host: &ingressHost longhorn.internal.neils.house
+  oidc:
+    clientID: 01b1bec7-4849-4faf-bfe3-13fd975c55c3
+    clientSecretKey: LONGHORN_OPENID_CLIENT_SECRET
+    cookieSecretKey: LONGHORN_OPENID_COOKIE_SECRET
+
 longhorn:
   ingress:
     enabled: true
-    ingressClassName: internal
-    host: longhorn.internal.neils.house
+    ingressClassName: *ingressClassName
+    host: *ingressHost
+    annotations:
+      nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+      nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
   defaultSettings:
     defaultReplicaCount: "2"
   longhornManager:

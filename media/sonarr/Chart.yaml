@@ -2,6 +2,9 @@ apiVersion: v2
 name: sonarr
 version: 0.0.0
 dependencies:
+  - name: oauth2-proxy
+    version: 0.0.0
+    repository: file://../../charts/oauth2-proxy
   - name: pvc
     version: 0.0.0
     repository: file://../../charts/pvc

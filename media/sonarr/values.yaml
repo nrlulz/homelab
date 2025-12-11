@@ -1,3 +1,12 @@
+oauth2-proxy:
+  ingress:
+    className: &ingressClassName external
+    host: &ingressHost sonarr.neils.house
+  oidc:
+    clientID: 08bce6dd-0042-4884-99b0-e31c54db3703
+    clientSecretKey: SONARR_OPENID_CLIENT_SECRET
+    cookieSecretKey: SONARR_OPENID_COOKIE_SECRET
+
 pvc:
   pvcName: sonarr-data
   storageRequest: 2Gi
@@ -48,9 +57,12 @@ app-template:
           port: 8989
   ingress:
     sonarr:
-      className: external
+      annotations:
+        nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+      className: *ingressClassName
       hosts:
-        - host: sonarr.neils.house
+        - host: *ingressHost
           paths:
             - path: /
               service:

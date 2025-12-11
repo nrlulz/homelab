@@ -1,3 +1,12 @@
+oauth2-proxy:
+  ingress:
+    className: &ingressClassName external
+    host: &ingressHost tautulli.neils.house
+  oidc:
+    clientID: b7fc2e63-97ef-4913-b3e5-bb51eafc2a43
+    clientSecretKey: TAUTULLI_OPENID_CLIENT_SECRET
+    cookieSecretKey: TAUTULLI_OPENID_COOKIE_SECRET
+
 pvc:
   pvcName: tautulli-data
   storageRequest: 4Gi
@@ -48,9 +57,12 @@ app-template:
           port: 8181
   ingress:
     tautulli:
-      className: external
+      annotations:
+        nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+      className: *ingressClassName
       hosts:
-        - host: tautulli.neils.house
+        - host: *ingressHost
           paths:
             - path: /
               service:

@@ -1,3 +1,12 @@
+oauth2-proxy:
+  ingress:
+    className: &ingressClassName internal
+    host: &ingressHost zwave.internal.neils.house
+  oidc:
+    clientID: 2e75dfae-e186-4b07-83d9-8df9f22cde58
+    clientSecretKey: ZWAVE_OPENID_CLIENT_SECRET
+    cookieSecretKey: ZWAVE_OPENID_COOKIE_SECRET
+
 pvc:
   pvcName: zwave-js-ui-data
   storageRequest: 128Mi
@@ -50,9 +59,12 @@ app-template:
           port: 3000
   ingress:
     zwave-js-ui:
-      className: internal
+      annotations:
+        nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+      className: *ingressClassName
       hosts:
-        - host: zwave.internal.neils.house
+        - host: *ingressHost
           paths:
             - path: /
               service:
