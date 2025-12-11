@@ -1,10 +1,5 @@
 prometheus:
   server:
-    ingress:
-      enabled: true
-      ingressClassName: internal
-      hosts:
-        - prometheus.internal.neils.house
     global:
       scrape_interval: 10s
     persistentVolume:
