@@ -1,3 +1,12 @@
+oauth2-proxy:
+  ingress:
+    className: &ingressClassName internal
+    host: &ingressHost sabnzbd.internal.neils.house
+  oidc:
+    clientID: ed66bb96-a14b-4248-b973-c1c6a51070f1
+    clientSecretKey: SABNZBD_OPENID_CLIENT_SECRET
+    cookieSecretKey: SABNZBD_OPENID_COOKIE_SECRET
+
 pvc:
   pvcName: sabnzbd-data
   storageRequest: 128Mi
@@ -38,9 +47,12 @@ app-template:
           port: 8080
   ingress:
     sabnzbd:
-      className: internal
+      annotations:
+        nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+      className: *ingressClassName
       hosts:
-        - host: sabnzbd.internal.neils.house
+        - host: *ingressHost
           paths:
             - path: /
               service:

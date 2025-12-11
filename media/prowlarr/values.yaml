@@ -1,3 +1,12 @@
+oauth2-proxy:
+  ingress:
+    className: &ingressClassName internal
+    host: &ingressHost prowlarr.internal.neils.house
+  oidc:
+    clientID: dd88c469-8a98-4837-9651-088059dfdcce
+    clientSecretKey: PROWLARR_OPENID_CLIENT_SECRET
+    cookieSecretKey: PROWLARR_OPENID_COOKIE_SECRET
+
 pvc:
   pvcName: prowlarr-data
   storageRequest: 128Mi
@@ -48,9 +57,12 @@ app-template:
           port: 9696
   ingress:
     prowlarr:
-      className: internal
+      annotations:
+        nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+      className: *ingressClassName
       hosts:
-        - host: prowlarr.internal.neils.house
+        - host: *ingressHost
           paths:
             - path: /
               service:

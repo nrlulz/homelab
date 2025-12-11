@@ -1,3 +1,12 @@
+oauth2-proxy:
+  ingress:
+    className: &ingressClassName internal
+    host: &ingressHost zigbee.internal.neils.house
+  oidc:
+    clientID: 34075d63-c403-4eb5-a867-fbe73ff2bf16
+    clientSecretKey: ZIGBEE_OPENID_CLIENT_SECRET
+    cookieSecretKey: ZIGBEE_OPENID_COOKIE_SECRET
+
 pvc:
   pvcName: zigbee2mqtt-data
   storageRequest: 128Mi
@@ -40,9 +49,12 @@ app-template:
           port: 8080
   ingress:
     zigbee2mqtt:
-      className: internal
+      annotations:
+        nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+      className: *ingressClassName
       hosts:
-        - host: zigbee.internal.neils.house
+        - host: *ingressHost
           paths:
             - path: /
               service:
