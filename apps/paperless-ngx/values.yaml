@@ -15,6 +15,10 @@ pgcluster:
   databaseName: paperless
   generation: 1
 
+  cluster:
+    storage:
+      size: 2Gi
+
 base:
   defaultPodOptions: &defaultPodOptions
     securityContext:
