@@ -13,10 +13,12 @@
     {
       "description": "group kubernetes updates",
       "matchPackageNames": [
+        "docker.io/kindest/node",
         "ghcr.io/nrlulz/kubectl",
         "ghcr.io/siderolabs/kubelet"
       ],
-      "groupName": "kubernetes"
+      "groupName": "kubernetes",
+      "minimumGroupSize": 3
     },
     {
       "description": "group actual and actual-helpers updates",
@@ -24,7 +26,8 @@
         "ghcr.io/actualbudget/actual",
         "ghcr.io/psybers/actual-helpers"
       ],
-      "groupName": "actual"
+      "groupName": "actual",
+      "minimumGroupSize": 2
     },
     {
       "description": "group intel-device-plugins updates",
@@ -32,7 +35,8 @@
         "intel-device-plugins-gpu",
         "intel-device-plugins-operator"
       ],
-      "groupName": "intel-device-plugins"
+      "groupName": "intel-device-plugins",
+      "minimumGroupSize": 2
     },
     {
       "description": "group immich updates",

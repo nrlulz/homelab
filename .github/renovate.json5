@@ -75,6 +75,7 @@
         "docker"
       ],
       "matchPackageNames": [
+        "docker.io/kindest/node",
         "ghcr.io/nrlulz/kubectl",
         "ghcr.io/siderolabs/installer",
         "ghcr.io/siderolabs/kubelet",
@@ -85,6 +86,7 @@
     {
       "description": "separate minor/patch updates",
       "matchPackageNames": [
+        "docker.io/kindest/node",
         "ghcr.io/nrlulz/kubectl",
         "ghcr.io/siderolabs/installer",
         "ghcr.io/siderolabs/kubelet",
@@ -96,6 +98,7 @@
     {
       "description": "don't separate major/minor updates for packages using YYYY.MM.DD versioning",
       "matchPackageNames": [
+        "ghcr.io/actualbudget/actual",
         "ghcr.io/home-assistant/home-assistant"
       ],
       "separateMajorMinor": false
