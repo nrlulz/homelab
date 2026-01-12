@@ -11,7 +11,7 @@ pvc-redisdata:
   storageRequest: 128Mi
 
 pgcluster:
-  image: ghcr.io/cloudnative-pg/postgresql:18.1@sha256:ca2a8fc9fd68fd9a7c774972655ead9a373523a1ab526bf62039986e78ca2d96
+  image: ghcr.io/cloudnative-pg/postgresql:18.1@sha256:c835ea1053376ab101e3528cd9d3712c8f760378af6f6a4b5bd74c119e35e190
   databaseName: paperless
   generation: 1
 
