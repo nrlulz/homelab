@@ -19,17 +19,17 @@ dependencies:
     repository: file://../../charts/pgcluster
   - alias: gotenberg
     name: app-template
-    version: 4.6.1
+    version: 4.6.2
     repository: oci://ghcr.io/bjw-s-labs/helm
   - alias: redis
     name: app-template
-    version: 4.6.1
+    version: 4.6.2
     repository: oci://ghcr.io/bjw-s-labs/helm
   - alias: tika
     name: app-template
-    version: 4.6.1
+    version: 4.6.2
     repository: oci://ghcr.io/bjw-s-labs/helm
   - alias: server
     name: app-template
-    version: 4.6.1
+    version: 4.6.2
     repository: oci://ghcr.io/bjw-s-labs/helm
