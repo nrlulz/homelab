@@ -1,0 +1,69 @@
+pvc:
+  pvcName: &pvcName stirling-pdf-data
+  storageRequest: 128Mi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+
+app-template:
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+  controllers:
+    stirling-pdf:
+      containers:
+        stirling-pdf:
+          image:
+            repository: ghcr.io/stirling-tools/stirling-pdf
+            tag: 2.1.5@sha256:e8b96ebd749ee6c087f853c31fbbb79dc35bb08792bdd5ef0e72e74f5b209ea1
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          probes:
+            startup: &probe
+              enabled: true
+              custom: true
+              spec:
+                failureThreshold: 3
+                httpGet:
+                  path: /api/v1/info/status
+                  port: 8080
+                initialDelaySeconds: 5
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+            liveness: *probe
+            readiness: *probe
+  service:
+    stirling-pdf:
+      controller: stirling-pdf
+      ports:
+        http:
+          port: 8080
+  ingress:
+    stirling-pdf:
+      className: internal
+      hosts:
+        - host: pdf.internal.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: stirling-pdf
+                port: http
+  persistence:
+    configs:
+      existingClaim: *pvcName
+    logs:
+      type: emptyDir
+    pipeline:
+      type: emptyDir
+    tmp:
+      type: emptyDir

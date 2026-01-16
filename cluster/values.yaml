@@ -24,6 +24,8 @@ apps:
 
     - name: radicale
 
+    - name: stirling-pdf
+
   ha:
     - name: home-assistant
 
