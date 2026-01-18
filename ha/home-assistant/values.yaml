@@ -9,7 +9,7 @@ oauth2-proxy:
 
 pvc:
   pvcName: home-assistant-data
-  storageRequest: 1Gi
+  storageRequest: 2Gi
   moverSecurityContext:
     runAsUser: 1000
     runAsGroup: 1000
