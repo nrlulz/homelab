@@ -2,21 +2,14 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "packageRules": [
     {
-      "description": "use postgres 15",
-      "matchPackageNames": [
-        "docker.io/library/postgres"
-      ],
-      "allowedVersions": "<16"
-    },
-    {
-      "description": "use redis 7",
+      // use redis 7
       "matchPackageNames": [
         "docker.io/library/redis"
       ],
       "allowedVersions": "<8"
     },
     {
-      "description": "ignore certain x.0 releases",
+      // ignore certain x.0 releases
       "matchPackageNames": [
         "docker.io/kindest/node",
         "ghcr.io/nrlulz/kubectl",
@@ -34,7 +27,7 @@
       "enabled": false
     },
     {
-      "description": "ignore year/date tags",
+      // ignore year/date tags
       "matchPackageNames": [
         "ghcr.io/binhex/arch-qbittorrentvpn",
         "lscr.io/linuxserver/overseerr"

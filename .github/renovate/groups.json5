@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "packageRules": [
     {
-      "description": "group talos updates",
+      // group talos updates
       "matchPackageNames": [
         "ghcr.io/siderolabs/installer",
         "ghcr.io/siderolabs/talosctl"
@@ -11,7 +11,7 @@
       "minimumGroupSize": 2
     },
     {
-      "description": "group kubernetes updates",
+      // group kubernetes updates
       "matchPackageNames": [
         "docker.io/kindest/node",
         "ghcr.io/nrlulz/kubectl",
@@ -21,7 +21,7 @@
       "minimumGroupSize": 3
     },
     {
-      "description": "group actual and actual-helpers updates",
+      // group actual and actual-helpers updates
       "matchPackageNames": [
         "ghcr.io/actualbudget/actual",
         "ghcr.io/psybers/actual-helpers"
@@ -30,7 +30,7 @@
       "minimumGroupSize": 2
     },
     {
-      "description": "group intel-device-plugins updates",
+      // group intel-device-plugins updates
       "matchPackageNames": [
         "intel-device-plugins-gpu",
         "intel-device-plugins-operator"
@@ -39,7 +39,7 @@
       "minimumGroupSize": 2
     },
     {
-      "description": "group immich updates",
+      // group immich updates
       "matchPackageNames": [
         "ghcr.io/immich-app/immich-machine-learning",
         "ghcr.io/immich-app/immich-server"

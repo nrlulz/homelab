@@ -41,22 +41,23 @@
   ],
   "packageRules": [
     {
-      "description": "automerge patch updates (if major version is not 0)",
+      // automerge patch/digest updates (if major version is not 0)
       "matchUpdateTypes": [
-        "patch"
+        "patch",
+        "digest"
       ],
       "matchCurrentVersion": "!/^v?0/",
       "automerge": true
     },
     {
-      "description": "automerge all updates",
+      // automerge all updates
       "matchPackageNames": [
         "docker.io/plexinc/pms-docker"
       ],
       "automerge": true
     },
     {
-      "description": "use loose versioning for packages with weird version numbers",
+      // use loose versioning for packages with weird version numbers
       "matchDatasources": [
         "docker"
       ],
@@ -70,7 +71,7 @@
       "versioning": "loose"
     },
     {
-      "description": "don't automerge talos/k8s updates",
+      // don't automerge talos/k8s updates
       "matchDatasources": [
         "docker"
       ],
@@ -84,7 +85,7 @@
       "automerge": false
     },
     {
-      "description": "separate minor/patch updates",
+      // separate minor/patch updates
       "matchPackageNames": [
         "docker.io/kindest/node",
         "ghcr.io/nrlulz/kubectl",
@@ -96,7 +97,7 @@
       "separateMinorPatch": true
     },
     {
-      "description": "don't separate major/minor updates for packages using YYYY.MM.DD versioning",
+      // don't separate major/minor updates for packages using YYYY.MM.DD versioning
       "matchPackageNames": [
         "ghcr.io/actualbudget/actual",
         "ghcr.io/home-assistant/home-assistant"
@@ -104,7 +105,7 @@
       "separateMajorMinor": false
     },
     {
-      "description": "don't pin digests for things that aren't specific image tags",
+      // don't pin digests for things that aren't specific image tags
       "matchDatasources": [
         "docker"
       ],
