@@ -164,17 +164,16 @@ apps:
     - name: snapshot-controller
       ignoreDifferences:
         - kind: Secret
-          name: snapshot-validation-webhook-tls
+          name: snapshot-controller-conversion-webhook
           jsonPointers:
             - /data/ca.crt
             - /data/tls.crt
             - /data/tls.key
-        - kind: ValidatingWebhookConfiguration
-          group: admissionregistration.k8s.io
-          name: snapshot-validation-webhook
+        - kind: CustomResourceDefinition
+          group: apiextensions.k8s.io
+          name: volumegroupsnapshotcontents.groupsnapshot.storage.k8s.io
           jsonPointers:
-            - /webhooks/0/clientConfig/caBundle
-            - /webhooks/1/clientConfig/caBundle
+            - /spec/conversion/webhook/clientConfig/caBundle
 
     - name: system-upgrade-controller
       managedNamespaceMetadata:
