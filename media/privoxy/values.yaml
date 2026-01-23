@@ -12,6 +12,13 @@ app-template:
           image:
             repository: ghcr.io/binhex/arch-privoxyvpn
             tag: 4.0.0-1-01@sha256:905e12ec81986fcc947c1fd7945a7f8e2ddd247c3c2b12c8585b0a9b21a62244
+          command: # HACK: replace iptables(legacy) with iptables-nft on startup
+            - /bin/bash
+            - -c
+            - |
+              echo 'Server = https://dfw.mirror.rackspace.com/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist; \
+              pacman -Sy --ask=4 iptables-nft libnftnl; \
+              exec init.sh
           envFrom:
             - secretRef:
                 name: privoxy

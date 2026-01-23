@@ -25,6 +25,13 @@ app-template:
           image:
             repository: ghcr.io/binhex/arch-qbittorrentvpn
             tag: 5.1.3-1-01@sha256:bd8fcf9cd7fbf63e5c8816f98ae806ac055e915d970f59a4d40b0d99685a3b1e
+          command: # HACK: replace iptables(legacy) with iptables-nft on startup
+            - /bin/bash
+            - -c
+            - |
+              echo 'Server = https://dfw.mirror.rackspace.com/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist; \
+              pacman -Sy --ask=4 iptables-nft libnftnl; \
+              exec init.sh
           envFrom:
             - secretRef:
                 name: qbittorrent
