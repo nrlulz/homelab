@@ -36,7 +36,7 @@ app-template:
                 httpGet:
                   path: /api/v1/info/status
                   port: 8080
-                initialDelaySeconds: 5
+                initialDelaySeconds: 30
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 1
