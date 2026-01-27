@@ -10,6 +10,7 @@ argo-cd:
         clientID: 8096bbd7-0a9f-4a40-bc97-929197471342
         clientSecret: $argocd-oidc:clientSecret
     params:
+      controller.diff.server.side: true
       server.insecure: true
     secret:
       githubSecret: "$argocd-webhook:secret"
