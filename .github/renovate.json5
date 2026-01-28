@@ -71,6 +71,13 @@
       "versioning": "loose"
     },
     {
+      // don't use arm tags
+      "matchPackageNames": [
+        "docker.io/plexinc/pms-docker"
+      ],
+      "allowedVersions": "/\\-amd64$/"
+    },
+    {
       // don't automerge talos/k8s updates
       "matchDatasources": [
         "docker"
