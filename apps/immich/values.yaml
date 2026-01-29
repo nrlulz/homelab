@@ -8,7 +8,7 @@ pvc:
 pgcluster:
   image: ghcr.io/tensorchord/cloudnative-vectorchord:18.0-0.5.3@sha256:267f6cbb32af6e109e138a143c7e9dd5d44d68433ec2303f0c30e745c788d1a9
   databaseName: immich
-  generation: 1
+  generation: 2
 
   # ref: https://github.com/immich-app/immich-charts/blob/main/local/cloudnative-pg.yaml
   cluster:
@@ -74,7 +74,7 @@ immich:
               DB_URL:
                 valueFrom:
                   secretKeyRef:
-                    name: immich-cluster-v1-app
+                    name: immich-cluster-v2-app
                     key: uri
 
     ingress:
