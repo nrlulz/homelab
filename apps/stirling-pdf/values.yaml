@@ -5,65 +5,30 @@ pvc:
     runAsUser: 1000
     runAsGroup: 1000
 
-app-template:
-  defaultPodOptions:
-    securityContext:
-      runAsNonRoot: true
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: OnRootMismatch
-  controllers:
-    stirling-pdf:
-      containers:
-        stirling-pdf:
-          image:
-            repository: ghcr.io/stirling-tools/stirling-pdf
-            tag: 2.4.5@sha256:005f4174c00006c0771b020c77fd9fdad334e112d629a8583671e8fe5eeb17f5
-          securityContext:
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - ALL
-            seccompProfile:
-              type: RuntimeDefault
-          probes:
-            startup: &probe
-              enabled: true
-              custom: true
-              spec:
-                failureThreshold: 3
-                httpGet:
-                  path: /api/v1/info/status
-                  port: 8080
-                initialDelaySeconds: 30
-                periodSeconds: 10
-                successThreshold: 1
-                timeoutSeconds: 1
-            liveness: *probe
-            readiness: *probe
-  service:
-    stirling-pdf:
-      controller: stirling-pdf
-      ports:
-        http:
-          port: 8080
+stirling-pdf:
+  image:
+    registry: ghcr.io
+    repository: stirling-tools/stirling-pdf
+    tag: 2.4.5@sha256:005f4174c00006c0771b020c77fd9fdad334e112d629a8583671e8fe5eeb17f5
+
+  strategy:
+    type: Recreate
+  serviceAccount:
+    create: false
+
+  deployment:
+    extraVolumes:
+      - name: configs
+        persistentVolumeClaim:
+          claimName: *pvcName
+    extraVolumeMounts:
+      - name: configs
+        mountPath: /configs
+
   ingress:
-    stirling-pdf:
-      className: internal
-      hosts:
-        - host: pdf.internal.neils.house
-          paths:
-            - path: /
-              service:
-                identifier: stirling-pdf
-                port: http
-  persistence:
-    configs:
-      existingClaim: *pvcName
-    logs:
-      type: emptyDir
-    pipeline:
-      type: emptyDir
-    tmp:
-      type: emptyDir
+    enabled: true
+    ingressClassName: internal
+    pathType: Prefix
+    hosts:
+      - name: pdf.internal.neils.house
+        path: /
