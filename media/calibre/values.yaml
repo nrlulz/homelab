@@ -44,6 +44,8 @@ calibre:
             PGID: "1000"
             TZ: "America/Los_Angeles"
           probes: &probes
+            startup:
+              enabled: true
             liveness:
               enabled: true
             readiness:
