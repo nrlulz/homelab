@@ -2,6 +2,9 @@ external-secrets:
   bitwarden-sdk-server:
     enabled: true
 
+    podAnnotations:
+      reloader.stakater.com/auto: "true"
+
     podSecurityContext:
       runAsNonRoot: true
       runAsUser: 1000
