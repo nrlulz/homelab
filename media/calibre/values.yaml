@@ -23,6 +23,14 @@ pvc-library:
     runAsGroup: 1000
     fsGroup: 1000
 
+pvc-shelfmark:
+  pvcName: shelfmark-data
+  storageRequest: 128Mi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+
 calibre:
   controllers:
     calibre:
@@ -98,5 +106,8 @@ downloader:
                 identifier: downloader
                 port: http
   persistence:
-    cwa-book-ingest:
+    books:
       existingClaim: calibre-ingest
+    config:
+      existingClaim: shelfmark-data
+
