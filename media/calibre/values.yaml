@@ -43,9 +43,20 @@ calibre:
             PUID: "1000"
             PGID: "1000"
             TZ: "America/Los_Angeles"
-          probes: &probes
-            readiness:
+          probes:
+            startup: &probe
               enabled: true
+              custom: true
+              spec:
+                failureThreshold: 20
+                httpGet:
+                  path: /login
+                  port: 8083
+                periodSeconds: 30
+                successThreshold: 1
+                timeoutSeconds: 3
+            liveness: *probe
+            readiness: *probe
   service:
     calibre:
       controller: calibre
@@ -80,7 +91,11 @@ downloader:
           image:
             repository: ghcr.io/calibrain/shelfmark
             tag: v1.0.4@sha256:53e80dc62c1720d15ee59e44c8b98c4aea2a9a456fdd978e87e882c14eb55361
-          probes: *probes
+          probes:
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
           env:
             PUID: "1000"
             PGID: "1000"
