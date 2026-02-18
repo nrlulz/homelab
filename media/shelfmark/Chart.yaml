@@ -1,13 +1,11 @@
 apiVersion: v2
-name: calibre
+name: shelfmark
 version: 0.0.0
 dependencies:
-  - alias: pvc-data
-    name: pvc
+  - name: oauth2-proxy
     version: 0.0.0
-    repository: file://../../charts/pvc
-  - alias: pvc-library
-    name: pvc
+    repository: file://../../charts/oauth2-proxy
+  - name: pvc
     version: 0.0.0
     repository: file://../../charts/pvc
   - name: app-template

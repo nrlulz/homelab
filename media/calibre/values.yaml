@@ -1,12 +1,3 @@
-oauth2-proxy:
-  ingress:
-    className: &ingressClassName internal
-    host: &ingressHost calibre-downloader.internal.neils.house
-  oidc:
-    clientID: 14cf21c8-41cc-4459-ab9c-53d384a084cb
-    clientSecretKey: CALIBRE_OPENID_CLIENT_SECRET
-    cookieSecretKey: CALIBRE_OPENID_COOKIE_SECRET
-
 pvc-data:
   pvcName: calibre-data
   storageRequest: 4Gi
@@ -23,15 +14,7 @@ pvc-library:
     runAsGroup: 1000
     fsGroup: 1000
 
-pvc-shelfmark:
-  pvcName: shelfmark-data
-  storageRequest: 128Mi
-  moverSecurityContext:
-    runAsUser: 1000
-    runAsGroup: 1000
-    fsGroup: 1000
-
-calibre:
+app-template:
   controllers:
     calibre:
       containers:
@@ -80,47 +63,3 @@ calibre:
       existingClaim: calibre-library
     cwa-book-ingest:
       existingClaim: calibre-ingest
-
-downloader:
-  global:
-    nameOverride: downloader
-  controllers:
-    downloader:
-      containers:
-        downloader:
-          image:
-            repository: ghcr.io/calibrain/shelfmark
-            tag: v1.0.4@sha256:53e80dc62c1720d15ee59e44c8b98c4aea2a9a456fdd978e87e882c14eb55361
-          probes:
-            liveness:
-              enabled: true
-            readiness:
-              enabled: true
-          env:
-            PUID: "1000"
-            PGID: "1000"
-  service:
-    downloader:
-      controller: downloader
-      ports:
-        http:
-          port: 8084
-  ingress:
-    downloader:
-      annotations:
-        nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
-        nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
-      className: *ingressClassName
-      hosts:
-        - host: *ingressHost
-          paths:
-            - path: /
-              service:
-                identifier: downloader
-                port: http
-  persistence:
-    books:
-      existingClaim: calibre-ingest
-    config:
-      existingClaim: shelfmark-data
-

@@ -7,7 +7,7 @@ spec:
 
 allApps:
   automatedSync:
-    enabled: true
+    enabled: false
     prune: true
     selfHeal: true
   managedNamespaceMetadata:
@@ -85,6 +85,9 @@ apps:
         labels:
           # NET_ADMIN, SYS_MODULE capabilities (vpn)
           pod-security.kubernetes.io/enforce: privileged
+
+    - name: shelfmark
+      namespace: calibre
 
     - name: sonarr
 

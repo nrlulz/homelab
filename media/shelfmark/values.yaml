@@ -1,0 +1,58 @@
+oauth2-proxy:
+  ingress:
+    className: &ingressClassName internal
+    host: &ingressHost shelfmark.internal.neils.house
+  oidc:
+    clientID: ba641629-ab41-4013-a59b-82ea4a56db32
+    clientSecretKey: SHELFMARK_OPENID_CLIENT_SECRET
+    cookieSecretKey: SHELFMARK_OPENID_COOKIE_SECRET
+
+pvc:
+  pvcName: shelfmark-data
+  storageRequest: 128Mi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+
+app-template:
+  controllers:
+    shelfmark:
+      containers:
+        shelfmark:
+          image:
+            repository: ghcr.io/calibrain/shelfmark
+            tag: v1.0.4@sha256:53e80dc62c1720d15ee59e44c8b98c4aea2a9a456fdd978e87e882c14eb55361
+          probes:
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
+          env:
+            PUID: "1000"
+            PGID: "1000"
+  service:
+    shelfmark:
+      controller: shelfmark
+      ports:
+        http:
+          port: 8084
+  ingress:
+    shelfmark:
+      annotations:
+        nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+      className: *ingressClassName
+      hosts:
+        - host: *ingressHost
+          paths:
+            - path: /
+              service:
+                identifier: shelfmark
+                port: http
+  persistence:
+    books:
+      existingClaim: calibre-ingest
+    config:
+      existingClaim: shelfmark-data
+
