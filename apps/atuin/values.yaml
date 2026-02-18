@@ -1,0 +1,74 @@
+pvc:
+  pvcName: atuin-data
+  storageRequest: 128Mi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+
+app-template:
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+  controllers:
+    atuin:
+      containers:
+        atuin:
+          image:
+            repository: ghcr.io/atuinsh/atuin
+            tag: v18.11.0@sha256:18dba8938704706806d3c1133629ff2658c08bfa7815d71a916a8f072b61945b
+          args:
+            - server
+            - start
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: RuntimeDefault
+          env:
+            ATUIN_DB_URI: "sqlite:///config/atuin.db"
+            ATUIN_HOST: "0.0.0.0"
+            ATUIN_OPEN_REGISTRATION: "true"
+            ATUIN_PORT: "8888"
+          probes:
+            startup:
+              enabled: true
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /healthz
+                  port: 8888
+                failureThreshold: 3
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+  service:
+    atuin:
+      controller: atuin
+      ports:
+        http:
+          port: 8888
+  ingress:
+    atuin:
+      className: internal
+      hosts:
+        - host: atuin.internal.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: atuin
+                port: http
+  persistence:
+    config:
+      existingClaim: atuin-data

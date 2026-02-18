@@ -18,6 +18,8 @@ apps:
   apps:
     - name: actual
 
+    - name: atuin
+
     - name: immich
 
     - name: paperless-ngx
