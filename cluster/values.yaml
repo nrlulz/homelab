@@ -58,8 +58,6 @@ apps:
 
     - name: jellyfin
 
-    - name: overseerr
-
     - name: plex
 
     - name: privoxy
@@ -88,6 +86,8 @@ apps:
 
     - name: shelfmark
       namespace: calibre
+
+    - name: seerr
 
     - name: sonarr
 

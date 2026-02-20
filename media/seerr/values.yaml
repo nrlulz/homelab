@@ -1,0 +1,48 @@
+pvc:
+  pvcName: seerr-data
+  storageRequest: 128Mi
+
+app-template:
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+  controllers:
+    seerr:
+      containers:
+        seerr:
+          image:
+            repository: ghcr.io/seerr-team/seerr
+            tag: v3.0.1@sha256:1b5fc1ea825631d9d165364472663b817a4c58ef6aa1013f58d82c1570d7c866
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+  service:
+    seerr:
+      controller: seerr
+      ports:
+        http:
+          port: 5055
+  ingress:
+    seerr:
+      className: external
+      hosts:
+        - host: requests.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: seerr
+                port: http
+  persistence:
+    config:
+      existingClaim: seerr-data
+      globalMounts:
+        - path: /app/config
