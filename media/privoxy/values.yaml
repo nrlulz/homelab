@@ -16,7 +16,7 @@ app-template:
             - /bin/bash
             - -c
             - |
-              curl 'https://archlinux.org/mirrorlist/?country=US' | sed 's/^#Server/Server/g' > /etc/pacman.d/mirrorlist; \
+              curl --fail 'https://archlinux.org/mirrorlist/?country=US' | sed 's/^#Server/Server/g' > /etc/pacman.d/mirrorlist; \
               pacman -Sy --ask=4 iptables-nft libnftnl; \
               exec init.sh
           envFrom:
