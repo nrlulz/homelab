@@ -1,0 +1,6 @@
+spec:
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        # host path mount
+        pod-security.kubernetes.io/enforce: privileged
