@@ -41,6 +41,7 @@ spec:
 {{- range $group, $apps := .Values.apps -}}
   {{- range $app := $apps -}}
     {{- $manifest := fromYaml (include "baseApp" (dict "group" $group "name" $app.name)) -}}
+    {{- $_ := set $manifest "metadata" (mergeOverwrite $manifest.metadata ($app.metadata | default dict)) -}}
     {{- $_ := set $manifest "spec" (mergeOverwrite $manifest.spec ($app.spec | default dict)) -}}
 
     {{/* sync options map to list */}}

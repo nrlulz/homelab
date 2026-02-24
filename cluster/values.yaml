@@ -116,6 +116,9 @@ apps:
 
   system:
     - name: argocd
+      metadata:
+        annotations:
+          argocd.argoproj.io/compare-options: ServerSideDiff=true
       spec:
         syncPolicy:
           syncOptions:
@@ -124,6 +127,9 @@ apps:
     - name: cert-manager
 
     - name: cloudnative-pg
+      metadata:
+        annotations:
+          argocd.argoproj.io/compare-options: ServerSideDiff=true
       spec:
         destination:
           namespace: cnpg-system
@@ -132,7 +138,9 @@ apps:
             ServerSideApply: "true"
 
     - name: external-secrets
-      # server side
+      metadata:
+        annotations:
+          argocd.argoproj.io/compare-options: ServerSideDiff=true
       spec:
         syncPolicy:
           syncOptions:
