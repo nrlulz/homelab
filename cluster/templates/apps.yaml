@@ -1,26 +1,23 @@
-{{- range $group, $apps := .Values.apps}}
-{{- range $app := $apps }}
-{{ $app = mergeOverwrite (deepCopy $.Values.allApps) $app }}
----
+{{- define "baseApp" -}}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ required "name is required" $app.name }}
+  name: {{ required "name is required" .name }}
   namespace: argocd
 spec:
   destination:
-    namespace: {{ $app.namespace | default $app.name }}
-    server: {{ $.Values.spec.destination.server }}
+    namespace: {{ .name }}
+    server: https://kubernetes.default.svc
   project: default
   source:
-    path: {{ if $app.path }}{{ $app.path }}{{ else }}{{ $group }}/{{ $app.name }}{{ end }}
-    targetRevision: {{ $app.targetRevision | default $.Values.spec.source.targetRevision }}
-    repoURL: {{ $app.repoURL | default $.Values.spec.source.repoURL }}
-    {{- if $app.source }}
-      {{- $app.source | toYaml | nindent 4 }}
-    {{- end }}
+    path: {{ .group }}/{{ .name }}
+    targetRevision: master
+    repoURL: https://github.com/nrlulz/homelab
   syncPolicy:
-    automated: {{- $app.automatedSync | toYaml | nindent 6 }}
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: true
     retry:
       limit: 10
       backoff:
@@ -28,16 +25,40 @@ spec:
         factor: 2
         maxDuration: 16m
     syncOptions:
-      - CreateNamespace=true
-      - RespectIgnoreDifferences=true
-    managedNamespaceMetadata: {{- $app.managedNamespaceMetadata | toYaml | nindent 6 }}
+      CreateNamespace: "true"
+      RespectIgnoreDifferences: "true"
+    managedNamespaceMetadata:
+      annotations:
+        volsync.backube/privileged-movers: "true"
   ignoreDifferences:
-    - kind: ReplicationSource
+    ignoreReplicationSourceTriggerSchedule:
+      kind: ReplicationSource
       group: volsync.backube
       jsonPointers:
         - /spec/trigger/schedule
-{{- if $app.ignoreDifferences }}
-    {{- $app.ignoreDifferences | toYaml | nindent 4 }}
-{{- end }}
-{{- end }}
+{{- end -}}
+
+{{- range $group, $apps := .Values.apps -}}
+  {{- range $app := $apps -}}
+    {{- $manifest := fromYaml (include "baseApp" (dict "group" $group "name" $app.name)) -}}
+    {{- $_ := set $manifest "spec" (mergeOverwrite $manifest.spec ($app.spec | default dict)) -}}
+
+    {{/* sync options map to list */}}
+    {{- $syncOptions := list -}}
+    {{- range $k, $v := $manifest.spec.syncPolicy.syncOptions -}}
+      {{- $syncOptions = append $syncOptions (printf "%s=%s" $k $v) -}}
+    {{- end -}}
+    {{- $_ := set $manifest.spec.syncPolicy "syncOptions" $syncOptions }}
+
+    {{/* ignore differences map to list */}}
+    {{- $ignoreDifferences := list -}}
+    {{- range $_, $v := $manifest.spec.ignoreDifferences -}}
+      {{- $ignoreDifferences = append $ignoreDifferences $v -}}
+    {{- end -}}
+    {{- $_ := set $manifest.spec "ignoreDifferences" $ignoreDifferences }}
+
+---
+{{ toYaml $manifest }}
+
+  {{ end -}}
 {{- end }}
