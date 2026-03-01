@@ -48,6 +48,7 @@ jobs:
             -e ARGOCD_CHART_VERSION=${{ env.ARGOCD_CHART_VERSION }} \
             -e BASE_BRANCH=master \
             -e DIFF_IGNORE="checksum/" \
+            -e IGNORE_RESOURCES="*:CustomResourceDefinition:*" \
             -e TARGET_BRANCH=refs/pull/${{ github.event.number }}/merge \
             -e REPO=${{ github.repository }} \
             -e KIND_OPTIONS="--image=${KIND_NODE_IMAGE}" \
