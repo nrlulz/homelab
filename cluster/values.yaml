@@ -214,12 +214,6 @@ apps:
             jsonPointers:
               - /spec/conversion/webhook/clientConfig/caBundle
 
-    - name: system-upgrade-controller
-      spec:
-        syncPolicy:
-          managedNamespaceMetadata:
-            labels:
-              # host path mount, SYS_BOOT capability
-              pod-security.kubernetes.io/enforce: privileged
+    - name: tuppr
 
     - name: volsync

@@ -1,0 +1,15 @@
+apiVersion: tuppr.home-operations.com/v1alpha1
+kind: TalosUpgrade
+metadata:
+  name: talos-upgrade
+spec:
+  talos:
+    # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
+    version: v1.12.3
+  healthChecks:
+    - apiVersion: volsync.backube/v1alpha1
+      kind: ReplicationSource
+      expr: status.conditions.filter(c, c.type == "Synchronizing").all(c, c.status == "False")
+    - apiVersion: longhorn.io/v1beta2
+      kind: Volume
+      expr: status.state != "attached" || status.robustness == "healthy"

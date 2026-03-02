@@ -118,8 +118,8 @@
       ],
       "matchFileNames": [
         "bootstrap/talconfig.yaml",
-        "system/system-upgrade-controller/templates/plan-k8s.yaml",
-        "system/system-upgrade-controller/templates/plan-talos.yaml"
+        "system/tuppr/templates/k8s-upgrade.yaml",
+        "system/tuppr/templates/talos-upgrade.yaml"
       ],
       "pinDigests": false
     }

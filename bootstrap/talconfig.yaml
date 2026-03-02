@@ -50,6 +50,7 @@ controlPlane:
     - |
       machine:
         install:
+          grubUseUKICmdline: false
           extraKernelArgs:
             - pcie_aspm=off
 
@@ -59,7 +60,7 @@ controlPlane:
         install:
           wipe: false
 
-    # Allow Talos API access to system-upgrade-controller
+    # Allow Talos API access for system upgrades
     - |
       machine:
         features:
@@ -68,7 +69,7 @@ controlPlane:
             allowedRoles:
               - os:admin
             allowedKubernetesNamespaces:
-              - system-upgrade-controller
+              - tuppr
 
     # Use RuntimeDefault seccomp profile for all workloads
     - |

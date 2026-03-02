@@ -1,0 +1,10 @@
+apiVersion: v2
+name: tuppr
+version: 0.0.0
+sources:
+  - https://github.com/home-operations/tuppr/tree/main/charts/tuppr
+  - https://github.com/home-operations/tuppr
+dependencies:
+  - name: tuppr
+    version: 0.0.73
+    repository: oci://ghcr.io/home-operations/charts
