@@ -16,4 +16,3 @@ spec:
   drain:
     deleteLocalData: true
     ignoreDaemonSets: true
-    force: true
