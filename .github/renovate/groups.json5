@@ -2,23 +2,13 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "packageRules": [
     {
-      // group talos updates
-      "matchPackageNames": [
-        "ghcr.io/siderolabs/installer",
-        "ghcr.io/siderolabs/talosctl"
-      ],
-      "groupName": "talos",
-      "minimumGroupSize": 2
-    },
-    {
       // group kubernetes updates
       "matchPackageNames": [
         "docker.io/kindest/node",
-        "ghcr.io/nrlulz/kubectl",
         "ghcr.io/siderolabs/kubelet"
       ],
       "groupName": "kubernetes",
-      "minimumGroupSize": 3
+      "minimumGroupSize": 2
     },
     {
       // group actual and actual-helpers updates

@@ -84,10 +84,8 @@
       ],
       "matchPackageNames": [
         "docker.io/kindest/node",
-        "ghcr.io/nrlulz/kubectl",
         "ghcr.io/siderolabs/installer",
-        "ghcr.io/siderolabs/kubelet",
-        "ghcr.io/siderolabs/talosctl"
+        "ghcr.io/siderolabs/kubelet"
       ],
       "automerge": false
     },
@@ -95,10 +93,8 @@
       // separate minor/patch updates
       "matchPackageNames": [
         "docker.io/kindest/node",
-        "ghcr.io/nrlulz/kubectl",
         "ghcr.io/siderolabs/installer",
         "ghcr.io/siderolabs/kubelet",
-        "ghcr.io/siderolabs/talosctl",
         "ghcr.io/home-assistant/home-assistant"
       ],
       "separateMinorPatch": true
