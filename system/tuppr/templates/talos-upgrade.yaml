@@ -13,3 +13,7 @@ spec:
     - apiVersion: longhorn.io/v1beta2
       kind: Volume
       expr: status.state != "attached" || status.robustness == "healthy"
+  drain:
+    deleteLocalData: true
+    ignoreDaemonSets: true
+    force: true
