@@ -87,6 +87,12 @@
     },
     {
       "matchDepNames": [
+        "ghcr.io/siderolabs/installer"
+      ],
+      "changelogUrl": "https://github.com/siderolabs/talos/releases?q=prerelease%3Afalse&expanded=true"
+    },
+    {
+      "matchDepNames": [
         "ghcr.io/home-operations/tautulli"
       ],
       "changelogUrl": "https://github.com/Tautulli/Tautulli/releases"
