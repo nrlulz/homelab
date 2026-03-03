@@ -1,10 +1,12 @@
 apiVersion: v2
 name: grafana
 version: 0.0.0
+sources:
+  - https://github.com/grafana-community/helm-charts/tree/main/charts/grafana
 dependencies:
   - name: pvc
     version: 0.0.0
     repository: file://../../charts/pvc
   - name: grafana
-    version: 10.5.15
-    repository: oci://ghcr.io/grafana/helm-charts
+    version: 11.2.2
+    repository: oci://ghcr.io/grafana-community/helm-charts

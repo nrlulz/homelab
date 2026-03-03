@@ -1,6 +1,9 @@
 apiVersion: v2
 name: longhorn
 version: 0.0.0
+sources:
+  - https://github.com/longhorn/charts/tree/master/charts/longhorn
+  - https://github.com/longhorn/longhorn
 dependencies:
   - name: oauth2-proxy
     version: 0.0.0
