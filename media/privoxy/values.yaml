@@ -11,7 +11,7 @@ app-template:
         privoxy:
           image:
             repository: ghcr.io/binhex/arch-privoxyvpn
-            tag: 4.0.0-1-01@sha256:905e12ec81986fcc947c1fd7945a7f8e2ddd247c3c2b12c8585b0a9b21a62244
+            tag: 4.1.0-1-02@sha256:75c98f92941ac0fd6d2c8533a51e3482472ed2651954836091e0e95148996469
           command: # HACK: replace iptables(legacy) with iptables-nft on startup
             - /bin/bash
             - -c
