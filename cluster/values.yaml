@@ -125,6 +125,13 @@ apps:
             ServerSideApply: "true"
 
     - name: cert-manager
+      metadata:
+        annotations:
+          argocd.argoproj.io/compare-options: ServerSideDiff=true
+      spec:
+        syncPolicy:
+          syncOptions:
+            ServerSideApply: "true"
 
     - name: cloudnative-pg
       metadata:
@@ -213,6 +220,17 @@ apps:
             name: volumegroupsnapshotcontents.groupsnapshot.storage.k8s.io
             jsonPointers:
               - /spec/conversion/webhook/clientConfig/caBundle
+
+    - name: trust-manager
+      metadata:
+        annotations:
+          argocd.argoproj.io/compare-options: ServerSideDiff=true
+      spec:
+        destination:
+          namespace: cert-manager
+        syncPolicy:
+          syncOptions:
+            ServerSideApply: "true"
 
     - name: tuppr
 
