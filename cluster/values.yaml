@@ -44,8 +44,6 @@ apps:
 
     - name: calibre
 
-    - name: jellyfin
-
     - name: plex
 
     - name: privoxy
