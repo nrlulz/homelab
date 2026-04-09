@@ -41,7 +41,7 @@
       "matchDepNames": [
         "loki"
       ],
-      "changelogUrl": "https://github.com/grafana/loki/blob/main/production/helm/loki/CHANGELOG.md"
+      "changelogUrl": "https://grafana-community.github.io/helm-charts/changelog/?owner=grafana-community&repo=helm-charts&chart=loki"
     },
     {
       "matchDepNames": [
