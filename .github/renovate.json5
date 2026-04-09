@@ -52,7 +52,9 @@
     {
       // automerge all updates
       "matchPackageNames": [
-        "docker.io/plexinc/pms-docker"
+        "docker.io/plexinc/pms-docker",
+        "ghcr.io/coder/code-server",
+        "ghcr.io/stirling-tools/stirling-pdf"
       ],
       "automerge": true
     },
