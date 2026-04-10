@@ -72,7 +72,7 @@ app-template:
             seccompProfile:
               type: RuntimeDefault
           env:
-            TZ: "America/Los_Angeles"
+            RECYCLARR_DATA_DIR: /tmp
           envFrom:
             - secret: recyclarr
   persistence:
