@@ -45,6 +45,12 @@
     },
     {
       "matchDepNames": [
+        "grafana"
+      ],
+      "changelogUrl": "https://grafana-community.github.io/helm-charts/changelog/?owner=grafana-community&repo=helm-charts&chart=grafana"
+    },
+    {
+      "matchDepNames": [
         "loki"
       ],
       "changelogUrl": "https://grafana-community.github.io/helm-charts/changelog/?owner=grafana-community&repo=helm-charts&chart=loki"
