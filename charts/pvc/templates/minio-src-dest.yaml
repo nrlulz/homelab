@@ -72,4 +72,4 @@ spec:
     capacity: {{ .Values.storageRequest }}
     moverSecurityContext: {{ .Values.moverSecurityContext | toYaml | nindent 6 }}
     cleanupCachePVC: true
-    # cleanupTempPVC: true
+    cleanupTempPVC: true
