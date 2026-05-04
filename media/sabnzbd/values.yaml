@@ -20,7 +20,7 @@ app-template:
         sabnzbd:
           image:
             repository: ghcr.io/binhex/arch-sabnzbdvpn
-            tag: 4.5.5-1-01@sha256:411ed4ba589529960690c08de64fb2791c76d37d9a4278a99d30d7d32fc701f5
+            tag: 5.0.1-1-03@sha256:a478044eb2828633979b37ddfaf1a6b28999492ac3011d2f0bb000981f2b62b7
           command: # HACK: replace iptables(legacy) with iptables-nft on startup
             - /bin/bash
             - -c
