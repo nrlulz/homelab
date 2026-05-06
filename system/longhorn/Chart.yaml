@@ -9,5 +9,5 @@ dependencies:
     version: 0.0.0
     repository: file://../../charts/oauth2-proxy
   - name: longhorn
-    version: 1.10.2
+    version: 1.11.2
     repository: https://charts.longhorn.io
