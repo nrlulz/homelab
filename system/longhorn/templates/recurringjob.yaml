@@ -4,7 +4,7 @@ metadata:
   name: hourly-snapshot
 spec:
   concurrency: 1
-  cron: 30 * * * *
+  cron: 10 * * * *
   groups:
   - hourly-snapshot
   name: hourly-snapshot
@@ -18,9 +18,40 @@ metadata:
   name: hourly-snapshot-cleanup
 spec:
   concurrency: 1
-  cron: 45 * * * *
+  cron: 20 * * * *
   groups:
+  - default
   - hourly-snapshot
   name: hourly-snapshot-cleanup
-  retain: 0
+  retain: 0  # Note: retain value has no effect for this task
   task: snapshot-cleanup
+
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: hourly-snapshot-delete
+spec:
+  concurrency: 1
+  cron: 30 * * * *
+  groups:
+  - default
+  - hourly-snapshot
+  name: hourly-snapshot-delete
+  retain: 3
+  task: snapshot-delete
+
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: hourly-filesystem-trim
+spec:
+  concurrency: 1
+  cron: 40 * * * *
+  groups:
+  - default
+  - hourly-snapshot
+  name: hourly-filesystem-trim
+  retain: 0
+  task: filesystem-trim
