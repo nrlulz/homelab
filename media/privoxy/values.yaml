@@ -2,6 +2,9 @@ pvc:
   pvcName: privoxy-data
   storageRequest: 128Mi
 
+global:
+  createDefaultServiceAccount: false
+
 app-template:
   controllers:
     privoxy:

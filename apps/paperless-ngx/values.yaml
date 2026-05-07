@@ -19,6 +19,9 @@ pgcluster:
     storage:
       size: 2Gi
 
+global:
+  createDefaultServiceAccount: false
+
 base:
   defaultPodOptions: &defaultPodOptions
     securityContext:
@@ -265,9 +268,9 @@ server:
 
   rawResources:
     secret:
-      apiVersion: external-secrets.io/v1
-      kind: ExternalSecret
-      spec:
+      manifest:
+        apiVersion: external-secrets.io/v1
+        kind: ExternalSecret
         spec:
           secretStoreRef:
             name: bitwarden

@@ -13,6 +13,9 @@ pvc:
 
 controllerPath: &controllerPath "/dev/serial/by-id/usb-Nabu_Casa_ZWA-2_80B54EE0AD28-if00"
 
+global:
+  createDefaultServiceAccount: false
+
 app-template:
   defaultPodOptions:
     affinity:

@@ -11,6 +11,9 @@ pvc:
   pvcName: sabnzbd-data
   storageRequest: 128Mi
 
+global:
+  createDefaultServiceAccount: false
+
 app-template:
   controllers:
     sabnzbd:

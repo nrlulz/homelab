@@ -14,7 +14,11 @@ pvc-library:
     runAsGroup: 1000
     fsGroup: 1000
 
+global:
+  createDefaultServiceAccount: false
+
 app-template:
+
   controllers:
     calibre:
       containers:
