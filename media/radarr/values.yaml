@@ -15,6 +15,9 @@ pvc:
     runAsGroup: 1000
     fsGroup: 1000
 
+global:
+  createDefaultServiceAccount: false
+
 app-template:
   defaultPodOptions:
     securityContext:

@@ -5,6 +5,9 @@ pvc:
     runAsUser: 2999
     runAsGroup: 2999
 
+global:
+  createDefaultServiceAccount: false
+
 app-template:
   defaultPodOptions:
     securityContext:

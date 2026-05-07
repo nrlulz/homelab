@@ -1,3 +1,6 @@
+global:
+  createDefaultServiceAccount: false
+
 app-template:
   defaultPodOptions:
     securityContext:

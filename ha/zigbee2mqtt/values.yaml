@@ -13,6 +13,9 @@ pvc:
 
 coordinatorPath: &coordinatorPath "/dev/serial/by-id/usb-Nabu_Casa_SkyConnect_v1.0_6abf56c1aa9ced11b8937afaa7669f5d-if00-port0"
 
+global:
+  createDefaultServiceAccount: false
+
 app-template:
   defaultPodOptions:
     affinity:

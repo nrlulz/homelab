@@ -6,6 +6,9 @@ pvc:
     runAsGroup: 1000
     fsGroup: 1000
 
+global:
+  createDefaultServiceAccount: false
+
 actual:
   defaultPodOptions: &defaultPodOptions
     securityContext:
