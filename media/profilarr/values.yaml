@@ -1,0 +1,86 @@
+pvc:
+  pvcName: profilarr-data
+  storageRequest: 1Gi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+
+app-template:
+  defaultPodOptions:
+    securityContext:
+      fsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+  controllers:
+    profilarr:
+      annotations:
+        reloader.stakater.com/auto: "true"
+      containers:
+        profilarr:
+          image:
+            repository: ghcr.io/dictionarry-hub/profilarr
+            tag: 2.0.4@sha256:c0d330ced11a777de32fbd71b4b7a2b22088b5f06ddad88199dacc7f14b82668
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: RuntimeDefault
+          env:
+            PUID: "1000"
+            PGID: "1000"
+            TZ: "America/Los_Angeles"
+            AUTH: "oidc"
+            OIDC_CLIENT_ID: "48466ad5-fae6-4494-9195-9a24b789277c"
+            OIDC_DISCOVERY_URL: "https://auth.neils.house/.well-known/openid-configuration"
+            ORIGIN: "https://profilarr.internal.neils.house"
+          envFrom:
+            - secret: profilarr
+          probes:
+            liveness: &probe
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path:  /api/v1/health
+                  port: 6868
+            readiness: *probe
+  service:
+    profilarr:
+      controller: profilarr
+      ports:
+        http:
+          port: 6868
+  ingress:
+    profilarr:
+      className: internal
+      hosts:
+        - host: profilarr.internal.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: profilarr
+                port: http
+  persistence:
+    config:
+      existingClaim: profilarr-data
+    tmp:
+      type: emptyDir
+  rawResources:
+    secret:
+      manifest:
+        apiVersion: external-secrets.io/v1
+        kind: ExternalSecret
+        spec:
+          secretStoreRef:
+            name: bitwarden
+            kind: ClusterSecretStore
+          data:
+            - secretKey: OIDC_CLIENT_SECRET
+              remoteRef:
+                key: PROFILARR_OPENID_CLIENT_SECRET

@@ -71,5 +71,7 @@ spec:
     accessModes: {{ .Values.accessModes }}
     capacity: {{ .Values.storageRequest }}
     moverSecurityContext: {{ .Values.moverSecurityContext | toYaml | nindent 6 }}
-    cleanupCachePVC: true
-    cleanupTempPVC: true
+
+    # https://github.com/backube/volsync/issues/1504#issuecomment-2989132176
+    cleanupCachePVC: false
+    cleanupTempPVC: false
