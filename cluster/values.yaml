@@ -54,6 +54,8 @@ apps:
               # NET_ADMIN, SYS_MODULE capabilities (vpn)
               pod-security.kubernetes.io/enforce: privileged
 
+    - name: profilarr
+
     - name: prowlarr
 
     - name: qbittorrent
@@ -65,8 +67,6 @@ apps:
               pod-security.kubernetes.io/enforce: privileged
 
     - name: radarr
-
-    - name: recyclarr
 
     - name: sabnzbd
       spec:
