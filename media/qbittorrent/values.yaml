@@ -27,7 +27,7 @@ app-template:
         qbittorrent:
           image:
             repository: ghcr.io/binhex/arch-qbittorrentvpn
-            tag: 5.2@sha256:fe6daf82a190902d99350026eccdb883eb1e5f80b23827ba04a29c155815c696
+            tag: 5.2@sha256:64462c1cef85a4dde9ff76465dfa39f5628b6b88a30143fa48b3546a776fcac0
           command: # HACK: replace iptables(legacy) with iptables-nft on startup
             - /bin/bash
             - -c
