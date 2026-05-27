@@ -6,5 +6,5 @@ sources:
   - https://github.com/home-operations/tuppr
 dependencies:
   - name: tuppr
-    version: 0.1.36
+    version: 0.1.37
     repository: oci://ghcr.io/home-operations/charts
