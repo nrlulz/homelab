@@ -181,6 +181,9 @@ apps:
               pod-security.kubernetes.io/enforce: privileged
 
     - name: metallb
+      metadata:
+        annotations:
+          argocd.argoproj.io/compare-options: ServerSideDiff=true
       spec:
         ignoreDifferences:
           crd:
@@ -190,6 +193,8 @@ apps:
             jsonPointers:
               - /spec/conversion/webhook/clientConfig/caBundle
         syncPolicy:
+          syncOptions:
+            ServerSideApply: "true"
           managedNamespaceMetadata:
             labels:
               # NET_ADMIN, NET_RAW, SYS_ADMIN, NET_BIND_SERVICE capabilities
