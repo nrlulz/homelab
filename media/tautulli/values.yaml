@@ -1,7 +1,7 @@
 oauth2-proxy:
   ingress:
-    className: &ingressClassName external
-    host: &ingressHost tautulli.neils.house
+    className: &ingressClassName internal
+    host: &ingressHost tautulli.internal.neils.house
   oidc:
     clientID: b7fc2e63-97ef-4913-b3e5-bb51eafc2a43
     clientSecretKey: TAUTULLI_OPENID_CLIENT_SECRET

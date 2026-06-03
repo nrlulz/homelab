@@ -1,7 +1,7 @@
 oauth2-proxy:
   ingress:
-    className: &ingressClassName external
-    host: &ingressHost sonarr.neils.house
+    className: &ingressClassName internal
+    host: &ingressHost sonarr.internal.neils.house
   oidc:
     clientID: 08bce6dd-0042-4884-99b0-e31c54db3703
     clientSecretKey: SONARR_OPENID_CLIENT_SECRET

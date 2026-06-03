@@ -1,7 +1,7 @@
 oauth2-proxy:
   ingress:
-    className: &ingressClassName external
-    host: &ingressHost radarr.neils.house
+    className: &ingressClassName internal
+    host: &ingressHost radarr.internal.neils.house
   oidc:
     clientID: eb843124-4b1f-4a3b-b282-cd1f69d0dc92
     clientSecretKey: RADARR_OPENID_CLIENT_SECRET
