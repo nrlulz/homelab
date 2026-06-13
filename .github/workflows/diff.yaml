@@ -36,7 +36,7 @@ jobs:
 
       - name: Generate Diff
         env:
-          ARGOCD_DIFF_PREVIEW_IMAGE: docker.io/dagandersen/argocd-diff-preview:v0.2.8@sha256:19594425d42982d4795f8e7be93e7e3798487e6d0ccc4ce77a645728f9a8576a
+          ARGOCD_DIFF_PREVIEW_IMAGE: docker.io/dagandersen/argocd-diff-preview:v0.2.10@sha256:47d105677d377d29c0a23a1e72bf6efd68e81e4ea73b9d4f16ecae1b09b26460
           KIND_NODE_IMAGE: docker.io/kindest/node:v1.35.1@sha256:05d7bcdefbda08b4e038f644c4df690cdac3fba8b06f8289f30e10026720a1ab
         run: |
           docker run \
