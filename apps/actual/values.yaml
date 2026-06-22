@@ -70,7 +70,7 @@ actual:
 helperBase: &helperBase
   image:
     repository: ghcr.io/psybers/actual-helpers
-    tag: latest@sha256:fc6772eb57aa528611281f26c80526d8b739d749307a17f93e853eb08d0b33d2
+    tag: latest@sha256:c8dde7f6d15c56cf9b44afa03145fc74a4c1fc586deede9044c652446b6d09cb
   securityContext: *securityContext
   env:
     ACTUAL_CACHE_DIR: /cache
