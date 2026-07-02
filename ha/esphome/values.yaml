@@ -1,0 +1,82 @@
+oauth2-proxy:
+  ingress:
+    className: &ingressClassName internal
+    host: &ingressHost esphome.internal.neils.house
+  oidc:
+    clientID: eec19677-9f91-4fe3-b4d4-0542c10ab22b
+    clientSecretKey: ESPHOME_OPENID_CLIENT_SECRET
+    cookieSecretKey: ESPHOME_OPENID_COOKIE_SECRET
+
+pvc:
+  pvcName: esphome-data
+  storageRequest: 128Mi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+
+global:
+  createDefaultServiceAccount: false
+
+app-template:
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+  controllers:
+    esphome:
+      containers:
+        esphome:
+          image:
+            repository: ghcr.io/esphome/esphome
+            tag: 2026.6.4@sha256:20c12b47f53d31c4d2b1eeeec03ef93e414a710f5834220d02353ec575bca1c6
+          probes:
+            startup:
+              enabled: true
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+  service:
+    esphome:
+      controller: esphome
+      ports:
+        http:
+          port: 6052
+  ingress:
+    esphome:
+      annotations:
+        nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+      className: *ingressClassName
+      hosts:
+        - host: *ingressHost
+          paths:
+            - path: /
+              service:
+                identifier: esphome
+                port: http
+  persistence:
+    build:
+      type: emptyDir
+    cache:
+      type: emptyDir
+    config:
+      existingClaim: esphome-data
+    dotplatformio:
+      type: emptyDir
+      globalMounts:
+        - path: /.platformio
+    dotcache:
+      type: emptyDir
+      globalMounts:
+        - path: /.cache

@@ -13,6 +13,8 @@ apps:
     - name: stirling-pdf
 
   ha:
+    - name: esphome
+
     - name: home-assistant
 
     - name: mosquitto
