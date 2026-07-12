@@ -61,3 +61,5 @@ app-template:
       type: emptyDir
       globalMounts:
         - path: /.cache
+    tmp:
+      type: emptyDir
