@@ -27,7 +27,7 @@ app-template:
         qbittorrent:
           image:
             repository: ghcr.io/binhex/arch-qbittorrentvpn
-            tag: 5.2@sha256:21a7cb3110d9cabda1a2939e572cb29ba07e7c895fb90e8292d3774293f30117
+            tag: 5.2@sha256:229e441811921893e77b483a192006e5dd598c356f94a80dbadbb9cf88c0f69f
           envFrom:
             - secretRef:
                 name: qbittorrent
