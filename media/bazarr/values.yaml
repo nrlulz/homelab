@@ -9,7 +9,7 @@ oauth2-proxy:
 
 pvc:
   pvcName: bazarr-data
-  storageRequest: 256Mi
+  storageRequest: 1Gi
   moverSecurityContext:
     runAsUser: 1000
     runAsGroup: 1000
