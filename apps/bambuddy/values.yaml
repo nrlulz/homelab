@@ -1,0 +1,79 @@
+pvc:
+  pvcName: bambuddy-data
+  storageRequest: 1Gi
+  moverSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+
+app-template:
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+  controllers:
+    bambuddy:
+      containers:
+        bambuddy:
+          image:
+            repository: ghcr.io/maziggy/bambuddy
+            tag: 0.2.4.9@sha256:d68ab4746f18c51a6e22f5cd536533a4ae3c1eb48f4eecccbb68c2be23d0ef52
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - NET_BIND_SERVICE
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: RuntimeDefault
+          env:
+            TZ: "America/Los_Angeles"
+          probes:
+            startup:
+              enabled: true
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /health
+                  port: 8000
+                failureThreshold: 3
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+  service:
+    bambuddy:
+      controller: bambuddy
+      ports:
+        http:
+          port: 8000
+  ingress:
+    bambuddy:
+      className: internal
+      hosts:
+        - host: bambuddy.internal.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: bambuddy
+                port: http
+  persistence:
+    data:
+      existingClaim: bambuddy-data
+      globalMounts:
+        - path: /app/data
+    logs:
+      type: emptyDir
+      globalMounts:
+        - path: /app/logs
+    tmp:
+      type: emptyDir
+

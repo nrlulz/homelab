@@ -4,6 +4,8 @@ apps:
 
     - name: atuin
 
+    - name: bambuddy
+
     - name: immich
 
     - name: paperless-ngx
