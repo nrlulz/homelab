@@ -7,18 +7,6 @@ app-template:
       runAsNonRoot: true
       runAsUser: 1000
       runAsGroup: 1000
-    affinity:
-      podAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-                - key: app.kubernetes.io/controller
-                  operator: In
-                  values:
-                    - home-assistant
-            namespaces:
-              - home-assistant
-            topologyKey: kubernetes.io/hostname
   controllers:
     piper:
       containers:

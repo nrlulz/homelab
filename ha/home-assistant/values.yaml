@@ -19,19 +19,6 @@ global:
   createDefaultServiceAccount: false
 
 app-template:
-  defaultPodOptions:
-    affinity:
-      podAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-                - key: app.kubernetes.io/controller
-                  operator: In
-                  values:
-                    - zwave-js-ui
-            namespaces:
-              - zwave-js-ui
-            topologyKey: kubernetes.io/hostname
   controllers:
     home-assistant:
       pod:
