@@ -97,7 +97,8 @@
         "docker.io/kindest/node",
         "ghcr.io/siderolabs/installer",
         "ghcr.io/siderolabs/kubelet",
-        "ghcr.io/home-assistant/home-assistant"
+        "ghcr.io/home-assistant/home-assistant",
+        "longhorn"
       ],
       "separateMinorPatch": true
     },
