@@ -21,15 +21,27 @@ controlPlane:
           - siderolabs/intel-ucode
           - siderolabs/iscsi-tools
           - siderolabs/util-linux-tools
+  volumes:
+    - name: EPHEMERAL
+      provisioning:
+        maxSize: 64GiB
+  userVolumes:
+    - name: longhorn
+      volumeType: partition
+      provisioning:
+        diskSelector:
+          match: system_disk
+        minSize: 2GiB
+        grow: true
   patches:
     # Extra mount for Longhorn
     - |
       machine:
         kubelet:
           extraMounts:
-          - destination: /var/lib/longhorn
+          - destination: /var/mnt/longhorn
             type: bind
-            source: /var/lib/longhorn
+            source: /var/mnt/longhorn
             options:
             - bind
             - rshared
@@ -53,12 +65,6 @@ controlPlane:
           grubUseUKICmdline: false
           extraKernelArgs:
             - pcie_aspm=off
-
-    # Preserve data on the install disk (equivalent to --preserve)
-    - |
-      machine:
-        install:
-          wipe: false
 
     # Allow Talos API access for system upgrades
     - |
