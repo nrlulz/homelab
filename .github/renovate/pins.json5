@@ -14,8 +14,7 @@
         "docker.io/kindest/node",
         "ghcr.io/siderolabs/installer",
         "ghcr.io/siderolabs/kubelet",
-        "ghcr.io/home-assistant/home-assistant",
-        "longhorn"
+        "ghcr.io/home-assistant/home-assistant"
       ],
       "matchUpdateTypes": [
         "major",
@@ -27,8 +26,7 @@
     {
       // ignore year/date tags
       "matchPackageNames": [
-        "ghcr.io/binhex/arch-qbittorrentvpn",
-        "lscr.io/linuxserver/overseerr"
+        "ghcr.io/binhex/arch-qbittorrentvpn"
       ],
       "allowedVersions": "<2000"
     }

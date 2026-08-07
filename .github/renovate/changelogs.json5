@@ -63,12 +63,6 @@
     },
     {
       "matchDepNames": [
-        "lscr.io/linuxserver/overseerr"
-      ],
-      "changelogUrl": "https://github.com/sct/overseerr/releases"
-    },
-    {
-      "matchDepNames": [
         "docker.io/rhasspy/wyoming-piper"
       ],
       "changelogUrl": "https://github.com/rhasspy/wyoming-piper/blob/master/CHANGELOG.md"
