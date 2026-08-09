@@ -163,10 +163,10 @@ server:
       data:
         PAPERLESS_APPS: "allauth.socialaccount.providers.openid_connect"
         PAPERLESS_CONSUMER_ENABLE_BARCODES: "true"
-        PAPERLESS_CONSUMER_POLLING_DELAY: "30"
-        PAPERLESS_CONSUMER_POLLING_RETRY_COUNT: "20"
-        PAPERLESS_CONSUMER_POLLING: "60"
+        PAPERLESS_CONSUMER_POLLING_INTERVAL: "60"
+        PAPERLESS_CONSUMER_STABILITY_DELAY: "30"
         PAPERLESS_DATE_ORDER: "MDY"
+        PAPERLESS_DBENGINE: "postgresql"
         PAPERLESS_DISABLE_REGULAR_LOGIN: "true"
         PAPERLESS_REDIS: "redis://paperless-ngx-redis:6379"
         PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS: "false"
@@ -174,6 +174,7 @@ server:
         PAPERLESS_TIKA_ENDPOINT: "http://paperless-ngx-tika:9998"
         PAPERLESS_TIKA_GOTENBERG_ENDPOINT: "http://paperless-ngx-gotenberg:3000"
         PAPERLESS_TIME_ZONE: "America/Los_Angeles"
+        PAPERLESS_TRUSTED_PROXIES: "10.244.0.0/16"
         PAPERLESS_URL: "https://docs.neils.house"
         S6_READ_ONLY_ROOT: "1"
         S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: "1"
@@ -278,7 +279,22 @@ server:
           target:
             template:
               data:
-                PAPERLESS_SOCIALACCOUNT_PROVIDERS: '{"openid_connect": {"APPS": [{"provider_id": "pocketid", "name": "Pocket ID", "client_id": "6643a76f-dae7-4cad-a7c0-625b324d0dac", "secret": "{{ `{{ .PAPERLESS_OPENID_CLIENT_SECRET }}` }}", "settings": {"server_url": "https://auth.neils.house/.well-known/openid-configuration"}}]}}'
+                PAPERLESS_SOCIALACCOUNT_PROVIDERS: >
+                  {
+                    "openid_connect": {
+                      "APPS": [
+                        {
+                          "provider_id": "pocketid",
+                          "name": "Pocket ID",
+                          "client_id": "6643a76f-dae7-4cad-a7c0-625b324d0dac",
+                          "secret": "{{ `{{ .PAPERLESS_OPENID_CLIENT_SECRET }}` }}",
+                          "settings": {
+                            "server_url": "https://auth.neils.house/.well-known/openid-configuration"
+                          }
+                        }
+                      ]
+                    }
+                  }
                 PAPERLESS_SECRET_KEY: "{{ `{{ .PAPERLESS_SECRET_KEY }}` }}"
           data:
             - secretKey: PAPERLESS_OPENID_CLIENT_SECRET
