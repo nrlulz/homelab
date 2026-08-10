@@ -1,10 +1,6 @@
-pvc-data:
+pvc:
   pvcName: paperless-data
   storageRequest: 4Gi
-
-pvc-redisdata:
-  pvcName: paperless-redisdata
-  storageRequest: 128Mi
 
 pgcluster:
   image: ghcr.io/cloudnative-pg/postgresql:18.4@sha256:7af186660aead1b948d827ef1c52c20a8d2cb7b2a4089424b8f612e0a61dc2f9
@@ -88,39 +84,6 @@ gotenberg:
         http:
           port: 3000
 
-redis:
-  global:
-    nameOverride: redis
-  defaultPodOptions:
-    securityContext:
-      runAsNonRoot: true
-      runAsUser: 999
-      runAsGroup: 1000
-  controllers:
-    redis:
-      containers:
-        redis:
-          image:
-            repository: docker.io/library/redis
-            tag: 7.4.4-alpine@sha256:ee9e8748ace004102a267f7b8265dab2c618317df22507b89d16a8add7154273
-          securityContext: *containerSecurityContext
-          probes:
-            startup:
-              enabled: true
-            liveness:
-              enabled: true
-            readiness:
-              enabled: true
-  service:
-    redis:
-      controller: redis
-      ports:
-        redis:
-          port: 6379
-  persistence:
-    data:
-      existingClaim: paperless-redisdata
-
 tika:
   global:
     nameOverride: tika
@@ -151,6 +114,12 @@ tika:
     tmp:
       type: emptyDir
 
+valkey:
+  image:
+    registry: docker.io
+    repository: valkey/valkey
+    tag: 9.1.1-alpine@sha256:ee91f7a174ac4d6a6b0685b3a60e321f0a9dbbb691f9b0e285be2ba1d1be8328
+
 server:
   defaultPodOptions: *defaultPodOptions
 
@@ -165,7 +134,7 @@ server:
         PAPERLESS_DBENGINE: "postgresql"
         PAPERLESS_DISABLE_REGULAR_LOGIN: "true"
         PAPERLESS_LOGGING_DIR: "/logs"
-        PAPERLESS_REDIS: "redis://paperless-ngx-redis:6379"
+        PAPERLESS_REDIS: "redis://paperless-ngx-valkey:6379"
         PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS: "false"
         PAPERLESS_TIKA_ENABLED: "1"
         PAPERLESS_TIKA_ENDPOINT: "http://paperless-ngx-tika:9998"
