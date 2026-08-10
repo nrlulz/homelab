@@ -1,9 +1,5 @@
 pvc-data:
   pvcName: paperless-data
-  storageRequest: 1Gi
-
-pvc-media:
-  pvcName: paperless-media
   storageRequest: 4Gi
 
 pvc-redisdata:
@@ -168,6 +164,7 @@ server:
         PAPERLESS_DATE_ORDER: "MDY"
         PAPERLESS_DBENGINE: "postgresql"
         PAPERLESS_DISABLE_REGULAR_LOGIN: "true"
+        PAPERLESS_LOGGING_DIR: "/logs"
         PAPERLESS_REDIS: "redis://paperless-ngx-redis:6379"
         PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS: "false"
         PAPERLESS_TIKA_ENABLED: "1"
@@ -178,8 +175,6 @@ server:
         PAPERLESS_URL: "https://docs.neils.house"
         S6_READ_ONLY_ROOT: "1"
         S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: "1"
-        USERMAP_GID: "1000"
-        USERMAP_UID: "1000"
 
   controllers:
     server:
@@ -242,6 +237,9 @@ server:
       existingClaim: paperless-data
       globalMounts:
         - path: /usr/src/paperless/data
+          subPath: data
+        - path: /usr/src/paperless/media
+          subPath: media
     export:
       type: nfs
       server: nas.internal
@@ -258,10 +256,8 @@ server:
         server:
           server:
             - path: /usr/src/paperless/consume
-    media:
-      existingClaim: paperless-media
-      globalMounts:
-        - path: /usr/src/paperless/media
+    logs:
+      type: emptyDir
     run:
       type: emptyDir
     tmp:
