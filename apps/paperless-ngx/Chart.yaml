@@ -2,26 +2,13 @@ apiVersion: v2
 name: paperless-ngx
 version: 0.0.0
 dependencies:
-  - alias: pvc-data
-    name: pvc
-    version: 0.0.0
-    repository: file://../../charts/pvc
-  - alias: pvc-media
-    name: pvc
-    version: 0.0.0
-    repository: file://../../charts/pvc
-  - alias: pvc-redisdata
-    name: pvc
+  - name: pvc
     version: 0.0.0
     repository: file://../../charts/pvc
   - name: pgcluster
     version: 0.0.0
     repository: file://../../charts/pgcluster
   - alias: gotenberg
-    name: app-template
-    version: 5.0.1
-    repository: oci://ghcr.io/bjw-s-labs/helm
-  - alias: redis
     name: app-template
     version: 5.0.1
     repository: oci://ghcr.io/bjw-s-labs/helm
@@ -33,3 +20,6 @@ dependencies:
     name: app-template
     version: 5.0.1
     repository: oci://ghcr.io/bjw-s-labs/helm
+  - name: valkey
+    repository: oci://ghcr.io/valkey-io/valkey-helm
+    version: 0.11.0
