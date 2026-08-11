@@ -22,8 +22,6 @@ cacheCapacity: 1Gi
 cacheAccessModes:
   - ReadWriteOnce
 
-resticBucket: s3:http://minio.minio.svc.cluster.local:9000/volsync
-
 moverSecurityContext:
   fsGroupChangePolicy: OnRootMismatch
   # runAsUser: 472
