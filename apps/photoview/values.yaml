@@ -1,0 +1,77 @@
+pgcluster:
+  image: ghcr.io/cloudnative-pg/postgresql:18.4@sha256:7af186660aead1b948d827ef1c52c20a8d2cb7b2a4089424b8f612e0a61dc2f9
+  databaseName: photoview
+  generation: 1
+
+  cluster:
+    storage:
+      size: 2Gi
+
+app-template:
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+  controllers:
+    photoview:
+      containers:
+        photoview:
+          image:
+            repository: docker.io/photoview/photoview
+            tag: 2.4.0@sha256:4cf84110709aed358f95a03fc988f78fd8ea6bd4a05583b3996a55b2dff5dddf
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: RuntimeDefault
+          env:
+            PHOTOVIEW_DATABASE_DRIVER: "postgres"
+            PHOTOVIEW_LISTEN_IP: "0.0.0.0"
+            PHOTOVIEW_MEDIA_CACHE: "/cache"
+            PHOTOVIEW_POSTGRES_URL:
+              valueFrom:
+                secretKeyRef:
+                  name: photoview-cluster-v1-app
+                  key: uri
+          probes:
+            startup:
+              enabled: true
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
+  service:
+    photoview:
+      controller: photoview
+      ports:
+        http:
+          port: 80
+  ingress:
+    photoview:
+      className: internal
+      hosts:
+        - host: photoview.internal.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: photoview
+                port: http
+  persistence:
+    cache:
+      storageClass: longhorn-ephemeral
+      suffix: cache
+      size: 8Gi
+      accessMode: ReadWriteOnce
+    photos:
+      type: nfs
+      server: nas.internal
+      path: /mnt/data/photos
+      globalMounts:
+        - path: /mnt/data/photos
+          readOnly: true
