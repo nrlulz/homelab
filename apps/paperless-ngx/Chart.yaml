@@ -10,15 +10,15 @@ dependencies:
     repository: file://../../charts/pgcluster
   - alias: gotenberg
     name: app-template
-    version: 5.0.1
+    version: 5.1.0
     repository: oci://ghcr.io/bjw-s-labs/helm
   - alias: tika
     name: app-template
-    version: 5.0.1
+    version: 5.1.0
     repository: oci://ghcr.io/bjw-s-labs/helm
   - alias: server
     name: app-template
-    version: 5.0.1
+    version: 5.1.0
     repository: oci://ghcr.io/bjw-s-labs/helm
   - name: valkey
     repository: oci://ghcr.io/valkey-io/valkey-helm
