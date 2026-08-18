@@ -23,7 +23,7 @@ app-template:
         sabnzbd:
           image:
             repository: ghcr.io/binhex/arch-sabnzbdvpn
-            tag: 5.1.0-1-01@sha256:26c77e5455272249c5be9a4eb50eb0bfc38a25f15d6b55495f7622ddb3382b0c
+            tag: 5.1.1-1-01@sha256:efa0845b0e7dd142ed0722fb5263644d17d0508f14182c3db1f1781fac68b389
           envFrom:
             - secretRef:
                 name: sabnzbd
