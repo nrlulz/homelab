@@ -30,21 +30,6 @@ spec:
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
 metadata:
-  name: hourly-snapshot-delete
-spec:
-  concurrency: 1
-  cron: 30 * * * *
-  groups:
-  - default
-  - hourly-snapshot
-  name: hourly-snapshot-delete
-  retain: 3
-  task: snapshot-delete
-
----
-apiVersion: longhorn.io/v1beta2
-kind: RecurringJob
-metadata:
   name: hourly-filesystem-trim
 spec:
   concurrency: 1
