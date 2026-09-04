@@ -22,4 +22,4 @@ dependencies:
     repository: oci://ghcr.io/bjw-s-labs/helm
   - name: valkey
     repository: oci://ghcr.io/valkey-io/valkey-helm
-    version: 0.11.0
+    version: 0.12.0
