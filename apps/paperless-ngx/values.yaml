@@ -155,6 +155,9 @@ server:
           probes:
             startup:
               enabled: true
+              spec:
+                failureThreshold: 10
+                initialDelaySeconds: 30
             liveness:
               enabled: true
             readiness:
