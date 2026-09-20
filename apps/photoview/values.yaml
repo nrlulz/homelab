@@ -21,7 +21,7 @@ app-template:
         photoview:
           image:
             repository: docker.io/photoview/photoview
-            tag: 2.4.0@sha256:46d76ca9f3f0359454ec16c4b380d733325db8fccd0275b243a909f4f086c06e
+            tag: 2.4.0@sha256:f50e80134e96b7fcc2dd82211b9a53a04ab1aa138b04e5d04f03fb8267feb716
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
