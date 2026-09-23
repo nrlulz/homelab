@@ -9,7 +9,7 @@ oauth2-proxy:
 
 pvc:
   pvcName: radarr-data
-  storageRequest: 4Gi
+  storageRequest: 8Gi
   moverSecurityContext:
     runAsUser: 1000
     runAsGroup: 1000
