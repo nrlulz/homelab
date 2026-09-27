@@ -3,7 +3,7 @@ clusterName: lab
 # renovate: packageName=siderolabs/talos datasource=github-releases
 talosVersion: v1.13.10
 # renovate: packageName=siderolabs/kubelet datasource=github-releases
-kubernetesVersion: v1.36.5
+kubernetesVersion: v1.37.1
 endpoint: https://192.168.1.30:6443
 allowSchedulingOnControlPlanes: true
 nodes:
