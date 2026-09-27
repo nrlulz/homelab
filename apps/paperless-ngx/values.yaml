@@ -145,6 +145,39 @@ server:
         S6_READ_ONLY_ROOT: "1"
         S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: "1"
 
+  externalSecrets:
+    paperless-ngx:
+      secretStoreRef:
+        name: bitwarden
+        kind: ClusterSecretStore
+      target:
+        template:
+          data:
+            PAPERLESS_SOCIALACCOUNT_PROVIDERS: >
+              {
+                "openid_connect": {
+                  "APPS": [
+                    {
+                      "provider_id": "pocketid",
+                      "name": "Pocket ID",
+                      "client_id": "6643a76f-dae7-4cad-a7c0-625b324d0dac",
+                      "secret": "{{ .PAPERLESS_OPENID_CLIENT_SECRET }}",
+                      "settings": {
+                        "server_url": "https://auth.neils.house/.well-known/openid-configuration"
+                      }
+                    }
+                  ]
+                }
+              }
+            PAPERLESS_SECRET_KEY: "{{ .PAPERLESS_SECRET_KEY }}"
+      data:
+        - secretKey: PAPERLESS_OPENID_CLIENT_SECRET
+          remoteRef:
+            key: PAPERLESS_OPENID_CLIENT_SECRET
+        - secretKey: PAPERLESS_SECRET_KEY
+          remoteRef:
+            key: PAPERLESS_SECRET_KEY
+
   controllers:
     server:
       annotations:
@@ -234,41 +267,3 @@ server:
       type: emptyDir
     tmp:
       type: emptyDir
-
-  rawResources:
-    secret:
-      manifest:
-        apiVersion: external-secrets.io/v1
-        kind: ExternalSecret
-        spec:
-          secretStoreRef:
-            name: bitwarden
-            kind: ClusterSecretStore
-          target:
-            template:
-              data:
-                PAPERLESS_SOCIALACCOUNT_PROVIDERS: >
-                  {
-                    "openid_connect": {
-                      "APPS": [
-                        {
-                          "provider_id": "pocketid",
-                          "name": "Pocket ID",
-                          "client_id": "6643a76f-dae7-4cad-a7c0-625b324d0dac",
-                          "secret": "{{ `{{ .PAPERLESS_OPENID_CLIENT_SECRET }}` }}",
-                          "settings": {
-                            "server_url": "https://auth.neils.house/.well-known/openid-configuration"
-                          }
-                        }
-                      ]
-                    }
-                  }
-                PAPERLESS_SECRET_KEY: "{{ `{{ .PAPERLESS_SECRET_KEY }}` }}"
-          data:
-            - secretKey: PAPERLESS_OPENID_CLIENT_SECRET
-              remoteRef:
-                key: PAPERLESS_OPENID_CLIENT_SECRET
-            - secretKey: PAPERLESS_SECRET_KEY
-              remoteRef:
-                key: PAPERLESS_SECRET_KEY
-

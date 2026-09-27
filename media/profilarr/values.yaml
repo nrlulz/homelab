@@ -14,6 +14,15 @@ app-template:
       runAsUser: 1000
       runAsGroup: 1000
       fsGroupChangePolicy: OnRootMismatch
+  externalSecrets:
+    profilarr:
+      secretStoreRef:
+        name: bitwarden
+        kind: ClusterSecretStore
+      data:
+        - secretKey: OIDC_CLIENT_SECRET
+          remoteRef:
+            key: PROFILARR_OPENID_CLIENT_SECRET
   controllers:
     profilarr:
       annotations:
@@ -71,16 +80,3 @@ app-template:
       existingClaim: profilarr-data
     tmp:
       type: emptyDir
-  rawResources:
-    secret:
-      manifest:
-        apiVersion: external-secrets.io/v1
-        kind: ExternalSecret
-        spec:
-          secretStoreRef:
-            name: bitwarden
-            kind: ClusterSecretStore
-          data:
-            - secretKey: OIDC_CLIENT_SECRET
-              remoteRef:
-                key: PROFILARR_OPENID_CLIENT_SECRET

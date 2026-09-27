@@ -7,6 +7,18 @@ app-template:
       runAsNonRoot: true
       runAsUser: 1000
       runAsGroup: 1000
+  externalSecrets:
+    unpackerr:
+      secretStoreRef:
+        name: bitwarden
+        kind: ClusterSecretStore
+      data:
+        - secretKey: UN_RADARR_0_API_KEY
+          remoteRef:
+            key: RADARR_API_KEY
+        - secretKey: UN_SONARR_0_API_KEY
+          remoteRef:
+            key: SONARR_API_KEY
   controllers:
     unpackerr:
       annotations:

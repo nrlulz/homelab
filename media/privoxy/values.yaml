@@ -6,6 +6,18 @@ global:
   createDefaultServiceAccount: false
 
 app-template:
+  externalSecrets:
+    privoxy:
+      secretStoreRef:
+        name: bitwarden
+        kind: ClusterSecretStore
+      data:
+        - secretKey: VPN_USER
+          remoteRef:
+            key: PIA_VPN_USER
+        - secretKey: VPN_PASS
+          remoteRef:
+            key: PIA_VPN_PASS
   controllers:
     privoxy:
       annotations:
