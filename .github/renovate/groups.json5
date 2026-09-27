@@ -5,7 +5,7 @@
       // group kubernetes updates
       "matchPackageNames": [
         "docker.io/kindest/node",
-        "ghcr.io/siderolabs/kubelet"
+        "siderolabs/kubelet"
       ],
       "groupName": "kubernetes",
       "minimumGroupSize": 2

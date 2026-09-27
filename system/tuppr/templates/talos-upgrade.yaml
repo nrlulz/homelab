@@ -4,7 +4,7 @@ metadata:
   name: talos-upgrade
 spec:
   talos:
-    # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
+    # renovate: packageName=siderolabs/talos datasource=github-releases
     version: v1.13.10
   healthChecks:
     - apiVersion: volsync.backube/v1alpha1

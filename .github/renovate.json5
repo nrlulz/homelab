@@ -25,7 +25,7 @@
         "/\\.ya?ml$/"
       ],
       "matchStrings": [
-        "\\s*# renovate: depName=(?<depName>\\S+) datasource=(?<datasource>\\S+)( repository=(?<registryUrl>\\S+))?\\n.*\\S+: (?<currentValue>\\S+?)\\s"
+        "\\s*# renovate:( depName=(?<depName>\\S+))?( packageName=(?<packageName>\\S+))? datasource=(?<datasource>\\S+)( repository=(?<registryUrl>\\S+))?\\n.*\\S+: (?<currentValue>\\S+?)\\s"
       ]
     },
     {
@@ -86,8 +86,8 @@
       ],
       "matchPackageNames": [
         "docker.io/kindest/node",
-        "ghcr.io/siderolabs/installer",
-        "ghcr.io/siderolabs/kubelet"
+        "siderolabs/kubelet",
+        "siderolabs/talos"
       ],
       "automerge": false
     },
@@ -95,10 +95,10 @@
       // separate minor/patch updates
       "matchPackageNames": [
         "docker.io/kindest/node",
-        "ghcr.io/siderolabs/installer",
-        "ghcr.io/siderolabs/kubelet",
         "ghcr.io/home-assistant/home-assistant",
-        "longhorn"
+        "longhorn",
+        "siderolabs/kubelet",
+        "siderolabs/talos"
       ],
       "separateMinorPatch": true
     },

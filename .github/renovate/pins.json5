@@ -12,9 +12,9 @@
       // ignore certain x.0 releases
       "matchPackageNames": [
         "docker.io/kindest/node",
-        "ghcr.io/siderolabs/installer",
-        "ghcr.io/siderolabs/kubelet",
-        "ghcr.io/home-assistant/home-assistant"
+        "ghcr.io/home-assistant/home-assistant",
+        "siderolabs/kubelet",
+        "siderolabs/talos"
       ],
       "matchUpdateTypes": [
         "major",

@@ -4,7 +4,7 @@ metadata:
   name: k8s-upgrade
 spec:
   kubernetes:
-    # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
+    # renovate: packageName=siderolabs/kubelet datasource=github-releases
     version: v1.36.5
   healthChecks:
     - apiVersion: volsync.backube/v1alpha1
