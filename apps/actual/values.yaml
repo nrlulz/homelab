@@ -15,6 +15,15 @@ actual:
       runAsNonRoot: true
       runAsUser: 1000
       runAsGroup: 1000
+  externalSecrets:
+    actual:
+      secretStoreRef:
+        name: bitwarden
+        kind: ClusterSecretStore
+      data:
+        - secretKey: ACTUAL_OPENID_CLIENT_SECRET
+          remoteRef:
+            key: ACTUAL_OPENID_CLIENT_SECRET
   controllers:
     actual:
       annotations:
@@ -89,6 +98,24 @@ actual-helpers:
       data:
         ACTUAL_SERVER_URL: http://actual:5006
         NODE_TLS_REJECT_UNAUTHORIZED: "1"
+  externalSecrets:
+    actual-helpers:
+      secretStoreRef:
+        name: bitwarden
+        kind: ClusterSecretStore
+      data:
+        - secretKey: ACTUAL_FILE_PASSWORD
+          remoteRef:
+            key: ACTUAL_HELPERS_FILE_PASSWORD
+        - secretKey: ACTUAL_SERVER_PASSWORD
+          remoteRef:
+            key: ACTUAL_HELPERS_SERVER_PASSWORD
+        - secretKey: ACTUAL_SYNC_ID
+          remoteRef:
+            key: ACTUAL_HELPERS_SYNC_ID
+        - secretKey: SIMPLEFIN_CREDENTIALS
+          remoteRef:
+            key: ACTUAL_HELPERS_SIMPLEFIN_TOKEN
   controllers:
     track-investments:
       type: cronjob

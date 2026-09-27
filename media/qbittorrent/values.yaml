@@ -19,6 +19,18 @@ global:
   createDefaultServiceAccount: false
 
 app-template:
+  externalSecrets:
+    qbittorrent:
+      secretStoreRef:
+        name: bitwarden
+        kind: ClusterSecretStore
+      data:
+        - secretKey: VPN_USER
+          remoteRef:
+            key: PIA_VPN_USER
+        - secretKey: VPN_PASS
+          remoteRef:
+            key: PIA_VPN_PASS
   controllers:
     qbittorrent:
       annotations:

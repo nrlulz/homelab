@@ -14,6 +14,29 @@ app-template:
       runAsNonRoot: true
       runAsUser: 2999
       runAsGroup: 2999
+  configMaps:
+    radicale:
+      data:
+        config: |
+          [server]
+          hosts = 0.0.0.0:5232
+
+          [auth]
+          type = htpasswd
+          htpasswd_filename = /config/users
+          htpasswd_encryption = bcrypt
+
+          [storage]
+          filesystem_folder = /data/collections
+  externalSecrets:
+    radicale:
+      secretStoreRef:
+        name: bitwarden
+        kind: ClusterSecretStore
+      data:
+        - secretKey: users
+          remoteRef:
+            key: RADICALE_AUTH_DB
   controllers:
     radicale:
       annotations:
