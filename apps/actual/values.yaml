@@ -32,7 +32,7 @@ actual:
         actual:
           image:
             repository: ghcr.io/actualbudget/actual
-            tag: 26.9.0@sha256:552beab3dec8c93d46b8b9245612d63c3f123b8a45063a474f53e229b17621d3
+            tag: 26.10.0@sha256:24645e971da6bb1a1f953d6859e307a0b29be1e8b4130a35b3220c209b5b860c
           securityContext: &securityContext
             allowPrivilegeEscalation: false
             capabilities:
@@ -79,7 +79,7 @@ actual:
 helperBase: &helperBase
   image:
     repository: ghcr.io/psybers/actual-helpers
-    tag: latest@sha256:42ca2bef0034e413a9656bef4dffb3f2357c6d7d79cfb8ed76b281a344a5a247
+    tag: latest@sha256:cf0630b71d322ded31cbdc4437f15deab3fc22d83a97602e4d57b4b22fba2957
   securityContext: *securityContext
   env:
     ACTUAL_CACHE_DIR: /cache
