@@ -26,7 +26,7 @@ app-template:
         privoxy:
           image:
             repository: ghcr.io/binhex/arch-privoxyvpn
-            tag: 4.2.0-1-01@sha256:bcdde4f4c4819a61319d6050e2acf6dbf09c06f0a835844899f190cca74a4032
+            tag: 4.2.0-1-02@sha256:ec1f564ad760f82ecf7dcc5d75a845345a82a0c3a548edb8f0e7aafdd9d48e48
           envFrom:
             - secretRef:
                 name: privoxy
