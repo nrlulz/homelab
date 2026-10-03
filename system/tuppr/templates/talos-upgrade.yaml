@@ -5,7 +5,7 @@ metadata:
 spec:
   talos:
     # renovate: packageName=siderolabs/talos datasource=github-releases
-    version: v1.13.11
+    version: v1.14.2
   healthChecks:
     - apiVersion: volsync.backube/v1alpha1
       kind: ReplicationSource
