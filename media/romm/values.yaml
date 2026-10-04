@@ -1,0 +1,140 @@
+pvc:
+  pvcName: romm-data
+  storageRequest: 16Gi
+
+pgcluster:
+  image: ghcr.io/cloudnative-pg/postgresql:18.6@sha256:d7a81cb5da3182d95d0da5fabfb9e484e375db899dcd54b684105f1e8966e9ca
+  databaseName: romm
+  generation: 1
+
+  cluster:
+    storage:
+      size: 2Gi
+
+valkey:
+  image:
+    registry: docker.io
+    repository: valkey/valkey
+    tag: 9.1.1-alpine@sha256:de31910896150d5e754a07d57d227cfdde4e258ddd0d1aa4607f2d2f95843715
+
+app-template:
+  defaultPodOptions:
+    # https://docs.romm.app/5.1.0/troubleshooting/kubernetes/#invalid-host-in-tcpip8080-of-the-listen-directive
+    enableServiceLinks: false
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+  externalSecrets:
+    romm:
+      secretStoreRef:
+        name: bitwarden
+        kind: ClusterSecretStore
+      data:
+        - secretKey: ROMM_AUTH_SECRET_KEY
+          remoteRef:
+            key: ROMM_AUTH_SECRET_KEY
+        - secretKey: OIDC_CLIENT_SECRET
+          remoteRef:
+            key: ROMM_OPENID_CLIENT_SECRET
+        - secretKey: IGDB_CLIENT_ID
+          remoteRef:
+            key: ROMM_IGDB_CLIENT_ID
+        - secretKey: IGDB_CLIENT_SECRET
+          remoteRef:
+            key: ROMM_IGDB_CLIENT_SECRET
+        - secretKey: STEAMGRIDDB_API_KEY
+          remoteRef:
+            key: ROMM_STEAMGRIDDB_API_KEY
+        - secretKey: RETROACHIEVEMENTS_API_KEY
+          remoteRef:
+            key: ROMM_RETROACHIEVEMENTS_API_KEY
+  controllers:
+    romm:
+      annotations:
+        reloader.stakater.com/auto: "true"
+      containers:
+        romm:
+          image:
+            repository: ghcr.io/rommapp/romm
+            tag: 5.3.1@sha256:0d66b4ea152a237c7f24b95e87459f46d3c596a7c0b35a82f26bc971487278b3
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          env:
+            # https://docs.romm.app/5.1.0/reference/environment-variables/
+            DB_HOST:
+              valueFrom:
+                secretKeyRef:
+                  name: romm-cluster-v1-app
+                  key: host
+            DB_NAME:
+              valueFrom:
+                secretKeyRef:
+                  name: romm-cluster-v1-app
+                  key: dbname
+            DB_PASSWD:
+              valueFrom:
+                secretKeyRef:
+                  name: romm-cluster-v1-app
+                  key: password
+            DB_PORT:
+              valueFrom:
+                secretKeyRef:
+                  name: romm-cluster-v1-app
+                  key: port
+            DB_USER:
+              valueFrom:
+                secretKeyRef:
+                  name: romm-cluster-v1-app
+                  key: user
+            FLASHPOINT_API_ENABLED: "true"
+            HASHEOUS_API_ENABLED: "true"
+            HLTB_API_ENABLED: "true"
+            OIDC_AUTOLOGIN: "true"
+            OIDC_CLIENT_ID: "c130ab8a-5962-43dc-b952-e4a233a6fe8f"
+            OIDC_ENABLED: "true"
+            OIDC_PROVIDER: "pocket-id"
+            OIDC_REDIRECT_URI: "https://romm.internal.neils.house/api/oauth/openid"
+            OIDC_SERVER_APPLICATION_URL: "https://auth.neils.house"
+            REDIS_HOST: "romm-valkey"
+            ROMM_BASE_PATH: "/data"
+            ROMM_BASE_URL: "https://romm.internal.neils.house"
+            ROMM_DB_DRIVER: "postgresql"
+            ROMM_SESSION_SECURE_COOKIE: "true"
+            SCAN_TIMEOUT: "86400"
+            SCAN_WORKERS: "4"
+          envFrom:
+            - secret: romm
+  service:
+    romm:
+      controller: romm
+      ports:
+        http:
+          port: 8080
+  ingress:
+    romm:
+      className: internal
+      hosts:
+        - host: romm.internal.neils.house
+          paths:
+            - path: /
+              service:
+                identifier: romm
+                port: http
+  persistence:
+    data:
+      existingClaim: romm-data
+    library:
+      type: nfs
+      server: nas.internal
+      path: /mnt/media/roms/romm
+      globalMounts:
+        - path: /data/library

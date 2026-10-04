@@ -52,6 +52,8 @@ apps:
 
     - name: jellyfin
 
+    - name: romm
+
     - name: plex
 
     - name: privoxy
