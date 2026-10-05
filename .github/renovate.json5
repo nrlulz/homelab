@@ -81,9 +81,6 @@
     },
     {
       // don't automerge talos/k8s updates
-      "matchDatasources": [
-        "docker"
-      ],
       "matchPackageNames": [
         "docker.io/kindest/node",
         "siderolabs/kubelet",
