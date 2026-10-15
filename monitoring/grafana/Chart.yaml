@@ -8,5 +8,5 @@ dependencies:
     version: 0.0.0
     repository: file://../../charts/pvc
   - name: grafana
-    version: 13.5.1
+    version: 13.7.0
     repository: oci://ghcr.io/grafana-community/helm-charts
