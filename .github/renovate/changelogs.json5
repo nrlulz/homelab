@@ -3,105 +3,125 @@
   "packageRules": [
     {
       "matchDepNames": [
-        "ghcr.io/psybers/actual-helpers"
+        "/actualbudget/actual/"
       ],
-      "changelogUrl": "https://github.com/psybers/actual-helpers/commits/main/"
+      "sourceUrl": "https://github.com/actualbudget/actual"
     },
     {
       "matchDepNames": [
-        "ghcr.io/actualbudget/actual"
+        "argo-cd"
       ],
-      "changelogUrl": "https://actualbudget.org/docs/releases/"
+      "sourceUrl": "https://github.com/argoproj/argo-helm",
+      "sourceDirectory": "charts/argo-cd"
     },
     {
       "matchDepNames": [
-        "docker.io/dagandersen/argocd-diff-preview"
+        "/coder/code-server/"
       ],
-      "changelogUrl": "https://github.com/dag-andersen/argocd-diff-preview/releases"
+      "sourceUrl": "https://github.com/coder/code-server"
     },
     {
       "matchDepNames": [
-        "ghcr.io/atuinsh/atuin"
+        "/crocodilestick/calibre-web-automated/"
       ],
-      "changelogUrl": "https://github.com/atuinsh/atuin/blob/main/CHANGELOG.md"
+      "sourceUrl": "https://github.com/crocodilestick/Calibre-Web-Automated"
     },
     {
       "matchDepNames": [
-        "ghcr.io/home-operations/bazarr"
+        "/dagandersen/argocd-diff-preview/"
       ],
-      "changelogUrl": "https://github.com/morpheus65535/bazarr/releases?q=prerelease%3Afalse&expanded=true"
-    },
-    {
-      "matchDepNames": [
-        "ghcr.io/crocodilestick/calibre-web-automated"
-      ],
-      "changelogUrl": "https://github.com/crocodilestick/Calibre-Web-Automated/releases?q=prerelease%3Afalse&expanded=true"
-    },
-    {
-      "matchDepNames": [
-        "ghcr.io/coder/code-server"
-      ],
-      "changelogUrl": "https://github.com/coder/code-server/releases?q=prerelease%3Afalse&expanded=true"
+      "sourceUrl": "https://github.com/dag-andersen/argocd-diff-preview"
     },
     {
       "matchDepNames": [
         "grafana"
       ],
-      "changelogUrl": "https://grafana-community.github.io/helm-charts/changelog/?owner=grafana-community&repo=helm-charts&chart=grafana"
+      "sourceUrl": "https://github.com/grafana-community/helm-charts",
+      "sourceDirectory": "charts/grafana"
+    },
+    {
+      "matchDepNames": [
+        "/jellyfin/jellyfin/"
+      ],
+      "sourceUrl": "https://github.com/jellyfin/jellyfin"
+    },
+    {
+      "matchDepNames": [
+        "/kindest/node/",
+        "/siderolabs/kubelet/"
+      ],
+      "sourceUrl": "https://github.com/kubernetes/kubernetes"
     },
     {
       "matchDepNames": [
         "loki"
       ],
-      "changelogUrl": "https://grafana-community.github.io/helm-charts/changelog/?owner=grafana-community&repo=helm-charts&chart=loki"
+      "sourceUrl": "https://github.com/grafana-community/helm-charts",
+      "sourceDirectory": "charts/loki"
     },
     {
       "matchDepNames": [
         "longhorn"
       ],
-      "changelogUrl": "https://github.com/longhorn/longhorn/releases?q=prerelease%3Afalse&expanded=true"
+      "sourceUrl": "https://github.com/longhorn/longhorn"
     },
     {
       "matchDepNames": [
-        "docker.io/rhasspy/wyoming-piper"
+        "/maziggy/bambuddy/"
       ],
-      "changelogUrl": "https://github.com/rhasspy/wyoming-piper/blob/master/CHANGELOG.md"
+      "sourceUrl": "https://github.com/maziggy/bambuddy"
     },
     {
       "matchDepNames": [
-        "docker.io/plexinc/pms-docker"
+        "/plexinc/pms-docker/"
       ],
       "changelogUrl": "https://forums.plex.tv/t/plex-media-server/30447"
     },
     {
       "matchDepNames": [
-        "ghcr.io/home-operations/prowlarr"
+        "plugin-barman-cloud"
       ],
-      "changelogUrl": "https://github.com/Prowlarr/Prowlarr/releases?q=prerelease%3Afalse&expanded=true"
+      "sourceUrl": "https://github.com/cloudnative-pg/charts",
+      "sourceDirectory": "charts/plugin-barman-cloud",
+      "changelogUrl": "https://github.com/cloudnative-pg/charts/releases?q=plugin-barman-cloud&expanded=true"
     },
     {
       "matchDepNames": [
-        "ghcr.io/home-operations/radarr"
+        "prometheus"
       ],
-      "changelogUrl": "https://github.com/Radarr/Radarr/releases?q=prerelease%3Afalse&expanded=true"
+      "sourceUrl": "https://github.com/prometheus-community/helm-charts",
+      "sourceDirectory": "charts/prometheus"
     },
     {
       "matchDepNames": [
-        "ghcr.io/home-operations/sonarr"
+        "promtail"
       ],
-      "changelogUrl": "https://github.com/Sonarr/Sonarr/releases?q=prerelease%3Afalse&expanded=true"
+      "sourceUrl": "https://github.com/grafana/helm-charts",
+      "sourceDirectory": "charts/promtail"
     },
     {
       "matchDepNames": [
-        "ghcr.io/home-operations/tautulli"
+        "/psybers/actual-helpers/"
       ],
-      "changelogUrl": "https://github.com/Tautulli/Tautulli/releases"
+      "changelogUrl": "https://github.com/psybers/actual-helpers/commits/main/"
     },
     {
       "matchDepNames": [
-        "docker.io/rhasspy/wyoming-whisper"
+        "reloader"
       ],
-      "changelogUrl": "https://github.com/rhasspy/wyoming-faster-whisper/blob/master/CHANGELOG.md"
+      "changelogUrl": "https://github.com/stakater/Reloader/releases?q=chart-v&expanded=true"
+    },
+    {
+      "matchDepNames": [
+        "/rhasspy/wyoming-piper/"
+      ],
+      "sourceUrl": "https://github.com/OHF-Voice/wyoming-piper"
+    },
+    {
+      "matchDepNames": [
+        "/rhasspy/wyoming-whisper/"
+      ],
+      "sourceUrl": "https://github.com/OHF-Voice/wyoming-faster-whisper"
     }
   ]
 }

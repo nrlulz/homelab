@@ -3,16 +3,17 @@
   "extends": [
     "config:best-practices",
     "github>nrlulz/homelab//.github/renovate/changelogs.json5",
-    "github>nrlulz/homelab//.github/renovate/groups.json5",
-    "github>nrlulz/homelab//.github/renovate/pins.json5",
     ":disableRateLimiting",
     ":timezone(America/Los_Angeles)"
   ],
-  "argocd": {
-    "managerFilePatterns": [
-      "/apps/.*\\.ya?ml$/"
-    ]
-  },
+  // let rapid-fire releases settle so they collapse into a single PR
+  "minimumReleaseAge": "3 days",
+  "minimumReleaseAgeBehaviour": "timestamp-optional",
+  "schedule": [
+    "before 6am"
+  ],
+  // everything not matched by a more specific group below goes in "system"
+  "groupName": "system",
   "kubernetes": {
     "managerFilePatterns": [
       "/\\.ya?ml$/"
@@ -40,23 +41,158 @@
     }
   ],
   "packageRules": [
+    // review groups: batch updates by top-level directory
     {
-      // automerge patch/digest updates (if major version is not 0)
+      "matchFileNames": [
+        "apps/**"
+      ],
+      "groupName": "apps"
+    },
+    {
+      "matchFileNames": [
+        "ha/**"
+      ],
+      "groupName": "ha"
+    },
+    {
+      "matchFileNames": [
+        "media/**"
+      ],
+      "groupName": "media"
+    },
+    {
+      "matchFileNames": [
+        "monitoring/**"
+      ],
+      "groupName": "monitoring"
+    },
+    {
+      // automerge digest updates
       "matchUpdateTypes": [
-        "patch",
         "digest"
       ],
+      "groupName": "automerge",
+      "automerge": true
+    },
+    {
+      // automerge patch updates (if major version is not 0)
+      "matchUpdateTypes": [
+        "patch"
+      ],
       "matchCurrentVersion": "!/^v?0/",
+      "groupName": "automerge",
       "automerge": true
     },
     {
       // automerge all updates
       "matchPackageNames": [
-        "docker.io/plexinc/pms-docker",
-        "ghcr.io/coder/code-server",
-        "ghcr.io/stirling-tools/stirling-pdf"
+        "/apache/tika/",
+        "/calibrain/shelfmark/",
+        "/coder/code-server/",
+        "/gotenberg/gotenberg/",
+        "/plexinc/pms-docker/",
+        "/rhasspy/wyoming-piper/",
+        "/rhasspy/wyoming-whisper/",
+        "/seerr-team/seerr/",
+        "/stirling-tools/stirling-pdf/",
+        "/unpackerr/unpackerr/"
       ],
+      "groupName": "automerge",
       "automerge": true
+    },
+    {
+      // major updates are never grouped or automerged (exceptions below take precedence)
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "groupName": null,
+      "automerge": false
+    },
+    {
+      // treat a major update for a YYYY.MM.DD versioned package as a minor update
+      "matchPackageNames": [
+        "/esphome/esphome/"
+      ],
+      "groupName": "automerge",
+      "automerge": true
+    },
+    {
+      "matchPackageNames": [
+        "/home-assistant/home-assistant/"
+      ],
+      "groupName": "ha"
+    },
+    {
+      // github actions get their own review group, including majors
+      "matchManagers": [
+        "github-actions"
+      ],
+      "groupName": "actions"
+    },
+    {
+      // talos updates get their own PRs
+      "matchPackageNames": [
+        "/siderolabs/talos/"
+      ],
+      "groupName": null
+    },
+    {
+      // group actual and actual-helpers updates
+      "matchPackageNames": [
+        "/actualbudget/actual/",
+        "/psybers/actual-helpers/"
+      ],
+      "groupName": "actual",
+      "minimumGroupSize": 2
+    },
+    {
+      // group immich updates
+      "matchPackageNames": [
+        "/immich-app/immich-machine-learning/",
+        "/immich-app/immich-server/"
+      ],
+      "groupName": "immich",
+      "minimumGroupSize": 2
+    },
+    {
+      // group intel-device-plugins updates
+      "matchPackageNames": [
+        "intel-device-plugins-gpu",
+        "intel-device-plugins-operator"
+      ],
+      "groupName": "intel-device-plugins",
+      "minimumGroupSize": 2
+    },
+    {
+      // group kubernetes updates
+      "matchPackageNames": [
+        "/kindest/node/",
+        "/siderolabs/kubelet/"
+      ],
+      "groupName": "kubernetes",
+      "minimumGroupSize": 2
+    },
+    {
+      // ignore certain x.0 releases
+      "matchPackageNames": [
+        "/home-assistant/home-assistant/",
+        "/kindest/node/",
+        "/siderolabs/kubelet/",
+        "/siderolabs/talos/"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "matchNewValue": "/\\.[0]$/",
+      "enabled": false
+    },
+    {
+      // ignore year/date tags
+      "matchPackageNames": [
+        "/binhex/arch-qbittorrentvpn/"
+      ],
+      "allowedVersions": "<2000"
     },
     {
       // use loose versioning for packages with weird version numbers
@@ -64,46 +200,47 @@
         "docker"
       ],
       "matchPackageNames": [
-        "ghcr.io/binhex/arch-privoxyvpn",
-        "ghcr.io/binhex/arch-qbittorrentvpn",
-        "ghcr.io/binhex/arch-sabnzbdvpn",
-        "ghcr.io/crocodilestick/calibre-web-automated",
-        "docker.io/plexinc/pms-docker"
+        "/binhex/arch-privoxyvpn/",
+        "/binhex/arch-qbittorrentvpn/",
+        "/binhex/arch-sabnzbdvpn/",
+        "/crocodilestick/calibre-web-automated/",
+        "/plexinc/pms-docker/"
       ],
       "versioning": "loose"
     },
     {
       // don't use arm tags
       "matchPackageNames": [
-        "docker.io/plexinc/pms-docker"
+        "/plexinc/pms-docker/"
       ],
       "allowedVersions": "/\\-amd64$/"
     },
     {
       // don't automerge talos/k8s updates
       "matchPackageNames": [
-        "docker.io/kindest/node",
-        "siderolabs/kubelet",
-        "siderolabs/talos"
+        "/kindest/node/",
+        "/siderolabs/kubelet/",
+        "/siderolabs/talos/"
       ],
       "automerge": false
     },
     {
       // separate minor/patch updates
       "matchPackageNames": [
-        "docker.io/kindest/node",
-        "ghcr.io/home-assistant/home-assistant",
+        "/home-assistant/home-assistant/",
+        "/kindest/node/",
         "longhorn",
-        "siderolabs/kubelet",
-        "siderolabs/talos"
+        "/siderolabs/kubelet/",
+        "/siderolabs/talos/"
       ],
       "separateMinorPatch": true
     },
     {
       // don't separate major/minor updates for packages using YYYY.MM.DD versioning
       "matchPackageNames": [
-        "ghcr.io/actualbudget/actual",
-        "ghcr.io/home-assistant/home-assistant"
+        "/actualbudget/actual/",
+        "/esphome/esphome/",
+        "/home-assistant/home-assistant/"
       ],
       "separateMajorMinor": false
     },
