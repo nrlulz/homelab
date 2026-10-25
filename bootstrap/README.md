@@ -81,3 +81,17 @@ Do the upgrade just once for the cluster
     Create a secret with the bitwarden secrets manager machine account access token:
 
         k -n external-secrets create secret generic bitwarden-access-token --from-literal=token=<token goes here>
+
+## Talosctl client certificates
+
+https://docs.siderolabs.com/talos/v1.13/security/cert-management
+
+By default they have a lifetime of one year
+
+To see when the current client cert will expire:
+
+    yq .contexts.lab.crt ~/.talos/config | base64 -d | openssl x509 -noout -enddate
+
+To generate a new one before the old one expired:
+
+    talosctl -n 192.168.1.31 config new --roles os:admin --crt-ttl 87600h ./talosconfig
