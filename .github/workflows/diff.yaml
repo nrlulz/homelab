@@ -21,7 +21,7 @@ jobs:
 
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
-          ref: master
+          ref: ${{ github.event.pull_request.base.sha }}
           path: master
 
       - name: Render chart-of-apps
@@ -34,6 +34,15 @@ jobs:
           version=$(yq e '.dependencies[] | select(.name == "argo-cd") | .version' master/system/argocd/Chart.yaml)
           echo "ARGOCD_CHART_VERSION=$version" >> $GITHUB_ENV
 
+      - name: Write Argo CD values for the preview cluster
+        run: |
+          # use the mirror to avoid rate limiting on the default registry
+          cat > argocd-values.yaml <<'EOF'
+          redis:
+            image:
+              repository: mirror.gcr.io/library/redis
+          EOF
+
       - name: Generate Diff
         env:
           ARGOCD_DIFF_PREVIEW_IMAGE: docker.io/dagandersen/argocd-diff-preview:v0.2.17@sha256:ea90848df29337b50d5058330210b38e39232360b78d9c60951fc92e454c6941
@@ -45,6 +54,7 @@ jobs:
             -v $(pwd)/master:/base-branch \
             -v $(pwd)/pull-request:/target-branch \
             -v $(pwd)/output:/output \
+            -v $(pwd)/argocd-values.yaml:/argocd-config/values.yaml \
             -e ARGOCD_CHART_VERSION=${{ env.ARGOCD_CHART_VERSION }} \
             -e BASE_BRANCH=master \
             -e DIFF_IGNORE="checksum/" \
