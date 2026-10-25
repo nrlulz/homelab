@@ -35,13 +35,8 @@ metadata:
 spec:
   sourcePVC: {{ .Values.pvcName }}
   trigger:
-    schedule: {{ if eq .Values.triggerSchedule.b2 "random" -}}
-        {{- $triggerMinute := mod (randNumeric 2 | int64) 60 -}}
-        {{- $triggerHour := mod (randNumeric 2 | int64) 24 -}}
-        "{{ $triggerMinute }} {{ $triggerHour }} * * *"
-      {{- else -}}
-        {{ .Values.triggerSchedule.b2 | quote }}
-      {{- end }}
+    {{- $h := adler32sum .Values.pvcName | int64 }}
+    schedule: "{{ mod $h 60 }} {{ mod (add (div $h 60) 12) 24 }} * * *"
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 7

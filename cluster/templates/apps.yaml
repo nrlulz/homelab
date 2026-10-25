@@ -30,12 +30,6 @@ spec:
     managedNamespaceMetadata:
       annotations:
         volsync.backube/privileged-movers: "true"
-  ignoreDifferences:
-    ignoreReplicationSourceTriggerSchedule:
-      kind: ReplicationSource
-      group: volsync.backube
-      jsonPointers:
-        - /spec/trigger/schedule
 {{- end -}}
 
 {{- range $group, $apps := .Values.apps -}}
