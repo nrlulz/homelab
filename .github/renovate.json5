@@ -135,8 +135,9 @@
       "groupName": "actions"
     },
     {
-      // talos updates get their own PRs
+      // never group these
       "matchPackageNames": [
+        "longhorn",
         "/siderolabs/talos/"
       ],
       "groupName": null
