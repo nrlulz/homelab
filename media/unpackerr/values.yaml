@@ -32,7 +32,6 @@ app-template:
             TZ: "America/Los_Angeles"
             UN_RADARR_0_URL: http://radarr.radarr.svc.cluster.local:7878
             UN_SONARR_0_URL: http://sonarr.sonarr.svc.cluster.local:8989
-            UN_WEBSERVER_LOG_FILE: /logs/unpackerr.log
           envFrom:
             - secretRef:
                 name: unpackerr
@@ -51,5 +50,3 @@ app-template:
       path: /mnt/media/downloads
       globalMounts:
         - path: /mnt/media/downloads
-    logs:
-      type: emptyDir
