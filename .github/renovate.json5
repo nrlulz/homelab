@@ -14,6 +14,11 @@
   ],
   // everything not matched by a more specific group below goes in "system"
   "groupName": "system",
+  "group": {
+    "commitMessageAction": "Update {{upgrades.length}} dependencies in",
+    "commitMessageTopic": "{{{groupName}}} group",
+    "commitMessageExtra": ""
+  },
   "kubernetes": {
     "managerFilePatterns": [
       "/\\.ya?ml$/"
