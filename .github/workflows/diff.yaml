@@ -56,7 +56,7 @@ jobs:
             -v $(pwd)/output:/output \
             -v $(pwd)/argocd-values.yaml:/argocd-config/values.yaml \
             -e ARGOCD_CHART_VERSION=${{ env.ARGOCD_CHART_VERSION }} \
-            -e BASE_BRANCH=master \
+            -e BASE_BRANCH=${{ github.event.pull_request.base.sha }} \
             -e DIFF_IGNORE="checksum/" \
             -e IGNORE_RESOURCES="*:CustomResourceDefinition:*" \
             -e TARGET_BRANCH=refs/pull/${{ github.event.number }}/merge \
