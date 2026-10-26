@@ -5,7 +5,7 @@ metadata:
 spec:
   kubernetes:
     # renovate: packageName=siderolabs/kubelet datasource=github-releases
-    version: v1.36.5
+    version: v1.37.1
   healthChecks:
     - apiVersion: volsync.backube/v1alpha1
       kind: ReplicationSource
