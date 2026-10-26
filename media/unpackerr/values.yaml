@@ -27,12 +27,11 @@ app-template:
         unpackerr:
           image:
             repository: ghcr.io/unpackerr/unpackerr
-            tag: v0.16.1@sha256:406586865431b40b29353d899fb75a788f5384743f7f381444db5fe55d206914
+            tag: v1.0.0@sha256:21c6bfa4f4c86ab2dd0232da0dfb3ed4c5d929e42e09894e7b4d2154d0c144f6
           env:
             TZ: "America/Los_Angeles"
             UN_RADARR_0_URL: http://radarr.radarr.svc.cluster.local:7878
             UN_SONARR_0_URL: http://sonarr.sonarr.svc.cluster.local:8989
-            UN_WEBSERVER_LOG_FILE: /logs/unpackerr.log
           envFrom:
             - secretRef:
                 name: unpackerr
@@ -51,5 +50,3 @@ app-template:
       path: /mnt/media/downloads
       globalMounts:
         - path: /mnt/media/downloads
-    logs:
-      type: emptyDir
