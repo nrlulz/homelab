@@ -31,7 +31,9 @@ app-template:
           env:
             TZ: "America/Los_Angeles"
             UN_RADARR_0_URL: http://radarr.radarr.svc.cluster.local:7878
+            UN_RADARR_0_PROTOCOLS: "torrent,usenet"
             UN_SONARR_0_URL: http://sonarr.sonarr.svc.cluster.local:8989
+            UN_SONARR_0_PROTOCOLS: "torrent,usenet"
           envFrom:
             - secretRef:
                 name: unpackerr
