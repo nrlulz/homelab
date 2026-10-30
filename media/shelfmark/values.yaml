@@ -58,4 +58,9 @@ app-template:
       existingClaim: calibre-ingest
     config:
       existingClaim: shelfmark-data
-
+    downloads:
+      type: nfs
+      server: nas.internal
+      path: /mnt/media/downloads
+      globalMounts:
+        - path: /mnt/media/downloads
