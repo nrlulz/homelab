@@ -6,7 +6,7 @@ BASE_DIR="$(dirname "$(realpath "$0")")"
 OUTPUT_DIR="$BASE_DIR/generated"
 
 # renovate: packageName=siderolabs/talos datasource=github-releases
-TALOS_VERSION="v1.13.11"
+TALOS_VERSION="v1.13.12"
 
 # renovate: packageName=siderolabs/kubelet datasource=github-releases
 KUBERNETES_VERSION="v1.36.5"
