@@ -1,0 +1,57 @@
+---
+cluster:
+  allowSchedulingOnControlPlanes: true
+
+machine:
+  kubelet:
+    # Extra mount for Longhorn
+    extraMounts:
+      - destination: /var/mnt/longhorn
+        type: bind
+        source: /var/mnt/longhorn
+        options:
+          - bind
+          - rshared
+          - rw
+
+  network:
+    # Network config
+    interfaces:
+      - deviceSelector:
+          busPath: "0*"
+        dhcp: true
+        vip:
+          ip: 192.168.1.30
+
+  install:
+    # Turn off PCIe Active State Power Management (NVMe SSD errors)
+    grubUseUKICmdline: false
+    extraKernelArgs:
+      - pcie_aspm=off
+
+  features:
+    # Allow Talos API access for system upgrades
+    kubernetesTalosAPIAccess:
+      enabled: true
+      allowedRoles:
+        - os:admin
+      allowedKubernetesNamespaces:
+        - tuppr
+
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  maxSize: 64GiB
+
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: longhorn
+volumeType: partition
+provisioning:
+  diskSelector:
+    match: system_disk
+  minSize: 2GiB
+  grow: true

@@ -28,9 +28,11 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
+        "/\\.sh$/",
         "/\\.ya?ml$/"
       ],
       "matchStrings": [
+        "\\s*# renovate:( depName=(?<depName>\\S+))?( packageName=(?<packageName>\\S+))? datasource=(?<datasource>\\S+)( repository=(?<registryUrl>\\S+))?\\n.*\\S+=\"(?<currentValue>\\S+?)\"\\s",
         "\\s*# renovate:( depName=(?<depName>\\S+))?( packageName=(?<packageName>\\S+))? datasource=(?<datasource>\\S+)( repository=(?<registryUrl>\\S+))?\\n.*\\S+: (?<currentValue>\\S+?)\\s"
       ]
     },
@@ -257,7 +259,7 @@
         "docker"
       ],
       "matchFileNames": [
-        "bootstrap/talconfig.yaml",
+        "bootstrap/genconfig.sh",
         "system/tuppr/templates/k8s-upgrade.yaml",
         "system/tuppr/templates/talos-upgrade.yaml"
       ],
