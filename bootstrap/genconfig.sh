@@ -9,7 +9,7 @@ OUTPUT_DIR="$BASE_DIR/generated"
 TALOS_VERSION="v1.13.11"
 
 # renovate: packageName=siderolabs/kubelet datasource=github-releases
-KUBERNETES_VERSION="v1.36.5"
+KUBERNETES_VERSION="v1.37.2"
 
 # get schematic id from talos image factory
 SCHEMATIC_ID=$(curl -fsS --data-binary @"$BASE_DIR/schematic.yaml" https://factory.talos.dev/schematics | jq -r .id)
