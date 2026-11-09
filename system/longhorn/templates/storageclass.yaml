@@ -26,4 +26,4 @@ allowVolumeExpansion: true
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 parameters:
-  numberOfReplicas: "2"
+  numberOfReplicas: "1"
