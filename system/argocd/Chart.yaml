@@ -9,6 +9,6 @@ dependencies:
     version: 10.18.3
     repository: oci://ghcr.io/argoproj/argo-helm
   - name: argocd-apps
-    version: 2.0.8
+    version: 2.0.10
     repository: oci://ghcr.io/argoproj/argo-helm
     condition: argocd-apps.enabled
