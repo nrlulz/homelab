@@ -34,7 +34,7 @@ base:
   server: &serverBase
     image:
       repository: ghcr.io/paperless-ngx/paperless-ngx
-      tag: 3.4.2@sha256:d704e84f88300eb6ab001ab15720a2330ff99169cf9f94d6b8fcc44b63a84c84
+      tag: 3.5.1@sha256:8508853b8a0f8394074260957d0be186c8c64f346973b24a7583de4580f306b9
     securityContext: *containerSecurityContext
     envFrom:
       - configMapRef:
@@ -118,7 +118,7 @@ valkey:
   image:
     registry: docker.io
     repository: valkey/valkey
-    tag: 9.1.3-alpine@sha256:bf09d58e96d6b4524a15396b65b242bbe18beebbcc15a04d8ee75ddac62fae0b
+    tag: 9.2.0-alpine@sha256:c8e2d17498838af5d91e12eb7c11220b3434a7b7131a333e3af52ad5e0b80882
 
 server:
   defaultPodOptions: *defaultPodOptions
